@@ -1,6 +1,5 @@
 -- https://captain-slow.dk/2015/04/16/posting-to-thingspeak-with-esp8266-and-nodemcu/
 
---local APIKEY="J4Z03A4OX1TVEX46"
 print("ThingSpeak Init")
 
 if not rtcmem then 

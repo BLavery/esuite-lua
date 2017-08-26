@@ -1,4 +1,4 @@
--- libMQTT.lua   V 0.5
+-- lib-MQTT.lua   V 0.5
 -- INCLUDE AS DESIRED IN YOUR PROJECT FILE
 
 if not (mqtt_topics and mqtt_ready and mqtt_recv) then
@@ -8,10 +8,10 @@ end
 
 -- Configuration to connect to the MQTT broker.  Edit to YOUR MQTT configuration:
 
-local BROKER = "m12.cloudmqtt.com"   -- Ip/hostname of MQTT broker
+local BROKER = "m99.cloudmqtt.com"   -- Ip/hostname of MQTT broker
 local BRPORT = 11919             -- MQTT broker port
-local BRUSER = "jtopihhm"           -- MQTT authentication 
-local BRPWD  = "PcdDOYK82kBX"            -- The user password
+local BRUSER = "jxxxxxxx"           -- MQTT authentication 
+local BRPWD  = "Buxxxxxxxxxx"            -- The user password
 
 local _QOS=2
 local _RETAIN =  1

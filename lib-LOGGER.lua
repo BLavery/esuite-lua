@@ -1,5 +1,4 @@
--- lib-LOGGER.lua        ought to be an optional library!
--- INCLUDE AS DESIRED IN YOUR PROJECT FILE
+-- lib-LOGGER.lua  
 
 -- 2 functions:  writeLog(descr)    newLog()
 -- log entry kept with timestamp 
