@@ -1,8 +1,9 @@
-eSuite
+# eSuite
 
-**An integrated collection of Lua files for ESP8266**
+An integrated collection of Lua files for ESP8266
+UNDER CONSTRUCTION as at Aug 2017
 
-**The manual**
+## The manual
 
 **Overview:**
 
