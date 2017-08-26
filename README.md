@@ -549,6 +549,10 @@ and log in again to the server when it becomes possible. If wifi itself
 fails, then of course blynk is disconnected. Wifi should auto-reconnect
 when/if available, and then blynk should also log itself in again.
 
+All the project files use a lookup file **{token}.lua** that has the user's
+ Blynk AUTH TOKEN recorded. This avoids editing the token into many 
+ project files.
+
 Blynk library is derived from https://github.com/blezek/blynk-esp,
 Daniel Blezek, MIT licence, 2016. That website has some usage
 information that may be useful for this variant of the library.
