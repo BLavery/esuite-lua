@@ -146,7 +146,7 @@ wifi connection is established.
 
 Note that is IS LEGAL (if unusual) to call init2-WIFI again later from
 your project. init2-WIFI in this case will not chain to SNTP or other
-files. It will allow you to attemt connections to the other Acess Points
+files. It will allow you to attempt connections to the other Access Points
 in your list.
 
 **init3-TIME.lua:**
@@ -179,7 +179,7 @@ fetch true time.
 **Your Project File:**
 
 The project file is named at top of init.lua. The ESP filesystem may
-have multiple project files loaded at any time. Change init.lua to run a
+have multiple project files loaded at any time. Change init.lua and load it again to run a
 different project.
 
 When your project file starts,
@@ -536,7 +536,7 @@ the APP. Eg
 
 This just simplifies the longhand hardware/vw or /dw send\_message() as
 above. These two commands are the most common customised requirement, so
-this simpler version is welcome!
+this simpler version is welcome! (It should be fine for "aw" also.)
 
 **- - - - - - -**
 
