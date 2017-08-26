@@ -1,5 +1,6 @@
 # eSuite
 
+## UNDER CONSTRUCTION as at Aug 2017
  
 A suite of Lua init and library files for easy small projects on ESP8266
 
