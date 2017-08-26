@@ -2,7 +2,9 @@
 
 An integrated collection of Lua files for ESP8266
 
-The manual
+## UNDER CONSTRUCTION as at Aug 2017
+
+##The manual
 
 
 
