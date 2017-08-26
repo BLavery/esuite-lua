@@ -276,7 +276,7 @@ messages and panic reboot.) The file splitting reduces the memory
 stress. You do not reference the second file: it is loaded automatically
 by the first.
 
-Using Blynk library can be trivially easy, as above, or it may require
+Using Blynk library can be trivially easy, as above in project file section, or it may require
 some careful scripting to customise it to exactly what you want.
 
 The full initialising in your project is like this:
@@ -1151,14 +1151,14 @@ our buttons.
 >
 > **dofile(“lib-WEBSERV.lua”)**
 
-**lib-GPIO25.lua:**
+**lib-GPIO28.lua:**
 
-Uses a MCP23017 chip on I2C address 0x20 to add **new GPIO numbers 9 to
-24**. GPIO syntax remains the same:
+Uses a MCP23017 chip on I2C address 0x20 to add **new GPIO numbers 13 to
+28**. GPIO syntax remains the same:
 
 > **i2c.setup(0, sda, scl, i2c.SLOW)** -- if needed
 >
-> **dofile(“lib-GPIO25.lua”)**
+> **dofile(“lib-GPIO28.lua”)**
 >
 > **gpio.mode(17,gpio.OUTPUT) **
 >
@@ -1171,7 +1171,7 @@ already initialised I2C, omit the first line.
 
 Uses CD4051 analog multiplexer chip to expand the one **ADC to 8
 channels** (0 – 7). Requires 3 digital GPIO pins as addressing to the
-CD4051. (If GPIO25 is installed first, the expanded gpio pins could be
+CD4051. (If GPIO28 is installed first, the expanded gpio pins could be
 used.)
 
 Default addressing GPIOs if omitted are D6 D7 D8. Or specifying just one
