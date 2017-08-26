@@ -16,6 +16,8 @@
 --flashButton=3
 --pcbLED=4
 
+-- i2c OLED on sda 3 scl 4
+
 -- PRE-CONFIGURE ALL GPIOs:   http://nodemcu.readthedocs.io/en/dev/en/modules/gpio/#gpiomode
 gpio.mode(5, gpio.INPUT, gpio.PULLUP) -- 4 buttons input+pullup
 gpio.mode(6, gpio.INPUT, gpio.PULLUP)

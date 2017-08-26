@@ -1,8 +1,8 @@
 -- SETUP the oled connections:
 -- INCLUDE AS DESIRED IN YOUR PROJECT FILE
 
-sda = 2
-scl = 1
+sda = sda or 2
+scl = scl or 1
 
 -- the "REGULAR" connection for oled's VCC pin is to go to "3.3". But power needed is small.
 -- OPTIONAL: set a GPIO output as controllable power pin (3.3V) to the oled.

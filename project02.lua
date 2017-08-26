@@ -1,5 +1,6 @@
 -- just PIR or button4 on pin d6 -> notify at phone
 -- You MUST add the "notification" widget on APP at phone.
+-- oled on sda=3 scl=4
 
 print("Project: Blynk-PIR - notify")
 

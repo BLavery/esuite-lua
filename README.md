@@ -31,6 +31,7 @@ adc, adxl345, bit, bme280, dht, file, gpio, http, i2c, mqtt, net, node,
 pwm, rtcmem, rtctime, sntp, spi, struct, tmr, u8g, uart, wifi. U8g
 supports the OLED screens, so choose 128x64 or 64x48 according to your
 type. Use a NEW build of firmware. Some commands changed syntax in 2017.
+
 Recommend using **pyFlasher** to load to ESP. See
 https://github.com/marcelstoer/nodemcu-pyflasher.
 
@@ -46,7 +47,7 @@ the ESP8288 and for interacting with your project during testing.
 -   init3-TIME.lua
 
 These are always used. They chain in sequence, and then pass control to
-your individual “project” file.
+your individual “project” file. So the standard minimum is four files.
 
 **Library Files:**
 

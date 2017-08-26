@@ -1,7 +1,7 @@
 
 
 
-i2c.setup(0,sda,scl,i2c.SLOW)
+i2c.setup(0,sda or 2,scl or 1,i2c.SLOW)
 
 print("Scanning I2C Bus")
 for adr=2,120 do 
