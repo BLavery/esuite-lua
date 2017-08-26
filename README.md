@@ -1,7 +1,9 @@
 # eSuite
 
-An integrated collection of Lua files for ESP8266
-The manual
+ 
+A suite of Lua init and library files for easy small projects on ESP8266
+
+## The manual
 
 
 Overview:
