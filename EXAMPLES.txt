@@ -5,5 +5,26 @@ Project List:
 03 Control a RC Servo from Blynk
 04 ADXL345 accelerometer pitch and roll to Blynk
 05 HCsr04 sonar controlling tank pump, Blynk override
-06 "Smart" button. Detect different press lengths
+06 "Smart" button. Detect different press length
+07 Telnet server - in 2 lines!
+
+If it has no number, it is not posted up yet:
+   Phone GPS to ESP8266 via Blynk
+   Blynk bridge mode: ESP to ESP
+   Blynk with mini-telnet ("TNET") in app terminal  
+   Analog expander to 8 inputs
+   Digital expander to 28 I/O
+   MQTT
+   Thingspeak
+   Thingspeak DHT11 ESP-01
+   Logging to both Thingspeak and MQTT
+   Deepsleep
+   Data logger in flash file
+   Deepsleep battery longevity with logger
+   Webserver with gpio controls
+   Webserver with logger readout
+   Webserver controls for servo, accelerometer, etc
+   HCsr04 sonar controlling tank pump, override from browser
+   Webserver offering TNET
+   
 
