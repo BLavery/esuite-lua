@@ -861,10 +861,10 @@ duplicates to the telnet terminal.
 
 You do NOT get ability to load lua files to the ESP via telnet.
 
-Default port 2121, but preceding the library call with an override like
+Default port 2323, but preceding the library call with an override like
 this
 
-> **tport=21**
+> **tport=23**
 >
 > **dofile("lib-TELNET.lua")**
 
@@ -873,7 +873,7 @@ would then use your choice of port.
 **Example on a linux PC:** Open terminal and run telnet with correct IP
 and port. Execute some lua commands:
 
-> **brian@mypc ~ $ telnet 192.168.1.212 21**
+> **brian@mypc ~ $ telnet 192.168.1.212 23**
 >
 > **Trying 192.168.1.212...**
 >

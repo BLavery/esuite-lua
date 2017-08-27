@@ -1,10 +1,10 @@
 -- a simple telnet server
 -- https://github.com/nodemcu/nodemcu-firmware/blob/master/lua_examples/telnet.lua
 
-
+tport = tport or 2323
 _telnet_srv = net.createServer(net.TCP, 180)
-print("Telnet port: " .. (tport or 2121))
-_telnet_srv:listen(tport or 2121, function(socket)
+print("Telnet port: " .. (tport))
+_telnet_srv:listen(tport, function(socket)
     local fifo = {}
     local fifo_drained = true
 
