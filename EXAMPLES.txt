@@ -7,6 +7,7 @@ Project List:
 05 HCsr04 sonar controlling tank pump, Blynk override
 06 "Smart" button. Detect different press length
 07 Telnet server - in 2 lines!
+08 Repeat SNTP time sync attempts if failed initially
 
 If it has no number, it is not posted up yet:
    Phone GPS to ESP8266 via Blynk
