@@ -164,7 +164,6 @@ different project.
 When your project file starts,
 
 1.  Wifi connection has been established
-
 1.  Best effort has been made to set real-time in the ESP’s clock.
 
 The init sequence (init.lua, init2-WIFI.lua, init3-TIME.lua) are
@@ -593,7 +592,6 @@ Your project might want raw accelerometer output for jolt-detection, for
 example. However, for our purposes, let us assume:
 
 -   that I2C is probably already initialised for OLED use.
-
 -   that roll and pitch are more useful to us than uncalibrated raw
     aceleration values.
 
@@ -706,17 +704,12 @@ The full function is:
 	DEEPSLEEP(sleeptime, startType, passes)
 
 -   sleeptime is the time (secs) for each sleep “pass”
-
 -   startType is how fully to wake up on each “pass” - default 0 if
     omitted
-
     -   0 = full start (with that 5 sec delay) at each wake from sleep
-
     -   1 = full wifi start (but without delay) at each wake from sleep
-
     -   3 = straight to project (no delay, no wifi) at wake between
         sleeps
-
 -   passes = how many sleep passes are scheduled in the sequence – def 1
 
 You may need to be mindful of just where in your project file you do the
@@ -807,7 +800,7 @@ entry (description = “Reset”) each initialisation. Remove that line
 
 The following functions are supported:
 
-writeLog(description, value)**
+**writeLog(description, value)**
 
 **viewLog()** -- displays to ESPlorer screen, or to telnet terminal if
 used.
@@ -858,12 +851,9 @@ call.
 	postThingSpeak(fieldnumber, data, fieldname, callback_function)
 
 -   fieldnumber must be 1 up to 8.
-
 -   data = the value you are sending
-
 -   fieldname does not get transmitted. It simply prints to screen to
     look good.
-
 -   callback is optional, but is useful if you want notice that the
     posting is over. (You might want to be posting several fields as
     quickly as possible?)
@@ -917,18 +907,16 @@ There are three items to be coded in your project file **before**
 loading the library file:
 
 1.  **mqtt_topics** = table of topic/qos pairs to be subscribed.
-
-2.  **mqtt_ready()** - callback from library to project when MQTT has
-    initialised
-
+2.  **mqtt_ready()** - callback from library to project when MQTT has initialised
 3.  **mqtt_recv(topic, data)** - callback from library to project when
     a (subscribed) message arrives
 
-dofile(“lib-MQTT.lua”)
+
+	dofile(“lib-MQTT.lua”)
 
 Then there is one call your project can make into the library:
 
-1.  **mqtt_publish(topic, data)** - call from project into library to
+4.  **mqtt_publish(topic, data)** - call from project into library to
     publish a payload to a topic
 
 Typical use of mqtt_ready(). Start a 20-second repeat for reading LDR
@@ -977,7 +965,7 @@ activated on the browser page. Enter your input to the box and press
 enter. Then press See Result if you want to view any response that the
 ESPlorer screen would have shown you. Eg “=node.heap()” into box.
 
-Followed by See Result, to view the “32763” reply.
+Followed by **See Result**, to view the “32763” reply.
 
 The library includes one utility function **button(vbl, value, label,
 colour)** that builds a boilerplate HTML button.
@@ -996,7 +984,7 @@ value pairs **pin:ON1** or **pin:OFF1** because that’s the way we coded
 our buttons.
 
 	function WS_buildpage(_GET)
-		-- first procss any buttons that user pressed:
+		-- first process any buttons that user pressed:
 		if (_GET.pin == "ON1") then -- examine last button click
 			gpio.write(led1, gpio.HIGH) -- and set gpio accordingly
 		elseif (_GET.pin == "OFF1") then
