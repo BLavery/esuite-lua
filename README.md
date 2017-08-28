@@ -6,7 +6,7 @@ UNDER CONSTRUCTION as at Aug 2017
 
 
 
-##Overview:
+## Overview:
 
 This suite of files is intended primarily for use with ESP12-based
 boards (including NodeMCU and Wemos D1-mini), but it does work for
@@ -38,7 +38,7 @@ https://github.com/marcelstoer/nodemcu-pyflasher.
 ESPlorer is assumed as the regular IDE used for loading lua scripts to
 the ESP8288 and for interacting with your project during testing.
 
-##Common startup files:
+## Common startup files:
 
 1. init.lua
 
@@ -49,7 +49,7 @@ the ESP8288 and for interacting with your project during testing.
 These are always used. They chain in sequence, and then pass control to
 your individual “project” file. So the standard minimum is four files.
 
-##Library Files:
+## Library Files:
 
 -   lib-BLYNK.lua
 
@@ -85,7 +85,7 @@ your individual “project” file. So the standard minimum is four files.
 
 You **optionally** include library files into your project file.
 
-##init.lua:
+## init.lua:
 
 Has a 5 second wait period before chaining to WIFI file. During the wait
 time the inbuilt led (D4) on ESP12 submodule will blink. The “flash”
@@ -108,7 +108,7 @@ Init.lua permits the ESP to auto-connect (while waiting during blinking
 mode) to last saved wifi access point. In any case, the file init2-WIFI
 is called after the wait time.
 
-##init2-WIFI.lua:
+## init2-WIFI.lua:
 
 If the ESP has successfully auto-connected, this file has nothing to do,
 and chains immediately to init2-TIME. Otherwise it waits and continues
@@ -121,19 +121,15 @@ available Access Point for each premises.
 
 A single AP can be designated like this:
 
-> **APlist = { "ap", "pw" }**
+	APlist = { "ap", "pw" }
 
 Multiple can be listed like this:
 
-> **APlist = {**
->
-> **{"JohnsHome", "xxxxxx"}, **
->
-> **{"theSands", "password"}, **
->
-> **{"bluerat", "yyyyyyyy"}**
->
-> **}**
+	APlist = {
+		{"JohnsHome", "xxxxxx"}, 
+		{"theSands", "password"}, 
+		{"bluerat", "yyyyyyyy"}
+	}
 
 After wifi becomes connected in this process, then if any later
 disconnect occurs, the ESP will automatically reconnect to that same AP
@@ -149,7 +145,7 @@ your project. init2-WIFI in this case will not chain to SNTP or other
 files. It will allow you to attempt connections to the other Access Points
 in your list.
 
-##init3-TIME.lua:
+## init3-TIME.lua:
 
 This module connects on the internet to a SNTP server to set the
 realtime clock of the ESP. As currently programmed, one of
@@ -176,7 +172,7 @@ your project. init3-TIME in this case will not chain recursively to your
 project file (which is still running).. But it will attempt again to
 fetch true time.
 
-##Your Project File:
+## Your Project File:
 
 The project file is named at top of init.lua. The ESP filesystem may
 have multiple project files loaded at any time. Change init.lua and load it again to run a
@@ -186,7 +182,7 @@ When your project file starts,
 
 1.  Wifi connection has been established
 
-2.  Best effort has been made to set real-time in the ESP’s clock.
+1.  Best effort has been made to set real-time in the ESP’s clock.
 
 The init sequence (init.lua, init2-WIFI.lua, init3-TIME.lua) are
 considered as (approximately) fixed unchanging files. Every project uses
@@ -196,29 +192,25 @@ For example (jumping ahead to the blynk library!) the following 2-line
 **complete** project file can use BLYNK app on your phone to control the
 GPIO inputs and outputs on the ESP:
 
-> **-- myproject.lua**
->
-> **dofile ( 'lib-BLYNK.lua' )**
->
-> **blynk.new (“your ...... blynk token”):connect()**
+	-- myproject.lua
+	dofile ( 'lib-BLYNK.lua' )
+	blynk.new (“your ...... blynk token”):connect()
 
 Even simpler, try this one-line project file!
 
-> **dofile("lib-TELNET.lua")**
+	dofile("lib-TELNET.lua")
 
-##lib-OLED.lua
-###(and lib-OLED-D1.lua):
+## lib-OLED.lua
+### (and lib-OLED-D1.lua):
 
 This library is for the common “0.96-inch” 128x64 I2C oled display. By
 default it uses SDA=D2 and SCL=D1 for I2C. These can be overridden. Load
 the library in your project file like this, omitting the SDA and SCL
 lines if default pins are OK::
 
-> **sda = 3**
->
-> **scl = 4**
->
-> **dofile("lib-OLED.lua")**
+	sda = 3
+	scl = 4
+	dofile("lib-OLED.lua")
 
 On initialising, the current node’s wifi hostname and IP number and the
 time will display.
@@ -230,22 +222,22 @@ OLED:
     stack of up to four log messages, pushed in one at a time at the
     bottom
 
-> **oled("j", "new entry" )**
+	oled("j", "new entry" )
 
 -   MessageBox mode:  
     Bold header text, with three message lines in a box
 
-> **oled("m", { "WARNING !", "", "IP Address ", wifi.sta.getip() } )**
+	oled("m", { "WARNING !", "", "IP Address ", wifi.sta.getip() } )
 
 -   Yell mode:  
     Two very bold words
 
-> **oled("y", { "STOP", "WRONG WAY" } )**
+	oled("y", { "STOP", "WRONG WAY" } )
 
 -   Value Bar mode:  
     Scaled display bar 0-100
 
-> **oled("b", { "Temp", 17} )**
+	oled("b", { "Temp", 17} )
 
 If the oled failed to initialise, oled() calls still in your project
 code are harmless. If your binary lua build did not include the correct
@@ -256,7 +248,7 @@ Mini OLED shield.*
 
 Oled library is simply based on U8G examples in NodeMCU project.
 
-##lib-BLYNK.lua:
+## lib-BLYNK.lua:
 
 This library (a derivative of Blezek library) connects to the BLYNK APP
 on your android or apple phone or tablet. Blynk includes many “widget”
@@ -282,82 +274,53 @@ some careful scripting to customise it to exactly what you want.
 
 The full initialising in your project is like this:
 
-> **dofile ( 'lib-BLYNK.lua' )**
->
-> **b=blynk.new (“your ...... blynk token”, setup\_callback\_function,
-> TraceMode)**
->
-> **b:connect()**
+	dofile ( 'lib-BLYNK.lua' )
+	b=blynk.new (“your ...... blynk token”, setup_callback_function, TraceMode)
+	b:connect()
 
 The bottom lines can be merged as in the example earlier.
 
 **TraceMode** may be omitted. If it is true then a diagnostic trace of
 each data packet to and from the blynk server is displayed.
 
-If the **setup\_callback\_function** is **omitted or nil**, then a
+If the **setup_callback_function** is **omitted or nil**, then a
 generic GPIO I/O functioning is automatically provided for gpio.read()
-and gpio.write(). Setup\_callback may also be set as **false**, in which
+and gpio.write(). Setup_callback may also be set as **false**, in which
 case no callback is made. If you DO specify your own callback, it will
 happen immediately the blynk “object” is created, and you would use it
 to “register” more callbacks for later. Study the following project
 file. (Approximately) study it from bottom up.
 
-> **function dw\_cb(cmd)** -- gpio write
->
-> **gpio.write(cmd\[2\],cmd\[3\])**
->
-> **end**
->
-> **function dr\_cb(cmd, msgid)** -- gpio poll
->
-> **value = tostring(1 - gpio.read(cmd\[2\]))**
->
-> **b:send\_message(blynk.commands\["hardware"\], **
->
-> **msgid, b:pack('dw', cmd\[2\], value))**
->
-> **end**
->
-> **function pm\_cb(cmd)** -- let us do auto setup of gpios to match the
-> APP
->
-> **for i=2, \#cmd, 2 do**
->
-> **if cmd\[i+1\] == 'in' then **
->
-> **gpio.mode(cmd\[i\], gpio.INPUT, gpio.PULLUP) **
->
-> **end **
->
-> **if cmd\[i+1\] == 'out' then **
->
-> **gpio.mode(cmd\[i\], gpio.OUTPUT) **
->
-> **gpio.write(cmd\[i\],0) **
->
-> **end **
->
-> **end**
->
-> **end**
->
-> **function set\_callbacks(b)**
->
-> **b:on ('dw', dw\_cb)** -- means: **on** occurrence if any “dw” event,
-> call dw\_cb()
->
-> **b:on ('dr', dr\_cb)**
->
-> **b:on ('pm', pm\_cb)**
->
-> **end**
->
-> **dofile ( 'lib-BLYNK.lua' )**
->
-> **b = blynk.new ( token, set\_callbacks ):connect()**
+	function dw_cb(cmd) -- gpio write
+		gpio.write(cmd[2],cmd[3])
+	end
+	function dr_cb(cmd, msgid) -- gpio poll
+		value = tostring(1 - gpio.read(cmd[2]))
+		b:send_message(blynk.commands["hardware"], 
+		msgid, b:pack('dw', cmd[2], value))
+	end
+	function pm_cb(cmd) -- let us do auto setup of gpios to match the APP
+		for i=2, #cmd, 2 do
+			if cmd[i+1] == 'in' then 
+				gpio.mode(cmd[i], gpio.INPUT, gpio.PULLUP) 
+			end 
+			if cmd[i+1] == 'out' then 
+				gpio.mode(cmd[i], gpio.OUTPUT) 
+				gpio.write(cmd[i],0) 
+			end 
+		end
+	end
+	function set_callbacks(b)
+		b:on ('dw', dw_cb) 
+        -- means: on occurrence if any “dw” event, call dw_cb()
+		b:on ('dr', dr_cb)
+		b:on ('pm', pm_cb)
+	end
+	dofile ( 'lib-BLYNK.lua' )
+	b = blynk.new ( token, set_callbacks ):connect()
 
-At the bottom, we start blynk, and that triggers the “set\_callbacks”
-function. set\_callbacks() registers three further callbacks that blynk
+At the bottom, we start blynk, and that triggers the “set_callbacks”
+function. set_callbacks() registers three further callbacks that blynk
 will later call at each “**pm**” message or “**dw**” or “**dr**”
 message.
 
@@ -379,25 +342,24 @@ Blynk calls back on events like “dw”, “dr” etc (the data packets coming
 from the server, ie from your phone) only if you “register” to receive
 for those events with the **b:on()** command.
 
-These callbacks receive as payload the parameter “cmd”. cmd is an array
-(table) like
-
-{ “dw” , “4”, “0” } , where we already knew the “dw”, the next is pin
+These callbacks receive as payload the parameter “cmd”. cmd is an array (table) like
+{ “dw” , “4”, “0” } , 
+where we already knew the “dw”, the next is pin
 number, the third is (in this case) the 1 or 0 (High/Low) for the write.
-So getting pin number is as easy as cmd\[2\].
+So getting pin number is as easy as cmd[2].
 
 It can be important to recognise that all the indexed members of the cmd
 table are STRINGS. It is wise to immediately force the parameters you
 are expecting as numeric to really be numeric like this: **pin =
-tonumber(cmd\[2\]).** Otherwise you may find errors in your code where
+tonumber(cmd[2]).** Otherwise you may find errors in your code where
 the string value was not acceptable, a number being needed.
 
 So now we have set blynk to call back on every incoming “pm”, “dr” and
-“dw”. pm\_cb() lets us configure our GPIOs according to the current APP
-widgets. dw\_cb() happens each digital write message, so we simply
+“dw”. pm_cb() lets us configure our GPIOs according to the current APP
+widgets. dw_cb() happens each digital write message, so we simply
 perform the requested write to the real hardware. And at each “dr” we
 read the hardware and invert the 0 / 1 (because we know it’s a
-pull-to-ground button where 0 = PRESSED). Then we do a b:send\_message()
+pull-to-ground button where 0 = PRESSED). Then we do a b:send_message()
 to push the reading back to the APP, typically in a “Value Display”
 widget set to scheduled polling mode. And this time the “dw” label
 refers to the viewpoint of our ESP, ie “dw” is outgoing, towards the
@@ -407,43 +369,32 @@ APP.
 
 Let’s look at another example project file:
 
-> **pir=6** -- ie d6
->
-> **gpio.mode(pir, gpio.INPUT, gpio.PULLUP)**
->
-> **function conn\_cb()** -- calls when blynk successfully connects.
->
-> **gpio.trig(pir, "down", function()**
->
-> **b:send\_message(blynk.commands\["notify"\], b:mid(), "Alarm at
-> home")**
->
-> **end)**
->
-> **end**
->
-> **function set\_callbacks(b)** -- called as blynk is setting up
->
-> **b:on('connection', conn\_cb)** -- set this for AFTER blynk gets
-> connected
->
-> **end**
->
-> **dofile ( 'lib-BLYNK.lua' )**
->
-> **b = blynk.new ("the token", set\_callbacks ):connect()**
+	pir=6 -- ie d6
+	gpio.mode(pir, gpio.INPUT, gpio.PULLUP)
+	function conn_cb() -- calls when blynk successfully connects.
+			gpio.trig(pir, "down", function()
+			b:send_message(blynk.commands["notify"], 
+            	b:mid(), "Alarm at home")
+		end)
+	end
+	function set_callbacks(b) -- called as blynk is setting up
+		b:on('connection', conn_cb) 
+        -- set this for AFTER blynk gets connected
+	end
+	dofile ( 'lib-BLYNK.lua' )
+	b = blynk.new ("the token", set_callbacks ):connect()
 
 At the top, we assign a PIR sensor on D6 as input. We will shortly
 further assign it as “TRIG” operation, ie to cause its own callback
 action if it senses an intruder.
 
-At bottom, we start blynk with set\_callbacks function. That function (a
+At bottom, we start blynk with set_callbacks function. That function (a
 few lines earlier) “gets called” and it is given the blynk object (b) as
 its payload, in case it didn’t know it. Its job is to instruct b that
 when b (ie blynk) establishes server connection then call another
-callback we called conn\_cb. OK, so a very short time later (half
-second??) blynk gets connected, and calls conn\_cb(). Conn\_cb puts D6
-into trigger mode, and tells D6 to call that “b:send\_message()” to our
+callback we called conn_cb. OK, so a very short time later (half
+second??) blynk gets connected, and calls conn_cb(). Conn_cb puts D6
+into trigger mode, and tells D6 to call that “b:send_message()” to our
 APP on any alarm. Callback within callback within callback. Oh, and an
 anonymous function as well. There was a lot in that 12 line project
 file!
@@ -452,19 +403,19 @@ file!
 
 - - - - - - -
 
-The last function in lib-BLYNK file is blynk\_autogpio(). You can study
+The last function in lib-BLYNK file is blynk_autogpio(). You can study
 that to see that it follows the same patterns as the hand-coded examples
 above.
 
-It is also legal to specify your own setup\_callback in the blynk.new()
+It is also legal to specify your own setup_callback in the blynk.new()
 line, so that the autogpio is NOT the automated callback now, ... **and
-then** to include your own call to blynk\_autogpio(b) inside YOUR
-setup\_callback. That way, you can get the automated GPIO handling, and
+then** to include your own call to blynk_autogpio(b) inside YOUR
+setup_callback. That way, you can get the automated GPIO handling, and
 still have opportunity to do any further setup you need.
 
 - - - - - - -
 
-The **send\_message()** syntax in blynk is a bit arcane, sorry. Here are
+The **send_message()** syntax in blynk is a bit arcane, sorry. Here are
 some other templates:
 
 **b:mid()** -- generates our new (sequential) message ID number for
@@ -474,47 +425,39 @@ When your outgoing message is a REPLY to incoming poll/request, you
 should use instead the original message ID that just came in. (Although
 it does not seem to matter a lot?)
 
-**function vw\_cb(cmd)**
+**function vw_cb(cmd)**
 
 -- whatever you want. Note some vw (eg from accelerometer in phone)
 
--- might have several cmd\[\] parameters
+-- might have several cmd[] parameters
 
-**end**
+**function vr_cb(cmd, orig_msgid)**
 
-**function vr\_cb(cmd, orig\_msgid)**
+-- prepare your payload value to be sent back to APP, like this:
 
--- prepare your payload value to be sent back to APP
-
-**b:send\_message(blynk.commands\["hardware"\], orig\_msgid, **
-
-**b:pack('vw', cmd\[2\], str\_payload))**
+	b:send_message(blynk.commands["hardware"], orig_msgid, b:pack('vw', cmd[2], str_payload))
 
 -- For virtual pins, several payload parameters might be legitimate in
 some cases
 
-**end**
+b:send_message(blynk.commands["hardware"],
+b:mid(), 
 
-<span id="__DdeLink__3_13505965" class="anchor"><span
-id="__DdeLink__2_1959946423"
-class="anchor"></span></span>**b:send\_message(blynk.commands\["hardware"\],
-b:mid(), **
-
-**b:pack('vw', vpin, str\_payload))**
+b:pack('vw', vpin, str_payload))
 
 Case of “vw” being pushed from ESP to APP, but not in response to any
 poll from APP. We need our own new message id.
 
-**b:send\_message(blynk.commands\["bridge"\], b:mid(), **
+b:send_message(blynk.commands["bridge"], b:mid(), 
 
-**b:pack('20', 'i', remote\_token ))**
+b:pack('20', 'i', remote_token ))
 
 Create bridge ESP to ESP. This message is addressed to our server.
 Register the other ESP’s token against our VP 20.
 
-**b:send\_message(blynk.commands\["bridge"\], b:mid(), **
+b:send_message(blynk.commands["bridge"], b:mid(), 
 
-**b:pack('20', 'vw', '65', str\_payload))**
+b:pack('20', 'vw', '65', str_payload))
 
 Bridge message from ESP to ESP. This message leaves here as writing to
 our Virtual Pin 20, but the server already knows that that pin is a
@@ -522,10 +465,9 @@ bridge to another ESP. In this example, the server sends message { “vw”,
 “65”, “payload” } to the other ESP, who doesn’t care quite where the
 message originated from!
 
-**b:send\_message(**<span id="__DdeLink__6_13505965"
-class="anchor"></span>**blynk.commands\["property"\], b:mid(), **
+b:send_message(blynk.commands["property"], b:mid(), 
 
-**b:pack(vpin, 'color', “\#123456”)) **
+b:pack(vpin, 'color', “\#123456”)) 
 
 This changes widget colour (std html colour codes). ONLY for virtual
 pin, not digital pin.
@@ -533,13 +475,13 @@ pin, not digital pin.
 There is one helper function provided for the “vw” and “dw” writes to
 the APP. Eg
 
-**b:write(“vw”, 5, value)**
+b:write(“vw”, 5, value)
 
-This just simplifies the longhand hardware/vw or /dw send\_message() as
+This just simplifies the longhand hardware/vw or /dw send_message() as
 above. These two commands are the most common customised requirement, so
 this simpler version is welcome! (It should be fine for "aw" also.)
 
-**- - - - - - -**
+- - - - - - -
 
 The commands “hardware”, “property”, “bridge” and “notify” seen above
 are blynk terms. You can see them at top lines of library.
@@ -558,34 +500,31 @@ Blynk library is derived from https://github.com/blezek/blynk-esp,
 Daniel Blezek, MIT licence, 2016. That website has some usage
 information that may be useful for this variant of the library.
 
-##lib-ULTRASONIC.lua:
+## lib-ULTRASONIC.lua:
 
 This module is for HC-SR04 “sonar” 4-pin device. This is a 5 volt item,
 and will not work satisfactorily at a 3.3V supply. The easiest interface
 to ESP8266 is:
 
 -   to feed its VCC pin from 5V on the NodeMCU,
-
 -   to simply presume that a 3.3V trigger from ESP8266 will suffice for
     the 5V sonar (outside spec, but it usually works fine),
-
 -   and to connect the echo pin VIA A 6K RESISTOR specifically to
     D8 (gpio15). That pin on ESP8266 usually has an onboard 10K or 12K
     resistor to ground, and we therefore have a suitable voltage divider
     to protect from the 5V of echo pin.
 
-> **dofile("lib-ULTRASONIC.lua")**
->
-> **mysonar = Sonar.new(7, 8, 4) -- trig, echo, echoLed**
->
-> **mysonar:run()**
+
+	dofile("lib-ULTRASONIC.lua")
+	mysonar = Sonar.new(7, 8, 4) -- trig, echo, echoLed
+	mysonar:run()
 
 Multiple sonar devices can be configured. Just call Sonar.new() again
 for other pins.
 
 run() may be joined into combination initialisation:
 
-> **mysonar = Sonar.new(7,8):run()**
+	mysonar = Sonar.new(7,8):run()
 
 Optionally, the library can use any LED to visibly show echo time, which
 is a useful diagnostic. Or parameter echoLed may be omitted.
@@ -596,11 +535,11 @@ optional parameter, a custom repeat time in mSec.
 
 You “read” like this:
 
-> **dist = mysonar.read()**
+	dist = mysonar.read()
 
 or
 
-> **dist, timestamp = mysonar.read()**
+	dist, timestamp = mysonar.read()
 
 where dist is in cm and timestamp is system time of the instant of the
 hardware reading, from internal clock. The data received is the last
@@ -610,14 +549,14 @@ convert timestamp to readable format.
 If you are really squeezed for memory, you can nil the Sonar.new after
 use.
 
-##lib-SMARTBTN.lua:
+## lib-SMARTBTN.lua:
 
 A smartbutton is a gpio with a pulldown button, where it measures the
 duration of press. Up to 3 different responses are called, the “short
-press” (&lt; 1 Sec), the “1-Sec press” and the “3-Sec press”. Therefore
+press” (< 1 Sec), the “1-Sec press” and the “3-Sec press”. Therefore
 that one button may be given 3 jobs to do!
 
-> **dofile(“lib-SMARTBTN.lua”)**
+	dofile(“lib-SMARTBTN.lua”)
 
 Supply the three callback functions to be executed when the smartbutton
 is pressed. Then create the smartbutton with its pin number and its 3
@@ -626,15 +565,12 @@ callbacks. (Any of the callbacks may be nil.)
 Here is a simple example, using pin D3, the “flash button”, and omitting
 the 1-sec response (even though a callback was coded)..
 
-> **b0 = function () print ("b0sec pressed") end**
->
-> **b1 = function () print ("b1sec pressed") end**
->
-> **b3 = function () print ("b3sec pressed") end**
->
-> **smartButton( 3, b0, nil, b3)** -- 1-sec callback omitted
+	b0 = function () print ("b0sec pressed") end
+	b1 = function () print ("b1sec pressed") end
+	b3 = function () print ("b3sec pressed") end
+	smartButton( 3, b0, nil, b3) -- 1-sec callback omitted
 
-##lib-SERVO.lua:
+## lib-SERVO.lua:
 
 “Radio Control” hobby servomotors usually need power supply of about 4.5
 to 6 volts. There are 3 wires:
@@ -654,13 +590,12 @@ The ESP8266 NodeMCU board can probably supply enough 5V current for
 servos is too much for this method. Get a battery pack or other
 independent supply.
 
-> **dofile("lib-SERVO.lua")**
->
-> **sv1 = Servo.new(pin, scaling) **
+	dofile("lib-SERVO.lua")
+	sv1 = Servo.new(pin, scaling) 
 
 then
 
-> **sv1:set(newposn)**
+	sv1:set(newposn)
 
 position is scaled 0 – 100,. Values above 100 are not actioned. Values
 below 0 cause the servo to stop.
@@ -674,11 +609,11 @@ past their physical limits.
 
 Current servo setting can be read:
 
-> **currentposn = sv1:get()**
+	currentposn = sv1:get()
 
 Multiple servos may be created.
 
-##lib-ACCEL.lua:
+## lib-ACCEL.lua:
 
 The ACCEL library is additional support for triple-axis adxl345 I2C
 accelerometer. The NodeMCU Lua firmware build already has a basic driver
@@ -697,9 +632,8 @@ example. However, for our purposes, let us assume:
 
 Initialise:
 
-> **i2c.setup(0, sda, scl, i2c.SLOW)** -- if i2c not already set up
->
-> **adxl345.setup()** -- but see init() below
+	i2c.setup(0, sda, scl, i2c.SLOW) -- if i2c not already set up
+	adxl345.setup() -- but see init() below
 
 So far, the lib-ACCEL library is not needed! The library simply supply
 the math formulae for pitch and roll:
@@ -708,51 +642,40 @@ Here is a complete project to read the adxl345 every 3 seconds, use our
 2 library formulae to calculate pitch and roll, and display those to the
 oled display:
 
-> **dofile(“lib-OLED.lua”)** -- implicitly sets up the I2C for us. Yea!!
->
-> -- some "builds" of nodemcu lua image use init(), some use setup()
-> syntax:
->
-> **if adxl345.setup then**
->
-> **adxl345.setup() **
->
-> **else**
->
-> **adxl345.init(sda or 2,scl or 1) **
->
-> **end**
->
-> **dofile(“lib-ACCEL.lua”)**
->
-> **tmr.alarm(2, 3000, 1, function()**
->
-> **local x, y ,z = adxl345.read()**
->
-> **print(string.format( "X = %d, Y = %d, Z = %d", x, y, z ) )**
->
-> **pitch = axl\_pitch(y, z)** -- inverted pcb
->
-> **roll = axl\_roll(x, z)**
->
-> **oled('y', { "P "..pitch, "R "..roll } )**
->
-> **end ) **
+	dofile(“lib-OLED.lua”) -- implicitly sets up the I2C for us. Yea!!
 
-##lib-WIFIMON.lua:
+-- some "builds" of nodemcu lua image use init(), some use setup()
+syntax:
+
+	if adxl345.setup then
+		adxl345.setup() 
+	else
+		adxl345.init(sda or 2,scl or 1) 
+	end
+	dofile(“lib-ACCEL.lua”)
+	tmr.alarm(2, 3000, 1, function()
+			local x, y ,z = adxl345.read()
+			print(string.format( "X = %d, Y = %d, Z = %d", x, y, z ) )
+			pitch = axl_pitch(y, z) -- inverted pcb
+			roll = axl_roll(x, z)
+			oled('y', { "P "..pitch, "R "..roll } )
+		end 
+	) 
+
+## lib-WIFIMON.lua:
 
 A totally optional extension to wifi functionality. It simply
 monitors.the wifi and prints a message for each disconnection or
 reconnection that happens. It reports, but it does not change how wifi
 operates. Auto-reconnection is normal, and is not affected by WIFIMON.
 
-> **dofile(“lib-WIFIMON.lua”)**
+	dofile(“lib-WIFIMON.lua”)
 
 lib-WIFIMON is based on information at:
 
 http://nodemcu.readthedocs.io/en/dev/en/modules/wifi/\#wifieventmon-module
 
-##lib-DEEPSLEEP.lua:
+## lib-DEEPSLEEP.lua:
 
 Normal operation of ESP8266 uses about 80mA (and peaks to about 300mA!),
 which results in short life per battery charge under battery operation.
@@ -789,11 +712,11 @@ It can be otherwise frustrating to program smoothly.
 
 Load the library:
 
-> **dofile("lib-DEEPSLEEP.lua")**
+	dofile("lib-DEEPSLEEP.lua")
 
 This simple instruction in your project can then sleep:
 
-> **DEEPSLEEP(60)** -- in seconds, so that sleeps 1 minute
+	DEEPSLEEP(60) -- in seconds, so that sleeps 1 minute
 
 Your project file of course needs to handle putting to sleep, and then
 handling life as normal after the waking. And then deciding when to
@@ -805,7 +728,7 @@ just long enough to recognise we have more sleeps to go. The library can
 accommodate that easily, and so scheduling an (aggregated) sleep of say
 12 hours can be done in one library call.
 
-> **DEEPSLEEP(3600, 3, 12) **
+	DEEPSLEEP(3600, 3, 12) 
 
 This would sleep for 12 hours as 12 passes x 60 minutes, even (the 3
 parameter) skipping time-wasting wifi & time sync in the quick
@@ -813,7 +736,7 @@ intermediate wakeups.
 
 The full function is:
 
-> **DEEPSLEEP(sleeptime, startType, passes)**
+	DEEPSLEEP(sleeptime, startType, passes)
 
 -   sleeptime is the time (secs) for each sleep “pass”
 
@@ -853,7 +776,7 @@ time intelligently. However, it is easier to simply accept a simple
 lower accuracy system. Just don’t then expect to wake for your readings
 on every precise hour with a few seconds accuracy.
 
-##lib-TELNET.lua:
+## lib-TELNET.lua:
 
 Runs a telnet server on ESP8266. From another PC on your network, you
 get the same interpreter / commandline functionality as you see in
@@ -865,36 +788,25 @@ You do NOT get ability to load lua files to the ESP via telnet.
 Default port 2323, but preceding the library call with an override like
 this
 
-> **tport=23**
->
-> **dofile("lib-TELNET.lua")**
+	tport=23
+	dofile("lib-TELNET.lua")
 
 would then use your choice of port.
 
 **Example on a linux PC:** Open terminal and run telnet with correct IP
 and port. Execute some lua commands:
 
-> **brian@mypc ~ $ telnet 192.168.1.212 23**
->
-> **Trying 192.168.1.212...**
->
-> **Connected to 192.168.1.212.**
->
-> **Escape character is '^\]'.**
->
-> **ESP8266 Telnet on**
->
-> **&gt; **
->
-> **&gt; =wifi.sta.getip()**
->
-> **192.168.1.212 255.255.255.0 192.168.1.254**
->
-> **&gt; =node.heap()**
->
-> **37760**
->
-> **&gt; node.restart() *-&gt; Bye !!!***
+	brian@mypc ~ $ telnet 192.168.1.212 23
+	Trying 192.168.1.212...
+	Connected to 192.168.1.212.
+	Escape character is '^]'.
+	ESP8266 Telnet on
+	> 
+	> =wifi.sta.getip()
+	192.168.1.212 255.255.255.0 192.168.1.254
+	> =node.heap()
+	37760
+	> node.restart() *-> Bye !!!*
 
 For security, ESPlorer will indicate **ESP8266 Telnet on** or **Telnet
 Fin** as PC logs on and off.
@@ -905,14 +817,14 @@ apple or android device.
 
 Telnet library based on
 
-https://github.com/nodemcu/nodemcu-firmware/blob/master/lua\_examples/telnet.lua
+https://github.com/nodemcu/nodemcu-firmware/blob/master/lua_examples/telnet.lua
 
-##lib-LOGGER.lua:
+## lib-LOGGER.lua:
 
 The log is a plaintext file “@log.var” kept on flash filesystem on
 ESP2866. It records successive data entries of the format
 
-> **Timestamp (readable) Descriptor Value**
+	Timestamp (readable) Descriptor Value
 
 This file is not designed to be large, typically 20 to 40 lines long.
 Oldest data is dumped to allow new data. The log may be cleared simply
@@ -920,7 +832,7 @@ by deleting the file, as it is recreated empty if found to be missing.
 Unless explicitly cleared, the log is preserved over board resets, or
 over any lua file updates.
 
-> **dofile(“lib-LOGGER.lua”)**
+	dofile(“lib-LOGGER.lua”)
 
 Starts the logging system. As supplied, the library file writes one
 entry (description = “Reset”) each initialisation. Remove that line
@@ -928,22 +840,22 @@ entry (description = “Reset”) each initialisation. Remove that line
 
 The following functions are supported:
 
-> **writeLog(description, value)**
->
-> **viewLog()** -- displays to ESPlorer screen, or to telnet terminal if
-> used.
->
-> **newLog()** -- deletes the logfile.
+writeLog(description, value)**
+
+**viewLog()** -- displays to ESPlorer screen, or to telnet terminal if
+used.
+
+**newLog()** -- deletes the logfile.
 
 Any project may write to the logger. The library “lib-WEBSERV.lua” also
 has functions to read the log at a remote web browser, or to clear the
 log.
 
-##lib-THINGSPEAK.lua:
+## lib-THINGSPEAK.lua:
 
 This library allows data postings to your “channel” on ThingSpeak:
 
-> **https://thingspeak.com**
+**https://thingspeak.com**
 
 ThingSpeak is devoted to collecting repeat data, and allows analysis and
 plotting of the collected data. For paid subscription, very
@@ -967,9 +879,8 @@ library write data to the fields in my channel.
 Firstly, have your correct WRITE API KEY available. Then in your
 project, load ThingSpeak like this:
 
-> **dofile(“lib-THINGSPEAK.lua”)**
->
-> **APIKEY="JJJJJJ66666644WW"**
+	dofile(“lib-THINGSPEAK.lua”)
+	APIKEY="JJJJJJ66666644WW"
 
 There is no constant connection from the ESP to ThingSpeak server. Each
 posting call makes a short-term network connection, and then closes it.
@@ -977,7 +888,7 @@ posting call makes a short-term network connection, and then closes it.
 The library file has a single function call. It accepts one field per
 call.
 
-> **postThingSpeak(fieldnumber, data, fieldname, callback\_function)**
+	postThingSpeak(fieldnumber, data, fieldname, callback_function)
 
 -   fieldnumber must be 1 up to 8.
 
@@ -992,15 +903,14 @@ call.
 
 Here is a posting in your project of analog pin reading to ThingSpeak:
 
-> **volt = adc.read32; **
->
-> **postThingSpeak(4, volt, “Volt Reading” ) **
+	volt = adc.read32; 
+	postThingSpeak(4, volt, “Volt Reading” ) 
 
 The library should display a success message to screen. On your web
 browser, use the following to see public view of your channel data
 (using YOUR channel number):
 
-> **https://thingspeak.com/channels/999999**
+**https://thingspeak.com/channels/999999**
 
 ThingSpeak viewers are also available on smartphones and tablets.
 Convenient apps on android include ThingView and Pocket IoT, and these
@@ -1011,7 +921,7 @@ Basis for this library:
 
 https://captain-slow.dk/2015/04/16/posting-to-thingspeak-with-esp8266-and-nodemcu/
 
-##lib-MQTT.lua:
+## lib-MQTT.lua:
 
 The MQTT model is for two or more machines to transfer simple data
 packets (which might mean a command or might mean some data) between
@@ -1039,57 +949,49 @@ login: BROKER, BRPORT, BRUSER, BRPWD.
 There are three items to be coded in your project file **before**
 loading the library file:
 
-1.  **mqtt\_topics** = table of topic/qos pairs to be subscribed.
+1.  **mqtt_topics** = table of topic/qos pairs to be subscribed.
 
-2.  **mqtt\_ready()** - callback from library to project when MQTT has
+2.  **mqtt_ready()** - callback from library to project when MQTT has
     initialised
 
-3.  **mqtt\_recv(topic, data)** - callback from library to project when
+3.  **mqtt_recv(topic, data)** - callback from library to project when
     a (subscribed) message arrives
 
-> **dofile(“lib-MQTT.lua”)**
+dofile(“lib-MQTT.lua”)
 
 Then there is one call your project can make into the library:
 
-1.  **mqtt\_publish(topic, data)** - call from project into library to
+1.  **mqtt_publish(topic, data)** - call from project into library to
     publish a payload to a topic
 
-Typical use of mqtt\_ready(). Start a 20-second repeat for reading LDR
+Typical use of mqtt_ready(). Start a 20-second repeat for reading LDR
 value and publishing that:
 
-> **function mqtt\_ready()**
->
-> **tmr.alarm(2, 20000, 1, function() mqtt\_publish("LDR", readLDR())
-> end )**
->
-> **end**
+	function mqtt_ready()
+	tmr.alarm(2, 20000, 1, function() mqtt_publish("LDR", readLDR())
+end )
+	end
 
 Typical subscribed topics list in your project:
 
-> **mqtt\_topics = {Led1=0, Led2=0, OledMsg=0, testButn=0}** -- qos all
-> 0
+	mqtt_topics = {Led1=0, Led2=0, OledMsg=0, testButn=0} -- qos all
+0
 
 Typical callback to handle incoming messages on those subscribed topics:
 
-> **function mqtt\_recv(topic, data)**
->
-> **if topic == "Led1" then gpio.write(4,data=="0" and 0 or 1) end**
->
-> **if topic == "Led2" then gpio.write(0,data=="0" and 0 or 1) end**
->
-> **if topic == "OledMsg" then oled("j",data) end**
->
-> **if topic == "testButn" then mqtt\_publish("Button", gpio.read(3))
-> end **
->
-> **end **
+	function mqtt_recv(topic, data)
+	if topic == "Led1" then gpio.write(4,data=="0" and 0 or 1) end
+	if topic == "Led2" then gpio.write(0,data=="0" and 0 or 1) end
+	if topic == "OledMsg" then oled("j",data) end
+	if topic == "testButn" then mqtt_publish("Button", gpio.read(3)) end 
+	end 
 
 Note that last (testButn) incoming topic. Our response here is to send
 back (publish) our “Button” data to the other end. So this looks like a
 poll transaction. The other end make a read request. We make the
 reading, and send that back to the other end.
 
-##lib-WEBSERV.lua:
+## lib-WEBSERV.lua:
 
 This library starts a webserver. You can view the web page from any
 browser having network access. Page title and some page controls are
@@ -1097,12 +999,12 @@ automatic.
 
 By default, the logger system (if it is loaded) has view-log and
 delete-log buttons on the page. This can be suppressed if variable
-**WS\_suppressLogger** is true.
+**WS_suppressLogger** is true.
 
-if variable **WS\_pageRefresh**=(number xx), then the web page will
+if variable **WS_pageRefresh**=(number xx), then the web page will
 auto-refresh in the browser every xx seconds.
 
-If variable **WS\_tnet** is true, primitive telnet controls will be
+If variable **WS_tnet** is true, primitive telnet controls will be
 activated on the browser page. Enter your input to the box and press
 enter. Then press See Result if you want to view any response that the
 ESPlorer screen would have shown you. Eg “=node.heap()” into box.
@@ -1113,67 +1015,52 @@ The library includes one utility function **button(vbl, value, label,
 colour)** that builds a boilerplate HTML button.
 
 In general, an empty web page is useless. Your project needs to
-implement a function **WS\_buildpage(\_GET)** to add custom HTML
+implement a function **WS_buildpage(_GET)** to add custom HTML
 controls to the page.
 
 Your code should build (into the global variable webPage) the HTML
 fragments to display some control buttons the user can click. The
-parameter \_GET brings a table with key:value pair corresponding to the
+parameter _GET brings a table with key:value pair corresponding to the
 user’s last button click on their browser. The following project codes a
 HTML clickable pair of buttons. It also reacts to user’s last click to
 turn a GPIO (led on gpio16/D0) on or off. We are looking for the key
 value pairs **pin:ON1** or **pin:OFF1** because that’s the way we coded
 our buttons.
 
-> **function WS\_buildpage(\_GET)**
->
-> **if (\_GET.pin == "ON1") then** -- examine last button click
->
-> **gpio.write(led1, gpio.HIGH)** -- and set gpio accordingly
->
-> **elseif (\_GET.pin == "OFF1") then**
->
-> **gpio.write(led1, gpio.LOW)**
->
-> **end**
->
-> -- now code the buttons again for next display
->
-> **webPage = webPage.. "&lt;p&gt;GPI016 " .. button("pin", "ON1",
-> "HIGH") ..**
->
-> **" " .. button("pin", "OFF1", "LOW") .. " redled&lt;/p&gt;\\n"**
->
-> **if gpio.read(led1) == 0 then **
->
-> **webPage = webPage .. "&lt;p&gt;RED LED ON &lt;/p&gt;\\n"** –
-> feedback for user
->
-> **end**
->
-> **end**
->
-> **WS\_suppressLogger = true**
->
-> **dofile(“lib-WEBSERV.lua”)**
+	function WS_buildpage(_GET)
+	if (_GET.pin == "ON1") then -- examine last button click
+		gpio.write(led1, gpio.HIGH) -- and set gpio accordingly
+	elseif (_GET.pin == "OFF1") then
+		gpio.write(led1, gpio.LOW)
+	end
 
-##lib-GPIO28.lua:
+-- now code the buttons again for next display
+
+	webPage = webPage.. "<p>GPI016 " .. button("pin", "ON1",
+"HIGH") ..
+	" " .. button("pin", "OFF1", "LOW") .. " redled</p>\n"
+	if gpio.read(led1) == 0 then 
+		webPage = webPage .. "<p>RED LED ON </p>\n" –
+feedback for user
+	end
+	end
+	WS_suppressLogger = true
+	dofile(“lib-WEBSERV.lua”)
+
+## lib-GPIO28.lua:
 
 Uses a MCP23017 chip on I2C address 0x20 to add **new GPIO numbers 13 to
 28**. GPIO syntax remains the same:
 
-> **i2c.setup(0, sda, scl, i2c.SLOW)** -- if needed
->
-> **dofile(“lib-GPIO28.lua”)**
->
-> **gpio.mode(17,gpio.OUTPUT) **
->
-> **gpio.write(17, gpio.HIGH)**
+	i2c.setup(0, sda, scl, i2c.SLOW) -- if needed
+	dofile(“lib-GPIO28.lua”)
+	gpio.mode(17,gpio.OUTPUT) 
+	gpio.write(17, gpio.HIGH)
 
 That code assumes I2C needs initialising. If OLED for example has
 already initialised I2C, omit the first line.
 
-##lib-ADC8.lua
+## lib-ADC8.lua
 
 Uses CD4051 analog multiplexer chip to expand the one **ADC to 8
 channels** (0 – 7). Requires 3 digital GPIO pins as addressing to the
@@ -1186,11 +1073,9 @@ channels.
 
 Adc reading syntax is same style as the original one channel.
 
-> **dofile(“lib-ADC8.lua”)**
->
-> **adc.init8(6,7,8)**
->
-> **v5 = adc.read(5)**
+	dofile(“lib-ADC8.lua”)
+	adc.init8(6,7,8)
+	v5 = adc.read(5)
 
 Brian Lavery
 
