@@ -125,15 +125,11 @@ A single AP can be designated like this:
 
 Multiple can be listed like this:
 
-    APlist = {
-    
-        {"JohnsHome", "xxxxxx"},
-    
-        {"theSands", "password"}, 
-    
-        {"bluerat", "yyyyyyyy"}
-    
-    }
+	APlist = {
+		{"JohnsHome", "xxxxxx"},
+		{"theSands", "password"},
+		{"bluerat", "yyyyyyyy"}
+	}
 
 After wifi becomes connected in this process, then if any later
 disconnect occurs, the ESP will automatically reconnect to that same AP
@@ -196,11 +192,9 @@ For example (jumping ahead to the blynk library!) the following 2-line
 **complete** project file can use BLYNK app on your phone to control the
 GPIO inputs and outputs on the ESP:
 
-> **-- myproject.lua**
->
-> **dofile ( 'lib-BLYNK.lua' )**
->
-> **blynk.new (“your ...... blynk token”):connect()**
+	**-- myproject.lua**
+	**dofile ( 'lib-BLYNK.lua' )**
+	**blynk.new (“your ...... blynk token”):connect()**
 
 Even simpler, try this one-line project file!
 
