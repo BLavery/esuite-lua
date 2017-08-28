@@ -935,14 +935,15 @@ Typical use of mqtt_ready(). Start a 20-second repeat for reading LDR
 value and publishing that:
 
 	function mqtt_ready()
-	tmr.alarm(2, 20000, 1, function() mqtt_publish("LDR", readLDR())
-end )
+		tmr.alarm(2, 20000, 1, function() 
+				mqtt_publish("LDR", readLDR()) 
+			end 
+		)
 	end
 
 Typical subscribed topics list in your project:
 
-	mqtt_topics = {Led1=0, Led2=0, OledMsg=0, testButn=0} -- qos all
-0
+	mqtt_topics = {Led1=0, Led2=0, OledMsg=0, testButn=0} -- qos all 0
 
 Typical callback to handle incoming messages on those subscribed topics:
 
