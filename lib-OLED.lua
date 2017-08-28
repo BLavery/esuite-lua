@@ -1,14 +1,10 @@
 -- SETUP the oled connections:
--- INCLUDE AS DESIRED IN YOUR PROJECT FILE
+-- INCLUDE AS DESIRED IN YOUR PROJECT FILE 
+
+-- esp-01 supported too.  Use sda=3 (gpio0) and SCL=4 (gpio2)
 
 sda = sda or 2
 scl = scl or 1
-
--- the "REGULAR" connection for oled's VCC pin is to go to "3.3". But power needed is small.
--- OPTIONAL: set a GPIO output as controllable power pin (3.3V) to the oled.
--- This way, oled goes off when power down/deepsleep
---gpio.mode(7,gpio.OUTPUT)
---gpio.write(7,1)
 
 function oled(style, str, pass)
     if not pass then  -- this is a fresh oled command 

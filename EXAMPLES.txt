@@ -19,9 +19,9 @@ If it has no number, it is not posted up yet:
    Thingspeak
    Thingspeak DHT11 ESP-01
    Logging to both Thingspeak and MQTT
-   Deepsleep
-   Data logger in flash file
-   Deepsleep battery longevity with logger
+   Deepsleep test/demo
+   Local Data logger in flash file
+   Deepsleep battery longevity test with thingspeak & logger
    Webserver with gpio controls
    Webserver with logger readout
    Webserver controls for servo, accelerometer, etc

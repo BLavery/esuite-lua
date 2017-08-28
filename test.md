@@ -115,25 +115,25 @@ and chains immediately to init2-TIME. Otherwise it waits and continues
 retrying to connect, if necessary cycling between the configured wifi
 credentials given.
 
-One or several wifi stations may be listed as acceptable. This allows
-for easily using in classroom and at home: the ESP will find the
-available Access Point for each premises.
-
+	One or several wifi stations may be listed as acceptable. This allows
+	for easily using in classroom and at home: the ESP will find the
+	available Access Point for each premises.
+	
 A single AP can be designated like this:
 
-> **APlist = { "ap", "pw" }**
+    **APlist = { "ap", "pw" }**
 
 Multiple can be listed like this:
 
-> **APlist = {**
->
-> **{"JohnsHome", "xxxxxx"}, **
->
-> **{"theSands", "password"}, **
->
-> **{"bluerat", "yyyyyyyy"}**
->
-> **}**
+    APlist = {
+    
+    {"JohnsHome", "xxxxxx"},
+    
+    {"theSands", "password"}, 
+    
+    {"bluerat", "yyyyyyyy"}
+    
+    }
 
 After wifi becomes connected in this process, then if any later
 disconnect occurs, the ESP will automatically reconnect to that same AP
