@@ -948,10 +948,10 @@ Typical subscribed topics list in your project:
 Typical callback to handle incoming messages on those subscribed topics:
 
 	function mqtt_recv(topic, data)
-	if topic == "Led1" then gpio.write(4,data=="0" and 0 or 1) end
-	if topic == "Led2" then gpio.write(0,data=="0" and 0 or 1) end
-	if topic == "OledMsg" then oled("j",data) end
-	if topic == "testButn" then mqtt_publish("Button", gpio.read(3)) end 
+		if topic == "Led1" then gpio.write(4,data=="0" and 0 or 1) end
+		if topic == "Led2" then gpio.write(0,data=="0" and 0 or 1) end
+		if topic == "OledMsg" then oled("j",data) end
+		if topic == "testButn" then mqtt_publish("Button", gpio.read(3)) end 
 	end 
 
 Note that last (testButn) incoming topic. Our response here is to send
@@ -996,21 +996,19 @@ value pairs **pin:ON1** or **pin:OFF1** because that’s the way we coded
 our buttons.
 
 	function WS_buildpage(_GET)
-	if (_GET.pin == "ON1") then -- examine last button click
-		gpio.write(led1, gpio.HIGH) -- and set gpio accordingly
-	elseif (_GET.pin == "OFF1") then
-		gpio.write(led1, gpio.LOW)
-	end
-
--- now code the buttons again for next display
-
-	webPage = webPage.. "<p>GPI016 " .. button("pin", "ON1",
-"HIGH") ..
-	" " .. button("pin", "OFF1", "LOW") .. " redled</p>\n"
-	if gpio.read(led1) == 0 then 
-		webPage = webPage .. "<p>RED LED ON </p>\n" –
-feedback for user
-	end
+		-- first procss any buttons that user pressed:
+		if (_GET.pin == "ON1") then -- examine last button click
+			gpio.write(led1, gpio.HIGH) -- and set gpio accordingly
+		elseif (_GET.pin == "OFF1") then
+			gpio.write(led1, gpio.LOW)
+		end
+	
+		-- now code the buttons again for next display
+		webPage = webPage.. "<p>GPI016 " .. button("pin", "ON1", "HIGH") ..
+			" " .. button("pin", "OFF1", "LOW") .. " redled</p>\n"
+		if gpio.read(led1) == 0 then 
+			webPage = webPage .. "<p>RED LED ON </p>\n" -- feedback for user
+		end
 	end
 	WS_suppressLogger = true
 	dofile(“lib-WEBSERV.lua”)
