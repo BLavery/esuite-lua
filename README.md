@@ -41,9 +41,7 @@ the ESP8288 and for interacting with your project during testing.
 ## Common startup files:
 
 1. init.lua
-
 1. init2-WIFI.lua
-
 1. init3-TIME.lua
 
 These are always used. They chain in sequence, and then pass control to
@@ -52,35 +50,20 @@ your individual “project” file. So the standard minimum is four files.
 ## Library Files:
 
 -   lib-BLYNK.lua
-
 -   lib-LOGGER.lua
-
 -   lib-OLED.lua
-
 -   lib-OLED-D1.lua
-
 -   lib-SERVO.lua
-
 -   lib-DEEPSLEEP.lua
-
 -   lib-MQTT.lua
-
 -   lib-ACCEL.lua
-
 -   lib-TELNET.lua
-
 -   lib-THINGSPEAK.lua
-
 -   lib-ULTRASONIC.lua
-
 -   lib-WEBSERV.lua
-
 -   lib-WIFIMON.lua
-
 -   lib-SMARTBTN.lua
-
 -   lib-GPIO25.lua
-
 -   lib-ADC8.lua
 
 You **optionally** include library files into your project file.
@@ -218,26 +201,17 @@ time will display.
 There are four standard calls your project can make to display on the
 OLED:
 
--   Journal mode:  
-    stack of up to four log messages, pushed in one at a time at the
-    bottom
-
-	oled("j", "new entry" )
-
--   MessageBox mode:  
-    Bold header text, with three message lines in a box
-
+	oled("j", "new entry" ) 
 	oled("m", { "WARNING !", "", "IP Address ", wifi.sta.getip() } )
-
--   Yell mode:  
-    Two very bold words
-
 	oled("y", { "STOP", "WRONG WAY" } )
-
--   Value Bar mode:  
-    Scaled display bar 0-100
-
 	oled("b", { "Temp", 17} )
+
+These are:
+
+- Journal mode "j":  stack of up to four log messages, pushed in one at a time at the bottom
+- MessageBox mode "m": Bold header text, with three message lines in a box
+- Yell mode "y": Two very bold words
+- Value Bar mode "b": Scaled display bar 0-100
 
 If the oled failed to initialise, oled() calls still in your project
 code are harmless. If your binary lua build did not include the correct
@@ -427,37 +401,32 @@ it does not seem to matter a lot?)
 
 **function vw_cb(cmd)**
 
--- whatever you want. Note some vw (eg from accelerometer in phone)
-
--- might have several cmd[] parameters
+Whatever you want to code. Note some vw (eg from accelerometer in phone) 
+might have several cmd[] parameters.
 
 **function vr_cb(cmd, orig_msgid)**
 
--- prepare your payload value to be sent back to APP, like this:
+Prepare your payload value to be sent back to APP, like this:
 
 	b:send_message(blynk.commands["hardware"], orig_msgid, b:pack('vw', cmd[2], str_payload))
 
--- For virtual pins, several payload parameters might be legitimate in
-some cases
+For virtual pins, several payload parameters might be legitimate in
+some cases.
 
-b:send_message(blynk.commands["hardware"],
-b:mid(), 
-
-b:pack('vw', vpin, str_payload))
+**b:send_message(blynk.commands["hardware"],
+b:mid(), b:pack('vw', vpin, str_payload))**
 
 Case of “vw” being pushed from ESP to APP, but not in response to any
 poll from APP. We need our own new message id.
 
-b:send_message(blynk.commands["bridge"], b:mid(), 
-
-b:pack('20', 'i', remote_token ))
+**b:send_message(blynk.commands["bridge"], b:mid(), 
+b:pack('20', 'i', remote_token ))**
 
 Create bridge ESP to ESP. This message is addressed to our server.
 Register the other ESP’s token against our VP 20.
 
-b:send_message(blynk.commands["bridge"], b:mid(), 
-
-b:pack('20', 'vw', '65', str_payload))
+**b:send_message(blynk.commands["bridge"], b:mid(), 
+b:pack('20', 'vw', '65', str_payload))**
 
 Bridge message from ESP to ESP. This message leaves here as writing to
 our Virtual Pin 20, but the server already knows that that pin is a
@@ -465,9 +434,8 @@ bridge to another ESP. In this example, the server sends message { “vw”,
 “65”, “payload” } to the other ESP, who doesn’t care quite where the
 message originated from!
 
-b:send_message(blynk.commands["property"], b:mid(), 
-
-b:pack(vpin, 'color', “\#123456”)) 
+**b:send_message(blynk.commands["property"], b:mid(), 
+b:pack(vpin, 'color', “\#123456”))**
 
 This changes widget colour (std html colour codes). ONLY for virtual
 pin, not digital pin.
@@ -475,7 +443,7 @@ pin, not digital pin.
 There is one helper function provided for the “vw” and “dw” writes to
 the APP. Eg
 
-b:write(“vw”, 5, value)
+**b:write(“vw”, 5, value)**
 
 This just simplifies the longhand hardware/vw or /dw send_message() as
 above. These two commands are the most common customised requirement, so
@@ -502,22 +470,21 @@ information that may be useful for this variant of the library.
 
 ## lib-ULTRASONIC.lua:
 
+	dofile("lib-ULTRASONIC.lua")
+	mysonar = Sonar.new(7, 8, 4) -- trig, echo, echoLed
+	mysonar:run()
+    
 This module is for HC-SR04 “sonar” 4-pin device. This is a 5 volt item,
 and will not work satisfactorily at a 3.3V supply. The easiest interface
 to ESP8266 is:
 
--   to feed its VCC pin from 5V on the NodeMCU,
--   to simply presume that a 3.3V trigger from ESP8266 will suffice for
+*   to feed its VCC pin from 5V on the NodeMCU,
+*   to simply presume that a 3.3V trigger from ESP8266 will suffice for
     the 5V sonar (outside spec, but it usually works fine),
--   and to connect the echo pin VIA A 6K RESISTOR specifically to
+*   and to connect the echo pin VIA A 6K RESISTOR specifically to
     D8 (gpio15). That pin on ESP8266 usually has an onboard 10K or 12K
     resistor to ground, and we therefore have a suitable voltage divider
     to protect from the 5V of echo pin.
-
-
-	dofile("lib-ULTRASONIC.lua")
-	mysonar = Sonar.new(7, 8, 4) -- trig, echo, echoLed
-	mysonar:run()
 
 Multiple sonar devices can be configured. Just call Sonar.new() again
 for other pins.
