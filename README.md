@@ -911,6 +911,7 @@ loading the library file:
 3.  **mqtt_recv(topic, data)** - callback from library to project when
     a (subscribed) message arrives
 
+Now load the library:
 
 	dofile(“lib-MQTT.lua”)
 
