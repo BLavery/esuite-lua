@@ -260,7 +260,8 @@ If the **setup_callback_function** is **omitted or nil**, then a
 generic GPIO I/O functioning is automatically provided for gpio.read()
 and gpio.write(). Setup_callback may also be set as **false**, in which
 case no callback is made. If you DO specify your own callback, it will
-happen immediately the blynk “object” is created, and you would use it
+happen immediately the blynk “object” is created (before even your next line of project file), 
+and you would use it
 to “register” more callbacks for later. Study the following project
 file. (Approximately) study it from bottom up.
 
@@ -284,8 +285,7 @@ file. (Approximately) study it from bottom up.
 		end
 	end
 	function set_callbacks(b)
-		b:on ('dw', dw_cb) 
-        -- means: on occurrence if any “dw” event, call dw_cb()
+		b:on ('dw', dw_cb) -- means: on occurrence if any “dw” event, call dw_cb()
 		b:on ('dr', dr_cb)
 		b:on ('pm', pm_cb)
 	end
@@ -351,8 +351,7 @@ Let’s look at another example project file:
 		end)
 	end
 	function set_callbacks(b) -- called as blynk is setting up
-		b:on('connection', conn_cb) 
-        -- set this for AFTER blynk gets connected
+		b:on('connection', conn_cb) -- set this for AFTER blynk gets connected
 	end
 	dofile ( 'lib-BLYNK.lua' )
 	b = blynk.new ("the token", set_callbacks ):connect()
@@ -531,9 +530,9 @@ callbacks. (Any of the callbacks may be nil.)
 Here is a simple example, using pin D3, the “flash button”, and omitting
 the 1-sec response (even though a callback was coded)..
 
-	b0 = function () print ("b0sec pressed") end
-	b1 = function () print ("b1sec pressed") end
-	b3 = function () print ("b3sec pressed") end
+	b0 = function () print ("b0sec pressed") end -- short
+	b1 = function () print ("b1sec pressed") end -- 1-sec
+	b3 = function () print ("b3sec pressed") end -- 3-sec
 	smartButton( 3, b0, nil, b3) -- 1-sec callback omitted
 
 ## lib-SERVO.lua:
@@ -544,9 +543,7 @@ to 6 volts. There are 3 wires:
 -   RED = nominally +4.5 (but +5V is OK) Sometimes a red/orange Usually
     the centre wire. But not always - depends on manufacturer, so
     be careful.
-
 -   BLACK = GND (sometimes brown)
-
 -   3rd wire (ORANGE or YELLOW or WHITE) = pulse signal (from GPIO pin)
 
 Reference: https://www.princeton.edu/~mae412/TEXT/NTRAK2002/292-302.pdf
@@ -656,8 +653,8 @@ worthwhile even if each sleep is only a few seconds, but long sleeps
 like an hour or more can be very effective. Deepsleep has little meaning
 if you are using a power pack for supply.
 
-You MUST connect D0 (GPIO16) to RST, otherwise the waking function
-fails. D0 is not a regular GPIO pin, it is a resetting pin coming from
+You **MUST** connect D0 (GPIO16) to RST, otherwise the waking function
+fails. D0 is not a regular GPIO pin, it is a timeout pin coming from
 the RTC module. ESP-01 module does not expose D0, so deepsleep cannot be
 implemented on that.
 
@@ -756,7 +753,7 @@ would then use your choice of port.
 **Example on a linux PC:** Open terminal and run telnet with correct IP
 and port. Execute some lua commands:
 
-	brian@mypc ~ $ telnet 192.168.1.212 23
+	**brian@mypc** ~ $ telnet 192.168.1.212 23
 	Trying 192.168.1.212...
 	Connected to 192.168.1.212.
 	Escape character is '^]'.
@@ -766,7 +763,7 @@ and port. Execute some lua commands:
 	192.168.1.212 255.255.255.0 192.168.1.254
 	> =node.heap()
 	37760
-	> node.restart() *-> Bye !!!*
+	> node.restart() -> Bye !!!
 
 For security, ESPlorer will indicate **ESP8266 Telnet on** or **Telnet
 Fin** as PC logs on and off.
@@ -781,7 +778,7 @@ https://github.com/nodemcu/nodemcu-firmware/blob/master/lua_examples/telnet.lua
 
 ## lib-LOGGER.lua:
 
-The log is a plaintext file “@log.var” kept on flash filesystem on
+The log is a plaintext file “**@log.var**” kept on flash filesystem on
 ESP2866. It records successive data entries of the format
 
 	Timestamp (readable) Descriptor Value
@@ -950,12 +947,12 @@ reading, and send that back to the other end.
 
 ## lib-WEBSERV.lua:
 
-This library starts a webserver. You can view the web page from any
+This library starts a webserver on the ESP8266. You can view the web page from any
 browser having network access. Page title and some page controls are
-automatic.
+automatic. As below, you need to supply the central html excerpt for your project.
 
 By default, the logger system (if it is loaded) has view-log and
-delete-log buttons on the page. This can be suppressed if variable
+delete-log buttons on the web page. This can be suppressed if variable
 **WS_suppressLogger** is true.
 
 if variable **WS_pageRefresh**=(number xx), then the web page will
@@ -966,7 +963,7 @@ activated on the browser page. Enter your input to the box and press
 enter. Then press See Result if you want to view any response that the
 ESPlorer screen would have shown you. Eg “=node.heap()” into box.
 
-Followed by **See Result**, to view the “32763” reply.
+Followed by **See Result** button, to view the “32763” reply.
 
 The library includes one utility function **button(vbl, value, label,
 colour)** that builds a boilerplate HTML button.
@@ -1036,6 +1033,6 @@ Brian Lavery
 
 esuite@blavery.com
 
-V0.3
+V0.31
 
-26 Aug 2017
+28 Aug 2017
