@@ -127,11 +127,11 @@ Multiple can be listed like this:
 
     APlist = {
     
-    {"JohnsHome", "xxxxxx"},
+        {"JohnsHome", "xxxxxx"},
     
-    {"theSands", "password"}, 
+        {"theSands", "password"}, 
     
-    {"bluerat", "yyyyyyyy"}
+        {"bluerat", "yyyyyyyy"}
     
     }
 
