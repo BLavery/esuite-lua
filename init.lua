@@ -4,11 +4,9 @@ proj = "project01"
 --    1 init  
 --    2 WIFI
 --    3 TIME
-
 -- then your "project" is ready to start
--- short init might skip WIFI/TIME
 
--- following line makes dofile(missingfile) into non-(panic/reboot):
+-- following line makes some dofile("missingfile") into non-(panic/reboot):
 local df=dofile dofile=function(f) if file.exists(f) then df(f) else print("File ", f, "not exist") return end end
 
 -- refer lib-DEEPSLEEP.lua to understand these numbers

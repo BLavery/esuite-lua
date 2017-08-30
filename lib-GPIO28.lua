@@ -1,4 +1,4 @@
--- gpio functions:         NYT
+-- gpio functions:       
 -- D0 to D8 (or D12) identical to normal.
 -- gpio numbers 13 - 28: on mcp23017. Digital I/O only, no interrupt/trig functions.
 -- Same syntax.  Eg gpio.mode(17,gpio.OUTPUT [,gpio.PULLUP])  gpio.write(17, gpio.HIGH)
@@ -80,7 +80,7 @@ gpio = clone(gpio_old)
 -- but we can overwrite functions with our own read() etc !
 
 function gpio.read(pin)
-        if pin <= 12 then return gpio_old(pin) end  -- orig gpio 0-12: use orig ESP8266 functions
+        if pin <= 12 then return gpio_old.read(pin) end  -- orig gpio 0-12: use orig ESP8266 functions
         pin = pin-13                                -- new gpio numbers 13-28 renumbered to 0-15
         local bankPin,bank = _getBank(pin)          -- convert to pin 0-7 and bank 0/1
         return bit.band(bit.rshift(_read_reg(MCP23017_GPIOA+bank),bankPin),0x1)

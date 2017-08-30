@@ -1,4 +1,4 @@
---   8 analog via cd4051 multiplexer  NYT
+--   8 analog via cd4051 multiplexer 
 
 if not adc.force_init_mode then
     print("*** You need to flash newer BIN version -HALTED ***")
