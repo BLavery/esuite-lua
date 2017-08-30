@@ -91,6 +91,10 @@ Init.lua permits the ESP to auto-connect (while waiting during blinking
 mode) to last saved wifi access point. In any case, the file init2-WIFI
 is called after the wait time.
 
+Init.lua also sets up a method of gently catching most cases of missing files
+that could cause dofile() to begin endlessly rebooting in panic.
+
+
 ## init2-WIFI.lua:
 
 If the ESP has successfully auto-connected, this file has nothing to do,

@@ -6,8 +6,22 @@ proj = "project01"
 --    3 TIME
 -- then your "project" is ready to start
 
--- following line makes some dofile("missingfile") into non-(panic/reboot):
-local df=dofile dofile=function(f) if file.exists(f) then df(f) else print("File ", f, "not exist") return end end
+-- following makes missing file into non-panic:
+local df=dofile 
+dofile=function(f) 
+    if file.exists(f) then 
+        df(f) 
+    else 
+        print("File ", f, "not exist ***\n") 
+        file.open("missingfile", "w") file.writeline(f) file.close()
+        node.restart()
+    end 
+end
+if file.open("missingfile", "r")  then 
+    f = file.readline() file.close() file.remove("missingfile")
+    print("Please fix missing file", f)
+    return -- terminate
+end
 
 -- refer lib-DEEPSLEEP.lua to understand these numbers
 if rtcmem and rtcmem.read32(20) == 123654 then-- test if waking from deepsleep? (either timer or button)
@@ -34,21 +48,19 @@ pwm.setup(4,12,950)   -- flash
 pwm.start(4)                                                          --   stage #1
 
 tmr.alarm(0, 5000, 0, function()
-        -- allow time for wifi to autostart, and time to salvage looping panics
-        if rtctime.get() > 10 then print("Awake from Deep Sleep") end
-        -- we arrive here after the X mseconds past reset
-        -- see https://bigdanzblog.wordpress.com/2015/04/24/esp8266-nodemcu-interrupting-init-lua-during-boot/
-        pwm.stop(4)
-        pwm.close(4)          -- stop flash
-        if gpio.read(3) == 0 then
-            print "Button held: Aborted start."
-            gpio.write(4,0)        -- turn on
-            return  -- EXITS without anything else happening. flashing continues.
-        end
-        -- if we get here, we didn't press abort button
-        gpio.write(4,1)        -- turn led off
-        gpio.mode(4,0)         -- restore to regular input mode
-        dofile("init2-WIFI.lua")
+    -- allow time for wifi to autostart, and time to salvage looping panics
+    if rtctime.get() > 10 then print("Awake from Deep Sleep") end
+    pwm.stop(4)
+    pwm.close(4)          -- stop flash
+    if gpio.read(3) == 0 then
+        print "Button held: Aborted start."
+        gpio.write(4,0)        -- turn on
+        return  -- EXITS without anything else happening. flashing continues.
+    end
+    -- if we get here, we didn't press abort button
+    gpio.write(4,1)        -- turn led off
+    gpio.mode(4,0)         -- restore to regular input mode
+    dofile("init2-WIFI.lua")
 end)
 -- early "stop timer 0" at ESPlorer can abort the init sequence
 
