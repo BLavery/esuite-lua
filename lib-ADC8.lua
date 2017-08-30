@@ -1,4 +1,4 @@
---   8 analog via cd4051 multiplexer 
+--   8 analog via cd4051 multiplexer  NYT
 
 if not adc.force_init_mode then
     print("*** You need to flash newer BIN version -HALTED ***")
@@ -12,11 +12,11 @@ end  -- if adc mode was wrong, swap & restart correctly (new nodemcu feature May
 
 
 local function clone (t) -- deep-copy a table.   Ref https://gist.github.com/MihailJP/3931841
-    if type(t) ~= "romtable" then return t end
+    if type(t) ~= "romtable" and type(t) ~= "table"  then return t end
     local meta = getmetatable(t)
     local target = {}
     for k, v in pairs(t) do
-        if type(v) == "romtable" then
+        if type(v) == "romtable" or type(t) == "table" then
             target[k] = clone(v)
         else
             target[k] = v
@@ -26,7 +26,7 @@ local function clone (t) -- deep-copy a table.   Ref https://gist.github.com/Mih
     return target  
 end 
  
-adc_old = adc -- an alias name for orig adc function, still pointing into rom
+local adc_old = adc -- an alias name for orig adc function, still pointing into rom
 adc = clone(adc_old) -- a ram-based clone
 
 function adc.init8(adr0, adr1, adr2)  -- ()  or (a0)   or (a0, a1, a2)

@@ -9,6 +9,7 @@ Project List:
 07 Telnet server - in 2 lines!
 08 Repeat SNTP time sync attempts if failed initially
 09 Digital gpio numbers expanded to D28 and analog to A7
+10 Analog module PCF8591. Adds A8 to A11, and adc.write()
 
 If it has no number, it is not posted up yet:
    Phone GPS to ESP8266 via Blynk

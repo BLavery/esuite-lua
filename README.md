@@ -80,19 +80,19 @@ The 5 second wait time uses timer 0. With ESPlorer, using COMMANDS tab /
 TIMER STOP 0 will also prevent further processing. Then you can
 remove/repair any misbehaving lua scripts.
 
+Init.lua also sets up a method of gently catching most cases of missing files
+that could cause dofile() to begin endlessly rebooting in panic.
+
 The top line declares the project file you are running. Eg proj =
 “project12”: that would run project12.lua.
 
 Init.lua includes an intercept to recognise a wake out of deepsleep, and
-optionally to start up differently. This functionality is discussed in
+optionally then to start up differently. This functionality is discussed in
 deepsleep module.
 
 Init.lua permits the ESP to auto-connect (while waiting during blinking
 mode) to last saved wifi access point. In any case, the file init2-WIFI
 is called after the wait time.
-
-Init.lua also sets up a method of gently catching most cases of missing files
-that could cause dofile() to begin endlessly rebooting in panic.
 
 
 ## init2-WIFI.lua:
@@ -189,9 +189,13 @@ Even simpler, try this one-line project file!
 ## lib-OLED.lua
 ### (and lib-OLED-D1.lua):
 
-This library is for the common “0.96-inch” 128x64 I2C oled display. By
-default it uses SDA=D2 and SCL=D1 for I2C. These can be overridden. Load
-the library in your project file like this, omitting the SDA and SCL
+This library is for the common “0.96-inch” 128x64 I2C oled display. 
+
+By default all I2C devices in this suite use pins SDA=D2 and SCL=D1 for I2C. 
+These can be overridden by presetting global variables **sda** and **scl**
+before starting any I2C devices.
+
+Load the OLED library in your project file like this, omitting the SDA and SCL
 lines if default pins are OK::
 
 	sda = 3
@@ -219,6 +223,9 @@ These are:
 If the oled failed to initialise, oled() calls still in your project
 code are harmless. If your binary lua build did not include the correct
 u8g modules, initialising may crash!
+
+The oled display is easy to interface and it is easy to code with
+useful messages. It is a popular inclusion in many projects.
 
 *lib-OLED-D1 is a rescaled version suited to smaller OLED used by D1
 Mini OLED shield.*
@@ -1016,27 +1023,53 @@ Uses a MCP23017 chip on I2C address 0x20 to add **new GPIO numbers 13 to
 That code assumes I2C needs initialising. If OLED for example has
 already initialised I2C, omit the first line.
 
+Also note that the I2C bus needs at least one pair of pullup resistors (to 3.3V). 
+Most PCB modules include such resistors, but if you are here using
+a simple mcp23017 chip, and you are not using anything else
+on I2C, you should add your own pullups.
+
 ## lib-ADC8.lua
 
 Uses CD4051 analog multiplexer chip to expand the one **ADC to 8
-channels** (0 – 7). Requires 3 digital GPIO pins as addressing to the
+channels** (0 – 7). Requires connecting 3 digital GPIO pins to select the analog channel on the
 CD4051. (If GPIO28 is installed first, the expanded gpio pins could be
 used.)
 
-Default addressing GPIOs if omitted are D6 D7 D8. Or specifying just one
-will assume a consecutive three. Use adc.init8() to enable the extra
-channels.
-
-Adc reading syntax is same style as the original one channel.
+Use **adc.init8(s0, s1, s2)** to enable the extra channel functionality.
+Default addressing GPIOs (if omitted) are D6 D7 D8. Or specifying just one
+will assume a consecutive three. 
+adc.read() syntax is same style as the original one channel.
 
 	dofile(“lib-ADC8.lua”)
 	adc.init8(6,7,8)
 	v5 = adc.read(5)
 
+## lib-ADC4.lua
+
+Uses one PCF8591 module to expand ADC by four new read()
+channels and one write() channel. 
+I2C port 0x48 is assumed but the library itself can be altered. As for other I2C devices, it uses the default sda=D2 and scl=D1 unless overridden before loading the library. Loading the library will initialise the extra channels only if the PCF8591 device is detected.
+
+The new ADC read() channels are numbered 8 to 11. 
+The adc.read() syntax is the same as usual, and a new adc.write()
+function is added:
+
+	dofile("lib-ADC4.lua")
+	
+	for c=8, 11
+	do
+	    print(c, adc.read(c) )
+	end
+	adc.write(57)
+
+This library is compatible with ADC8. 
+Either or both together may be used.
+
+
 Brian Lavery
 
 esuite@blavery.com
 
-V0.31
+V0.3.2
 
-28 Aug 2017
+31 Aug 2017
