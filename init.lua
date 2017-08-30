@@ -8,6 +8,8 @@ proj = "project01"
 -- then your "project" is ready to start
 -- short init might skip WIFI/TIME
 
+-- following line makes dofile(missingfile) into non-(panic/reboot):
+local df=dofile dofile=function(f) if file.exists(f) then df(f) else print("File ", f, "not exist") return end end
 
 -- refer lib-DEEPSLEEP.lua to understand these numbers
 if rtcmem and rtcmem.read32(20) == 123654 then-- test if waking from deepsleep? (either timer or button)
