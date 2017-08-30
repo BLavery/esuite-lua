@@ -8,13 +8,12 @@ Project List:
 06 "Smart" button. Detect different press length
 07 Telnet server - in 2 lines!
 08 Repeat SNTP time sync attempts if failed initially
+09 Digital gpio numbers expanded to D28 and analog to A7
 
 If it has no number, it is not posted up yet:
    Phone GPS to ESP8266 via Blynk
    Blynk bridge mode: ESP to ESP
    Blynk with mini-telnet ("TNET") in app terminal  
-   Analog expander to 8 inputs
-   Digital expander to 28 I/O
    MQTT
    Thingspeak
    Thingspeak DHT11 ESP-01
