@@ -95,6 +95,9 @@ Init.lua permits the ESP wifi to auto-connect (while waiting during blinking
 mode) to the last saved wifi access point. In any case, the file init2-WIFI
 is called after the 5 second wait time.
 
+Try not to tinker carelessly with init.lua. A really broken init.lua can
+cause repeated panic/reboot that only a binary re-flash of lua can salvage!
+
 
 ## init2-WIFI.lua:
 
