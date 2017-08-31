@@ -1,6 +1,4 @@
 -- PCF8591 module for ESP8266 with nodeMCU
--- Written by Sergey Martynov http://martynov.info
--- Based on http://www.nxp.com/documents/data_sheet/PCF8591.pdf
 
 -- On YL-40 board
 -- 0 = photoresistor
@@ -8,7 +6,6 @@
 -- 2 = thermistor 
 -- 3 = variable resistor
 
---adc4 = {}
 local device = 0x48 -- PCF8591 address, might vary from 0x48 to 0x4F
 
 local function clone (t) -- deep-copy a table.   Ref https://gist.github.com/MihailJP/3931841

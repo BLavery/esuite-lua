@@ -1046,9 +1046,12 @@ adc.read() syntax is same style as the original one channel.
 
 ## lib-ADC4.lua
 
-Uses one PCF8591 module to expand ADC by four new read()
-channels and one write() channel. 
-I2C port 0x48 is assumed but the library itself can be altered. As for other I2C devices, it uses the default sda=D2 and scl=D1 unless overridden before loading the library. Loading the library will initialise the extra channels only if the PCF8591 device is detected.
+Uses one PCF8591 module to expand ADC by **four new read()
+channels and one write() channel**. 
+
+I2C address 0x48 is assumed but the library itself can be altered. If you have no other I2C devices already running, then init the I2C before loading the library, as per several earlier examples. 
+
+Loading the library will initialise the extra channels only if the PCF8591 device is detected.
 
 The new ADC read() channels are numbered 8 to 11. 
 The adc.read() syntax is the same as usual, and a new adc.write()
@@ -1063,7 +1066,7 @@ function is added:
 	adc.write(57)
 
 This library is compatible with ADC8. 
-Either or both together may be used.
+Either one or both together may be used, but load ADC4 after ADC8.
 
 
 Brian Lavery

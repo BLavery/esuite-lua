@@ -10,18 +10,18 @@ Project List:
 08 Repeat SNTP time sync attempts if failed initially
 09 Digital gpio numbers expanded to D28 and analog to A7
 10 Analog module PCF8591. Adds A8 to A11, and adc.write()
+11 Deepsleep test by button
+12 Deepsleep battery longevity test, recorded to ThingSpeak
 
 If it has no number, it is not posted up yet:
    Phone GPS to ESP8266 via Blynk
    Blynk bridge mode: ESP to ESP
    Blynk with mini-telnet ("TNET") in app terminal  
    MQTT
-   Thingspeak
    Thingspeak DHT11 ESP-01
    Logging to both Thingspeak and MQTT
    Deepsleep test/demo
    Local Data logger in flash file
-   Deepsleep battery longevity test with thingspeak & logger
    Webserver with gpio controls
    Webserver with logger readout
    Webserver controls for servo, accelerometer, etc
