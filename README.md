@@ -2,7 +2,7 @@
 ## The manual
 An integrated collection of Lua files for ESP8266
 
-UNDER CONSTRUCTION as at Aug 2017
+UNDER CONSTRUCTION as at Sept 2017
 
 
 
@@ -13,7 +13,7 @@ boards (including NodeMCU and Wemos D1-mini), but it does work for
 ESP-01, within its gpio limits.
 
 It automates the startup including escape time, wifi connection and time
-setting. This leaves your project scripting to concentrate on exactly
+setting. This leaves to concentrate your project scripting on exactly
 what you want to control. Included is a collection of drop-in library
 files for many common devices. The library files are generally fairly
 practical and needing minimal configuration in your project.
@@ -63,8 +63,9 @@ your individual “project” file. So the standard minimum is four files.
 -   lib-WEBSERV.lua
 -   lib-WIFIMON.lua
 -   lib-SMARTBTN.lua
--   lib-GPIO25.lua
+-   lib-GPIO28.lua
 -   lib-ADC8.lua
+-   lib-ADC4.lua
 
 You **optionally** include library files into your project file.
 
@@ -83,16 +84,16 @@ remove/repair any misbehaving lua scripts.
 Init.lua also sets up a method of gently catching most cases of missing files
 that could cause dofile() to begin endlessly rebooting in panic.
 
-The top line declares the project file you are running. Eg proj =
-“project12”: that would run project12.lua.
+The top line declares the project file you are running. Eg **proj =
+“project12”**: that would run project12.lua.
 
-Init.lua includes an intercept to recognise a wake out of deepsleep, and
-optionally then to start up differently. This functionality is discussed in
-deepsleep module.
+Init.lua includes an intercept to recognise a wake out of deepsleep.
+If coming out of deepsleep, there can be different options on just how it starts up. 
+This functionality is discussed in deepsleep module.
 
-Init.lua permits the ESP to auto-connect (while waiting during blinking
-mode) to last saved wifi access point. In any case, the file init2-WIFI
-is called after the wait time.
+Init.lua permits the ESP wifi to auto-connect (while waiting during blinking
+mode) to the last saved wifi access point. In any case, the file init2-WIFI
+is called after the 5 second wait time.
 
 
 ## init2-WIFI.lua:
