@@ -1095,8 +1095,8 @@ and the other at pins 15,16,17,18 (on the mcp23017 extended GPIOs).
 
 Here are two typical "run" commands for these 2 steppers:
 
-	stp1:run(1, 1,100, 3, 0, fin_cb)
-	stp4:run(-2, 1, 40, nil, nil, fin_cb)
+	stp1:run(1, 1,100, fin_cb, 3, 0)
+	stp4:run(-2, 1, 40, fin_cb)
 	-- run(direction, mSecPerStep, TotalSteps, finish_callback, limitSwitchPin, LimitPinPolarity)
 
 Arguments (none of them compulsory) are: 
