@@ -28,7 +28,9 @@ code modules required for your project. I typically build with these
 options, and use the “float” version:
 
 adc, adxl345, bit, bme280, dht, file, gpio, http, i2c, mqtt, net, node,
-pwm, rtcmem, rtctime, sntp, spi, struct, tmr, u8g, uart, wifi. U8g
+pwm, rtcmem, rtctime, sntp, spi, struct, tmr, u8g, uart, wifi. 
+
+U8g
 supports the OLED screens, so choose 128x64 or 64x48 according to your
 type. Use a NEW build of firmware. Some commands changed syntax in 2017.
 
@@ -37,6 +39,9 @@ https://github.com/marcelstoer/nodemcu-pyflasher.
 
 ESPlorer is assumed as the regular IDE used for loading lua scripts to
 the ESP8288 and for interacting with your project during testing.
+
+The NodeMCU Lua environment uses the marked numbers for GPIO pins (D0 D1 etc),
+coded simply as 0, 1 ... This is NOT the chip's native numbering as used by the arduino-esp environment. [Opinion: historically a wrong choice, but that's what we have to work with.]  For the expansion gpio and adc pins in certain libraries below, that numbering pattern is used/extended for the added pins too.
 
 ## Common startup files:
 
@@ -1071,6 +1076,52 @@ function is added:
 
 This library is compatible with ADC8. 
 Either one or both together may be used, but load ADC4 after ADC8.
+
+
+## lib-STEPPER.lua
+
+This library drives one or more unipolar stepper motors.
+They are driven by the tmr.alarm() process, not genuine interrupt
+code, so they have inherent limitations of speed and jitter and interaction. 
+In particular, using extended GPIO, which use I2C for each GPIO switch, allows only 
+slow operation. 
+
+This will load the library and create two stepper objects, one at GPIO pins 4,5,6,7
+and the other at pins 15,16,17,18 (on the mcp23017 extended GPIOs).
+
+	dofile("lib-STEPPER.lua")
+	stp1=Stepper.new(4)
+	stp2=Stepper.new(15)
+
+Here are two typical "run" commands for these 2 steppers:
+
+	stp1:run(1, 1,100, 3, 0, fin_cb)
+	stp4:run(-2, 1, 40, nil, nil, fin_cb)
+	-- run(direction, mSecPerStep, TotalSteps, finish_callback, limitSwitchPin, LimitPinPolarity)
+
+Arguments (none of them compulsory) are: 
+
+-   Direction is 0=stop (default) 1=singlestepFwd 2=doublestepFwd -1=singleRev -2=doubleRev
+    So ** stpr()** would cause a stop.
+-   mSecPerStep. Practical lower limit is 2 (default). For extended GPIOs, this parameter
+    is wildly inaccurate and the stepper simply goes at its best speed for the setting!
+-   TotalSteps. 1 upwards, or -2=no limit (Default   -2) 
+-   Callback when run stops. Two parameters passed to callback:  
+    (stepper object ID, steps left not done at end of run). Default = none.
+-   Limit Switch = GPIO with switch. If switch turns on, terminate stepper run. DefaultPin=nil = not used. 
+    Default polarity = 1.
+
+Accumulated steps moved can be read from **stp1.posn**. Stp1.posn may also be reset
+to zero at any time (eg after a calibration run terminated against a limit switch).
+
+The "pin1" setting can be retrieved any time by **stp1.pin1**.  
+
+If several steppers run simultaneously, then their code sequences will interleave, with probable 
+slowing of the speeds.   
+
+The library code assumes HI outputs activate stepper coils. Rewrite state8{} in negative
+if you want the opposite.  The current code also puts all drive outputs LO at end of a run, 
+ie de-energises the stepper.
 
 
 Brian Lavery

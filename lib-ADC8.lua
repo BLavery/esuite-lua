@@ -40,6 +40,7 @@ function adc.init8(adr0, adr1, adr2)  -- ()  or (a0)   or (a0, a1, a2)
 end
 
 function adc.read(channel)  -- 0-7
+    if reg >= 8 then return adc_old.read(channel) end
     if adc.adr0 then 
         gpio.write(adc.adr0, bit.isset(channel,0) and 1 or 0)    -- D6 is lsb input A
         gpio.write(adc.adr1, bit.isset(channel,1) and 1 or 0)
