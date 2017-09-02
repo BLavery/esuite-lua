@@ -195,6 +195,9 @@ Even simpler, try this one-line project file!
 
 	dofile("lib-TELNET.lua")
 
+There are many example project files in the projects folder. 
+Refer there to the PROJECTLIST index.
+
 ## lib-OLED.lua
 ### (and lib-OLED-D1.lua):
 
@@ -1095,14 +1098,14 @@ and the other at pins 15,16,17,18 (on the mcp23017 extended GPIOs).
 
 Here are two typical "run" commands for these 2 steppers:
 
-	stp1:run(1, 1,100, fin_cb, 3, 0)
-	stp4:run(-2, 1, 40, fin_cb)
+	stp1:run(1, 1, 100, fin_cb, 3, 0)
+	stp4:run(-2, 1, 40)
 	-- run(direction, mSecPerStep, TotalSteps, finish_callback, limitSwitchPin, LimitPinPolarity)
 
 Arguments (none of them compulsory) are: 
 
 -   Direction is 0=stop (default) 1=singlestepFwd 2=doublestepFwd -1=singleRev -2=doubleRev
-    So ** stpr()** would cause a stop.
+    So "stpr()" would cause a stop.
 -   mSecPerStep. Practical lower limit is 2 (default). For extended GPIOs, this parameter
     is wildly inaccurate and the stepper simply goes at its best speed for the setting!
 -   TotalSteps. 1 upwards, or -2=no limit (Default   -2) 
