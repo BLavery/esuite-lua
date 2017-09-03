@@ -114,6 +114,11 @@ and the init files and project file will run as a sequence:
 -   press the reset button
 -   or (if ESPlorer is "talking" to the ESP) click RESTART at bottom right
 
+How do you see if the terminal is "talking" to your ESP? Is the port
+"Open"? Try clicking the HEAP button. If a (bytes of memory) 
+number comes back, then yes it's working. And the software-based RESTART 
+button can do the reboots for you.
+
 There is a function included ("approximately friendly") to capture 
 and report "missing file" errors. (You forgot to upload a required library file?)
 
@@ -1194,10 +1199,26 @@ This library adds selected missing functions to the math suite:
 The ACCEL and GPS libraries implicitly load these math extensions as needed, so probably you do not
 need to explicitly load anything.
 
+## lib-GPS.lua
+
+This library is support for GPS coordinates (in lat/long degrees) sent from your smartphone
+by Blynk. It has functions for calculating distance (km) and direction/bearing 
+(compass degrees) between two GPS readings.
+
+	dofile("lib-GPS.lua")
+	gps.Ref(home_latitude, home_longitude)
+
+and when blynk lat/long arrive from phone:
+
+	d, b = gps.Distance(phone_lat, phone_long)
+	print("Dist / Bearing of phone", d, b)
+
+
+
 Brian Lavery
 
 esuite@blavery.com
 
-V0.3.2
+V0.3.3
 
-31 Aug 2017
+03 Sept 2017
