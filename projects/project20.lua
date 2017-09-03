@@ -1,4 +1,4 @@
-print("Project 16: MQTT Thingspeak DHT22 Telnet Logger for ESP-01")
+print("Project 20: MQTT Thingspeak DHT22 Telnet Logger for ESP-01")
 -- an untidy complicated little project suiting a ESP-01
 -- "The mouse that roared"
 

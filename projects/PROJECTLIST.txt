@@ -15,7 +15,7 @@ Project List:
 13 Stepper motor unipolar
 14 GPS widget on smartphone. ESP shows distance & bearing (blynk)
 15 Accel widget on phone. ESP shows pitch/roll (blynk)
-16 ESP-01. MQTT & Thingspeak & DHT22 weather & logger & telnet
+20 ESP-01. MQTT & Thingspeak & DHT22 weather & logger & telnet
 
 If it has no number, it is not posted up yet:
    Blynk bridge mode: ESP to ESP
