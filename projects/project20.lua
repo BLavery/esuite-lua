@@ -56,6 +56,8 @@ function mqtt_recv(topic,data)
 end
 
 dofile("lib-MQTT.lua")
+-- have you put your mqtt credentials in the library file?
+
 gpio.trig(3, "down", function() mqtt_publish("ButtonD3", string.sub(Time(),1,5)) end )
  
 DHT = 4 -- gpio2
@@ -83,6 +85,8 @@ end)
 
 tport=23
 dofile("lib-TELNET.lua")
+
+APIKEY="-- your thingspeak write apikey --"
 dofile("lib-THINGSPEAK.lua")
 
 -- init log entry

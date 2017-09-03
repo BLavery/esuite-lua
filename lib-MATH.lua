@@ -56,5 +56,5 @@ end
 function math.cos(x)
     return math.sqrt(1-math.pow(math.sin(x),2))  -- sin^2 + cos^2 = 1
 end
--- math.pi / 180 = degrees to radians
+
 math.rad =  math.pi / 180
