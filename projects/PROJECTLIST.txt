@@ -13,9 +13,9 @@ Project List:
 11 Deepsleep test by button
 12 Deepsleep battery longevity test, recorded to ThingSpeak
 13 Stepper motor unipolar
+14 GPS widget on smartphone. ESP shows distance & bearing (blynk)
 
 If it has no number, it is not posted up yet:
-   Phone GPS to ESP8266 via Blynk
    Blynk bridge mode: ESP to ESP
    Blynk with mini-telnet ("TNET") in app terminal  
    MQTT

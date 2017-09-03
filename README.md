@@ -323,6 +323,10 @@ by the first.
 Using Blynk library can be trivially easy, as above in project file section, or it may require
 some careful scripting to customise it to exactly what you want.
 
+The Blezek library is very "lean". In general you code your
+own handling for incoming and outgoing blynk messages between
+ESP and phone, except for generic GPIO control, which is very easy.
+
 The full initialising in your project is like this:
 
 	dofile ( 'lib-BLYNK.lua' )
@@ -331,7 +335,7 @@ The full initialising in your project is like this:
 
 The bottom lines can be merged as in the example earlier.
 
-**TraceMode** may be omitted. If it is true then a diagnostic trace of
+**TraceMode** is usually omitted. If it is **true** then a diagnostic trace of
 each data packet to and from the blynk server is displayed.
 
 If the **setup_callback_function** is **omitted or nil**, then a
