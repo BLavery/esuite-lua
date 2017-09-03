@@ -485,6 +485,11 @@ All the project files use a lookup file **{token}.lua** that has the user's
  Blynk AUTH TOKEN recorded. This avoids editing the token into many 
  project files.
 
+The example project files refer to a common 1-line file {token}.lua.
+Putting your blynk token there means you edit it into only one place,
+and your several blynk projects read that same token. This approach is not compulsory,
+you can put your token directly into your project file if you want.
+
 Blynk library is derived from https://github.com/blezek/blynk-esp,
 Daniel Blezek, MIT licence, 2016. That website has some usage
 information that may be useful for this variant of the library.
@@ -1126,6 +1131,18 @@ The library code assumes HI outputs activate stepper coils. Rewrite state8{} in 
 if you want the opposite.  The current code also puts all drive outputs LO at end of a run, 
 ie de-energises the stepper.
 
+## lib-MATH.lua
+
+This library adds selected missing functions to the math suite: 
+
+-   math.sin() 
+-   math.cos() 
+-   math.atan()
+-   math.atan2() 
+-   math.rad
+
+The ACCEL and GPS libraries implicitly load these math extensions as needed, so probably you do not
+need to explicitly load anything.
 
 Brian Lavery
 

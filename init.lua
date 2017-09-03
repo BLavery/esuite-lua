@@ -73,3 +73,12 @@ print(rc[rawcode], ec[extcode+1])
 if extcode == 2 then print (node.bootreason()) end
 -- BUT DON'T BELIEVE IT RELIGIOUSLY !!
 
+function clone (t) 
+-- clones a romtable (or table) into ram. Member romtables or lightfunctions remain in rom
+-- eg   math=clone(math)
+    local target = {}
+    for k, v in pairs(t) do target[k] = v end
+    setmetatable(target, getmetatable(t)) 
+    target['parent'] = t
+    return target  
+end 

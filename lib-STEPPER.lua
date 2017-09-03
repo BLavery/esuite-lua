@@ -1,7 +1,7 @@
 dofile("lib-OLED.lua")
 dofile("lib-GPIO28.lua")
 
-states8 = {  -- table shows 8 steps. Double-stepping is allowed, then uses only states 1 3 5 7
+local states8 = {  -- table shows 8 steps. Double-stepping is allowed, then uses only states 1 3 5 7
  {1,0,0,1},
  {1,0,0,0},
  {1,1,0,0},
@@ -11,7 +11,7 @@ states8 = {  -- table shows 8 steps. Double-stepping is allowed, then uses only 
  {0,0,1,1},
  {0,0,0,1},
 }
-Stepper = {selfs_array={}}
+Stepper = {identifyMe={}}
 Stepper.__index = Stepper
 
 -- halfstep true/false
@@ -27,7 +27,7 @@ function Stepper.new(pin1)
         gpio.write(pin1+c, gpio.LOW)
     end
     self.timer = tmr.create()
-    Stepper.selfs_array[self.timer]=self -- index each self against its timer as key
+    Stepper.identifyMe[self.timer]=self -- index each stepper "self" against its timer as key
     return self
 end
 
@@ -37,7 +37,7 @@ end
 function Stepper.step1(timr)
     -- execution time abt 1 mSec, or abt 22mSec for mcp23017 extended GPIOs!
     -- and fastest timer is 1mSec. So best performance is 500 steps or doublesteps / sec.
-    local self = Stepper.selfs_array[timr]  -- only argument we get is timer.  Retrieve stepper "self" by code.
+    local self = Stepper.identifyMe[timr]  -- only argument we get is timer.  Retrieve stepper "self" by timer code.
     if self.stepsleft>0 then self.stepsleft = self.stepsleft-math.abs(self.dir) end
     local left = self.stepsleft
     if self.limitpin and (gpio.read(self.limitpin) == self.pol) then self.stepsleft=0 end

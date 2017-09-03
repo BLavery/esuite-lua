@@ -11,23 +11,7 @@ if adc.force_init_mode(adc.INIT_ADC) then
 end  -- if adc mode was wrong, swap & restart correctly (new nodemcu feature May 2016)
 
 
-local function clone (t) -- deep-copy a table.   Ref https://gist.github.com/MihailJP/3931841
-    if type(t) ~= "romtable" and type(t) ~= "table"  then return t end
-    local meta = getmetatable(t)
-    local target = {}
-    for k, v in pairs(t) do
-        if type(v) == "romtable" or type(t) == "table" then
-            target[k] = clone(v)
-        else
-            target[k] = v
-        end
-    end
-    setmetatable(target, meta) 
-    return target  
-end 
- 
-local adc_old = adc -- an alias name for orig adc function, still pointing into rom
-adc = clone(adc_old) -- a ram-based clone
+adc = clone(adc) -- a ram-based clone
 
 function adc.init8(adr0, adr1, adr2)  -- ()  or (a0)   or (a0, a1, a2)
     adc.adr0 = adr0 or 6
@@ -40,13 +24,13 @@ function adc.init8(adr0, adr1, adr2)  -- ()  or (a0)   or (a0, a1, a2)
 end
 
 function adc.read(channel)  -- 0-7
-    if reg >= 8 then return adc_old.read(channel) end
+    if reg >= 8 then return adc.parent.read(channel) end
     if adc.adr0 then 
         gpio.write(adc.adr0, bit.isset(channel,0) and 1 or 0)    -- D6 is lsb input A
         gpio.write(adc.adr1, bit.isset(channel,1) and 1 or 0)
         gpio.write(adc.adr2, bit.isset(channel,2) and 1 or 0)  -- D8 is msb input C
     end
-    return adc_old.read(0)  
+    return adc.original.read(0)  
 end
 
 

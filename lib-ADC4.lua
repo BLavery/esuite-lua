@@ -8,33 +8,16 @@
 
 local device = 0x48 -- PCF8591 address, might vary from 0x48 to 0x4F
 
-local function clone (t) -- deep-copy a table.   Ref https://gist.github.com/MihailJP/3931841
-    if type(t) ~= "romtable" and type(t) ~= "table" then return t end
-    local meta = getmetatable(t)
-    local target = {}
-    for k, v in pairs(t) do
-        if type(v) == "romtable" or type(t) == "table" then
-            target[k] = clone(v)
-        else
-            target[k] = v
-        end
-    end
-    setmetatable(target, meta) 
-    return target  
-end 
-
-
 i2c.start(0)
-c=i2c.address(0, device ,i2c.TRANSMITTER) -- probe for pcf8591 installed?
+local c=i2c.address(0, device ,i2c.TRANSMITTER) -- probe for pcf8591 installed?
 i2c.stop(0)
 if c then 
     print "PCF8591 found"
-    local adc_old = adc -- an alias name for orig adc function, still pointing into rom
-    adc = clone(adc_old) -- a ram-based clone
+    adc = clone(adc) -- a ram-based clone
 
     -- read adc register 0 to 3
     function adc.read(reg)
-      if reg <8 then return adc_old.read(reg) end
+      if reg <8 then return adc.parent.read(reg) end
       
       i2c.start(0)
       i2c.address(0, device, i2c.TRANSMITTER)
