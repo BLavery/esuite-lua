@@ -1,4 +1,4 @@
-print("Project14: Blynk gps")
+print("Project14: Blynk gps from phone")
 -- this project shows distance and bearing of blynk on smartphone
 -- reference brisbane
 

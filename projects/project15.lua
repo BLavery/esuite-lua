@@ -1,4 +1,4 @@
-print("Project14: Blynk accelerometer from phone")
+print("Project15: Blynk accelerometer from phone")
  
 vw_cb = function(cmd)
     pin = tonumber(cmd[2])
@@ -10,15 +10,11 @@ vw_cb = function(cmd)
     end
 end
  
-setup_cb = function(b)
-    b:on("vw", vw_cb)
-end 
- 
 dofile("{token}.lua")
 dofile ( 'lib-BLYNK.lua' )
-b=blynk.new (token, setup_cb):connect()
+b=blynk.new (token, function(b) b:on("vw", vw_cb) end ):connect()
 
-dofile("lib-ACCEL.lua")
+dofile("lib-ACCEL.lua") -- provides the pitch/roll maths
 
 
 -- at phone, accelerometer vpin 13, 1 sec
