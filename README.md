@@ -71,8 +71,58 @@ your individual “project” file. So the standard minimum is four files.
 -   lib-GPIO28.lua
 -   lib-ADC8.lua
 -   lib-ADC4.lua
+-   lib-GPS.lua
+-   lib-STEPPER.lua
 
 You **optionally** include library files into your project file.
+
+## General usage:
+
+The regular simple project is:
+
+-   init.lua
+-   init2_WIFI.lua
+-   init3_TIME.lua
+-   projectXX.lua
+
+Any further libraries are run only according to what you code in your
+project script.
+
+During development or experimenting, you may have various 
+"project" files uploaded to ESP8266 at any time. 
+
+**Q:** So which project runs when the "init" is complete?   
+**A:** Edit top line of your init.lua to name your required project.
+Then upload the changed init.lua to ESP8266 again, and reboot.
+
+Try not to damage init.lua. That can cause repetitive reboots that 
+sometimes only a lua binary reflash can fix.
+
+All of the files you need for your project to run must be uploaded to the ESP8266.
+You can see the loaded files listed by clicking RELOAD at right side column.
+
+You may find editing and uploading your lua files more intuitive
+if you DON'T use ESPlorer's left panel file edit facility. Simply
+use your choice of external editor (I use geany, but everyone
+has some preference), and then use ESPlorer just to upload. 
+UPLOAD button is at bottom right of left side footer.
+
+You never start files executing by clicking on the file listing at
+right hand column. You always restart the project running by doing a full reboot, 
+and the init files and project file will run as a sequence:
+
+-   press the reset button
+-   or (if ESPlorer is "talking" to the ESP) click RESTART at bottom right
+
+There is a function included ("approximately friendly") to capture 
+and report "missing file" errors. (You forgot to upload a required library file?)
+
+One more hint: During your testing, CPU/Lua "panic" errors 
+will cause reboots. Get used to them: work with the limitations of a 
+tiny processor. To view the "panic" message, turn off "Autoscrolling"
+(up near the port OPEN/CLOSE button) and scroll the terminal window up 
+to just before the reboot messages. Usually you can read
+the offending lua script name and the problem line number. 
 
 ## init.lua:
 
@@ -1083,7 +1133,7 @@ function is added:
 	adc.write(57)
 
 This library is compatible with ADC8. 
-Either one or both together may be used, but load ADC4 after ADC8.
+Either one or both together may be used.
 
 
 ## lib-STEPPER.lua
