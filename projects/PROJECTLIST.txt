@@ -9,25 +9,24 @@ Project List:
 07 Telnet server - in 2 lines!
 08 Repeat SNTP time sync attempts if failed initially
 09 Digital gpio numbers expanded to D28 and analog to A7
-10 Analog module PCF8591. Adds A8 to A11, and adc.write()
+10 Analog module PCF8591. Adds read A8 to A11, and adc.write()
 11 Deepsleep test by button
 12 Deepsleep battery longevity test, recorded to ThingSpeak
 13 Stepper motor unipolar
 14 GPS widget on smartphone. ESP shows distance & bearing (blynk)
 15 Accel widget on phone. ESP shows pitch/roll (blynk)
+16 ESP-01. MQTT & Thingspeak & DHT22 weather & logger & telnet
 
 If it has no number, it is not posted up yet:
    Blynk bridge mode: ESP to ESP
    Blynk with mini-telnet ("TNET") in app terminal  
-   MQTT
-   Thingspeak DHT11 ESP-01
-   Logging to both Thingspeak and MQTT
-   Deepsleep test/demo
+   Simple MQTT
+   Logging to Thingspeak
    Local Data logger in flash file
    Webserver with gpio controls
    Webserver with logger readout
    Webserver controls for servo, accelerometer, etc
-   HCsr04 sonar controlling tank pump, override from browser
+   Webserver. Sonar controlling tank pump, override from browser
    Webserver offering TNET
    
 
