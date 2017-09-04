@@ -911,7 +911,7 @@ This library allows data postings to your “channel” on ThingSpeak:
 
 **https://thingspeak.com**
 
-<img align="right" src="images/temp-tspeak.png">ThingSpeak is devoted to collecting repeat data, and allows analysis and
+<img align="right" src="images/temptspeak.png">ThingSpeak is devoted to collecting repeat data, and allows analysis and
 plotting of the collected data. For paid subscription, very
 sophisticated analysis tools are available, including MatLab analytics.
 For a free subscription, basic but very usable plotting tools are still
