@@ -595,7 +595,7 @@ is a useful diagnostic. Or parameter echoLed may be omitted.
 
 run() will start the reading as a background task forever.. By default,
 the background reading repeats every 2000 mSec. run() can take one
-optional parameter, a custom repeat time in mSec.<img style="float: right;" src="images/sr04.jpg">
+optional parameter, a custom repeat time in mSec.<img style="float: left;" src="images/sr04.jpg">
 
 You “read” like this:
 
