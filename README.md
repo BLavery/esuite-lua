@@ -583,8 +583,8 @@ to ESP8266 is:
     resistor to ground, and we therefore have a suitable voltage divider
     to protect from the 5V of echo pin.
 
-|![HC-SR04 "sonar"](images/sr04.jpg "Sonar")|Multiple sonar devices can be configured. Just call Sonar.new() again
-for other pins.|
+| ![HC-SR04 "sonar"](images/sr04.jpg "Sonar") | Multiple sonar devices can be configured. Just call Sonar.new() again
+for other pins. |
 
 run() may be joined into combination initialisation:
 
