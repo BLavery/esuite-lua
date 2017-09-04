@@ -111,8 +111,9 @@ You never start files executing by clicking on the file listing at
 right hand column. You always restart the project running by doing a full reboot, 
 and the init files and project file will run as a sequence:
 
--   press the reset button
+-   press the reset button (hardware reset)
 -   or (if ESPlorer is "talking" to the ESP) click RESTART at bottom right
+(software initiated reset)
 
 How do you see if the terminal is "talking" to your ESP? Is the port
 "Open"? Try clicking the HEAP button. If a (bytes of memory) 
@@ -121,6 +122,15 @@ button can do the reboots for you.
 
 There is a function included ("approximately friendly") to capture 
 and report "missing file" errors. (You forgot to upload a required library file?)
+
+Here are the areas you probably need to edit for your own circumstances:
+
+-   init.lua - to set the name of currect project file
+-   init3-WIFI-lua - to nominate your wifi AP(s) and the password
+-   Your APIKEY for a Thinkspeak project. In your project file
+-   Your login address and credentials for a MQTT job - in lib-MQTT.lua
+-   Your blynk token for a blynk project. In {token}.lua
+
 
 One more hint: During your testing, CPU/Lua "panic" errors 
 will cause reboots. Get used to them: work with the limitations of a 
