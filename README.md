@@ -565,8 +565,6 @@ information that may be useful for this variant of the library.
 
 ## lib-ULTRASONIC.lua:
 
-![HC-SR04 "sonar"](images/sr04.jpg "Sonar")
-
 	dofile("lib-ULTRASONIC.lua")
 	mysonar = Sonar.new(7, 8, 4) -- trig, echo, echoLed
 	mysonar:run()
@@ -913,7 +911,7 @@ This library allows data postings to your “channel” on ThingSpeak:
 
 **https://thingspeak.com**
 
-ThingSpeak is devoted to collecting repeat data, and allows analysis and
+<img align="right" src="temp-tspeak.png">ThingSpeak is devoted to collecting repeat data, and allows analysis and
 plotting of the collected data. For paid subscription, very
 sophisticated analysis tools are available, including MatLab analytics.
 For a free subscription, basic but very usable plotting tools are still
@@ -1108,7 +1106,7 @@ Uses a MCP23017 chip on I2C address 0x20 to add **new GPIO numbers 13 to
 	gpio.mode(17,gpio.OUTPUT) 
 	gpio.write(17, gpio.HIGH)
 
-That code assumes I2C needs initialising. If OLED for example has
+<img align="right" src="images/23017.jpg">That code assumes I2C needs initialising. If OLED for example has
 already initialised I2C, omit the first line.
 
 Also note that the I2C bus needs at least one pair of pullup resistors (to 3.3V). 
