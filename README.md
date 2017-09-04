@@ -52,7 +52,7 @@ These are always used. They chain in sequence, and then pass control to
 your individual “project” file. So the standard minimum is four files.
 
 ## Library Files:
-
+<img align="right" src="images/library.png">
 -   lib-BLYNK.lua
 -   lib-LOGGER.lua
 -   lib-OLED.lua
@@ -75,7 +75,7 @@ your individual “project” file. So the standard minimum is four files.
 -   lib-TONE.lua
 -   lib-MATH.lua
 
-You **optionally** include library files into your project file.
+<img align="right" src="images/library.png">You **optionally** include library files into your project file.
 
 ## General usage:
 
