@@ -567,13 +567,11 @@ information that may be useful for this variant of the library.
 
 ![HC-SR04 "sonar"](images/sr04.jpg "Sonar")
 
-<img style="float: right;" src="images/sr04.jpg">
-
 	dofile("lib-ULTRASONIC.lua")
 	mysonar = Sonar.new(7, 8, 4) -- trig, echo, echoLed
 	mysonar:run()
     
-This module is for HC-SR04 “sonar” 4-pin device. This is a 5 volt item,
+<img style="float: left;" src="images/sr04.jpg">This module is for HC-SR04 “sonar” 4-pin device. This is a 5 volt item,
 and will not work satisfactorily at a 3.3V supply. The easiest interface
 to ESP8266 is:
 
