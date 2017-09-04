@@ -567,6 +567,8 @@ information that may be useful for this variant of the library.
 
 ![HC-SR04 "sonar"](images/sr04.jpg "Sonar")
 
+<img style="float: right;" src="images/sr04.jpg">
+
 	dofile("lib-ULTRASONIC.lua")
 	mysonar = Sonar.new(7, 8, 4) -- trig, echo, echoLed
 	mysonar:run()
