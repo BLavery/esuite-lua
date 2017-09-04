@@ -16,12 +16,12 @@ Project List:
 14 GPS widget on smartphone. ESP shows distance & bearing (blynk)
 15 Accel widget on phone. ESP shows pitch/roll (blynk)
 16 MQTT demo. Publish to MQTT topics, and subscribe to topics.
-20 ESP-01. MQTT & Thingspeak & DHT22 weather & logger & telnet
+19 Tone generator for passive beeper
+20 ESP-01. MQTT & Thingspeak & DHT22 weather & logger & telnet combo!
 
 If it has no number, it is not posted up yet:
    Blynk bridge mode: ESP to ESP
    Blynk with mini-telnet ("TNET") in app terminal  
-   Simple MQTT
    Logging to Thingspeak
    Local Data logger in flash file
    Webserver with gpio controls

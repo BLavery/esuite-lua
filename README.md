@@ -1227,6 +1227,13 @@ and when blynk lat/long arrive from phone:
 	d, b = gps.Distance(phone_lat, phone_long)
 	print("Dist / Bearing of phone", d, b)
 
+## lib-TONE.lua
+
+Tone generator for a single passive beeper. Freq 100 - 1000 Hz.
+
+	tone(pin, hz, msec [,fin_callback])
+
+
 
 
 Brian Lavery
