@@ -72,6 +72,8 @@ your individual “project” file. So the standard minimum is four files.
 -   lib-ADC4.lua
 -   lib-GPS.lua
 -   lib-STEPPER.lua
+-   lib-TONE.lua
+-   lib-MATH.lua
 
 You **optionally** include library files into your project file.
 
