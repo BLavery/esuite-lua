@@ -268,7 +268,7 @@ Refer there to the PROJECTLIST index.
 
 This library is for the common “0.96-inch” 128x64 I2C oled display. 
 
-By default all I2C devices in this suite use pins SDA=D2 and SCL=D1 for I2C. 
+<img align="right" src="images/oled.jpg">By default all I2C devices in this suite use pins SDA=D2 and SCL=D1 for I2C. 
 These can be overridden by presetting global variables **sda** and **scl**
 before starting any I2C devices.
 
@@ -645,7 +645,7 @@ to 6 volts. There are 3 wires:
 
 Reference: https://www.princeton.edu/~mae412/TEXT/NTRAK2002/292-302.pdf
 
-The ESP8266 NodeMCU board can probably supply enough 5V current for
+<img align="right" src="images/servo.jpg">The ESP8266 NodeMCU board can probably supply enough 5V current for
 **one** servo without you resorting to a separate 5V supply. Several
 servos is too much for this method. Get a battery pack or other
 independent supply.
@@ -675,7 +675,7 @@ Multiple servos may be created.
 
 ## lib-ACCEL.lua:
 
-The ACCEL library is additional support for triple-axis adxl345 I2C
+<img align="right" src="images/accel.jpg">The ACCEL library is additional support for triple-axis adxl345 I2C
 accelerometer. The NodeMCU Lua firmware build already has a basic driver
 for the adxl345, delivering X and Y and Z acceleration values. We have
 no evidence of the scaling of the values returned, but we should be
@@ -742,7 +742,7 @@ which results in short life per battery charge under battery operation.
 down, leaving only the RTC module still keeping time in order to rewake
 the system later.
 
-If the ESP8266 needs to do occasional tasks such as read a temperature
+<img align="right" src="images/zzz.png">If the ESP8266 needs to do occasional tasks such as read a temperature
 at regular intervals, and to act on that sometimes (turn on fan? send
 message by wifi?), then putting it into deepsleep while otherwise idle
 can be an extremely large saving in battery use. Deepsleep can be
@@ -832,7 +832,7 @@ on every precise hour with a few seconds accuracy.
 
 ## lib-TELNET.lua:
 
-Runs a telnet server on ESP8266. From another PC on your network, you
+<img align="right" src="images/telnet.png">Runs a telnet server on ESP8266. From another PC on your network, you
 get the same interpreter / commandline functionality as you see in
 ESPlorer. Any programmed Lua serial output, eg print( “hello world” ),
 duplicates to the telnet terminal.
@@ -1121,7 +1121,7 @@ channels** (0 – 7). Requires connecting 3 digital GPIO pins to select the anal
 CD4051. (If GPIO28 is installed first, the expanded gpio pins could be
 used.)
 
-Use **adc.init8(s0, s1, s2)** to enable the extra channel functionality.
+<img align="right" src="images/4051.jpg">Use **adc.init8(s0, s1, s2)** to enable the extra channel functionality.
 Default addressing GPIOs (if omitted) are D6 D7 D8. Or specifying just one
 will assume a consecutive three. 
 adc.read() syntax is same style as the original one channel.
@@ -1139,7 +1139,7 @@ I2C address 0x48 is assumed but the library itself can be altered. If you have n
 
 Loading the library will initialise the extra channels only if the PCF8591 device is detected.
 
-The new ADC read() channels are numbered 8 to 11. 
+<img align="right" src="images/8591.jpg">The new ADC read() channels are numbered 8 to 11. 
 The adc.read() syntax is the same as usual, and a new adc.write()
 function is added:
 
@@ -1163,7 +1163,7 @@ code, so they have inherent limitations of speed and jitter and interaction.
 In particular, using extended GPIO, which use I2C for each GPIO switch, allows only 
 slow operation. 
 
-This will load the library and create two stepper objects, one at GPIO pins 4,5,6,7
+<img align="right" src="images/stepper.jpg">This will load the library and create two stepper objects, one at GPIO pins 4,5,6,7
 and the other at pins 15,16,17,18 (on the mcp23017 extended GPIOs).
 
 	dofile("lib-STEPPER.lua")
@@ -1227,7 +1227,7 @@ and when blynk lat/long arrive from phone:
 	d, b = gps.Distance(phone_lat, phone_long)
 	print("Dist / Bearing of phone", d, b)
 
-## lib-TONE.lua
+## lib-TONE.lua<img align="right" src="images/beeper.jpg">
 
 Tone generator for a single passive beeper. Freq 100 - 1000 Hz.
 
