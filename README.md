@@ -2,9 +2,6 @@
 ## The manual
 An integrated collection of Lua files for ESP8266
 
-UNDER CONSTRUCTION as at Sept 2017
-
-
 
 ## Overview:
 
@@ -12,8 +9,8 @@ This suite of files is intended primarily for use with ESP12-based
 boards (including NodeMCU and Wemos D1-mini), but it does work for
 ESP-01, within its gpio limits.
 
-It automates the startup including escape time, wifi connection and time
-setting. This leaves to concentrate your project scripting on exactly
+It automates the standard startup including escape time, wifi connection and time
+setting. This leaves you to concentrate just on your project scripting: on exactly
 what you want to control. Included is a collection of drop-in library
 files for many common devices. The library files are generally fairly
 practical and needing minimal configuration in your project.
@@ -23,9 +20,9 @@ in conjunction with a nearby wifi access point. The ESP8266 is a
 wifi-capable chip, and merely using an isolated “blink a LED” project
 misses its point!
 
-The NodeMCU build from **http://nodemcu-build.com** will need to include
+Your NodeMCU build from **http://nodemcu-build.com** will need to include
 code modules required for your project. I typically build with these
-options, and use the “float” version:
+options, and I use the “float” version:
 
 adc, adxl345, bit, bme280, dht, file, gpio, http, i2c, mqtt, net, node,
 pwm, rtcmem, rtctime, sntp, spi, struct, tmr, u8g, uart, wifi. 
@@ -38,10 +35,12 @@ Recommend using **pyFlasher** to load to ESP. See
 https://github.com/marcelstoer/nodemcu-pyflasher.
 
 ESPlorer is assumed as the regular IDE used for loading lua scripts to
-the ESP8288 and for interacting with your project during testing.
+the ESP8288 and for interacting with your project during testing. 
+However, after deployment, telnet may be a better monitoring
+tool in place of ESPlorer.
 
 The NodeMCU Lua environment uses the marked numbers for GPIO pins (D0 D1 etc),
-coded simply as 0, 1 ... This is NOT the chip's native numbering as used by the arduino-esp environment. [Opinion: historically a wrong choice, but that's what we have to work with.]  For the expansion gpio and adc pins in certain libraries below, that numbering pattern is used/extended for the added pins too.
+coded simply as 0, 1 ... This is NOT the chip's native GPIO numbering as used by the arduino-esp environment. [Opinion: historically a wrong choice, but that's what we have to work with.]  For the expansion gpio and adc pins in certain libraries below, that numbering pattern is used/extended for the added pins too.
 
 ## Common startup files:
 
@@ -781,7 +780,7 @@ Your project file of course needs to handle putting to sleep, and then
 handling life as normal after the waking. And then deciding when to
 sleep again next time.
 
-The ESP8266 has a maximun sleep time of just over one hour. If we wanted
+The ESP8266 has a maximum sleep time of just over one hour. If we wanted
 very long sleeps, we could sleep several times, waking between each pass
 just long enough to recognise we have more sleeps to go. The library can
 accommodate that easily, and so scheduling an (aggregated) sleep of say
@@ -1182,9 +1181,9 @@ Arguments (none of them compulsory) are:
     So "stpr()" would cause a stop.
 -   mSecPerStep. Practical lower limit is 2 (default). For extended GPIOs, this parameter
     is wildly inaccurate and the stepper simply goes at its best speed for the setting!
--   TotalSteps. 1 upwards, or -2=no limit (Default   -2) 
+-   TotalSteps. 1+, or -2=no limit (Default   -2) 
 -   Callback when run stops. Two parameters passed to callback:  
-    (stepper object ID, steps left not done at end of run). Default = none.
+    (stepper object ID, steps left not done at end of run). Default = no callback.
 -   Limit Switch = GPIO with switch. If switch turns on, terminate stepper run. DefaultPin=nil = not used. 
     Default polarity = 1.
 
@@ -1240,6 +1239,6 @@ Brian Lavery
 
 esuite@blavery.com
 
-V0.3.3
+V0.4
 
-03 Sept 2017
+04 Sept 2017
