@@ -142,7 +142,7 @@ the offending lua script name and the problem line number.
 
 ## init.lua:
 
-Has a 5 second wait period before chaining to WIFI file. During the wait
+<img align="right" src="images/init.png">Has a 5 second wait period before chaining to WIFI file. During the wait
 time the inbuilt led (D4) on ESP12 submodule will blink. The “flash”
 button (D3) is read at the END of the blinking period, and if being held
 will abort any further processing. This allows a crashing lua file to be
@@ -177,7 +177,7 @@ and chains immediately to init2-TIME. Otherwise it waits and continues
 retrying to connect, if necessary cycling between the configured wifi
 credentials given.
 
-One or several wifi stations may be listed as acceptable. This allows
+<img align="right" src="images/wifi.png">One or several wifi stations may be listed as acceptable. This allows
 for easily using in classroom and at home: the ESP will find the
 available Access Point for each premises.
 
@@ -217,7 +217,7 @@ that frequently calling a single timeserver (eg during rapid
 testing/rebooting) seems sometimes to cause denials from the afflicted
 timeserver!
 
-Fetching true time can sometimes fail, in which case ESP time is usually
+<img align="right" src="images/time1.png">Fetching true time can sometimes fail, in which case ESP time is usually
 set at 1970. If time from SNTP server fails, **and** the ESP is awaking
 from deepsleep, then the time is left at the time preserved by the
 deepsleep functioning. This can be a bit inaccurate, as the low-res
@@ -695,7 +695,7 @@ Initialise:
 	i2c.setup(0, sda, scl, i2c.SLOW) -- if i2c not already set up
 	adxl345.setup() -- but see init() below
 
-So far, the lib-ACCEL library is not needed! The library simply supply
+So far, the lib-ACCEL library is not needed! The library simply supplies
 the math formulae for pitch and roll:
 
 Here is a complete project to read the adxl345 every 3 seconds, use our
@@ -716,8 +716,8 @@ syntax:
 	tmr.alarm(2, 3000, 1, function()
 			local x, y ,z = adxl345.read()
 			print(string.format( "X = %d, Y = %d, Z = %d", x, y, z ) )
-			pitch = axl_pitch(y, z) -- inverted pcb
-			roll = axl_roll(x, z)
+			pitch = axl.pitch(y, z) -- inverted pcb
+			roll = axl.roll(x, z)
 			oled('y', { "P "..pitch, "R "..roll } )
 		end 
 	) 
@@ -820,8 +820,9 @@ whether an abbreviated startup is being requested.
 If you are testing, and using multi-pass sleeps sequence, then on some
 boards pressing the reset button will terminate that pass, but the
 remaining passes will still proceed. It depends on the exact board
-schematic and that varies! (NodeMCU 1.0 – NO. Lolin “V3” - YES) Power
-off / power on always erases all RTC time and data, and results in clean
+schematic and that varies! (NodeMCU 1.0 – NO. Lolin “V3” - YES) 
+
+Power off / power on always erases all RTC time and data, and results in clean
 normal start.
 
 Because deepsleep timekeeping has poor accuracy, wakeup times may drift,
