@@ -317,7 +317,7 @@ icons to control or read devices or GPIOs on the target “device”. Our
 device (aka our “hardware”) is the ESP8266. You will configure a widget
 on the APP for each thing you want to control on the ESP.
 
-<img align="right" src="images/blynk.jpg">But you must configure the “device” setting on your tablet as
+But you must configure the “device” setting on your tablet as
 “**generic**”, not “ESP8266” or “NodeMCU”. Both those will attempt to
 use native CPU gpio numbers at your ESP. That would suit “arduino mode”
 of programming the ESP8288, but our eSuite is written in Lua which uses
@@ -389,7 +389,7 @@ function. set_callbacks() registers three further callbacks that blynk
 will later call at each “**pm**” message or “**dw**” or “**dr**”
 message.
 
-Blynk keeps an array of callbacks, including
+<img align="right" src="images/blynk.jpg">Blynk keeps an array of callbacks, including
 
 -   “receive”, “connection”, “disconnection” (all events happening at
     the level of TCP/IP connection to blynk server, and that we usually
