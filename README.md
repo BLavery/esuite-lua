@@ -565,9 +565,7 @@ information that may be useful for this variant of the library.
 
 ## lib-ULTRASONIC.lua:
 
-![HC-SR04 "sonar1"](blob/master/images/sr04.jpg "Sonar1")
-![HC-SR04 "sonar2"](tree/master/images/sr04.jpg "Sonar2")
-![HC-SR04 "sonar3"](images/sr04.jpg "Sonar3")
+![HC-SR04 "sonar"](images/sr04.jpg "Sonar")
 
 	dofile("lib-ULTRASONIC.lua")
 	mysonar = Sonar.new(7, 8, 4) -- trig, echo, echoLed
