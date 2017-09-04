@@ -571,7 +571,7 @@ information that may be useful for this variant of the library.
 	mysonar = Sonar.new(7, 8, 4) -- trig, echo, echoLed
 	mysonar:run()
     
-<img style="float: left;" src="images/sr04.jpg">This module is for HC-SR04 “sonar” 4-pin device. This is a 5 volt item,
+<img style="float: right;" src="images/sr04.jpg">This module is for HC-SR04 “sonar” 4-pin device. This is a 5 volt item,
 and will not work satisfactorily at a 3.3V supply. The easiest interface
 to ESP8266 is:
 
@@ -595,7 +595,7 @@ is a useful diagnostic. Or parameter echoLed may be omitted.
 
 run() will start the reading as a background task forever.. By default,
 the background reading repeats every 2000 mSec. run() can take one
-optional parameter, a custom repeat time in mSec.
+optional parameter, a custom repeat time in mSec.<img style="float: right;" src="images/sr04.jpg">
 
 You “read” like this:
 
