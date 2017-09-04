@@ -982,7 +982,7 @@ belongs to a “topic”. To collect any data from the server, another
 machine (or several) “subscribes” to the required topics, and the server
 sends that topic’s data as it is available.
 
-The main MQTT server (“broker”) is CloudMQTT, but the server technology
+<img align="right" src="images/MQTT.png">The main MQTT server (“broker”) is CloudMQTT, but the server technology
 is open source, and other servers exist. You can install your own, for
 example mosquitto on Raspberry Pi. Our library will presume you use a
 CloudMQTT account. Adapt as you need if you want another server.
