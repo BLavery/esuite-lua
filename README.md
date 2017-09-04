@@ -29,7 +29,7 @@ pwm, rtcmem, rtctime, sntp, spi, struct, tmr, u8g, uart, wifi.
 
 U8g
 supports the OLED screens, so choose 128x64 or 64x48 according to your
-type. Use a NEW build of firmware. Some commands changed syntax in 2017.
+type. Use a NEW or recent build of firmware. Some commands changed syntax in 2017. 
 
 Recommend using **pyFlasher** to load to ESP. See
 https://github.com/marcelstoer/nodemcu-pyflasher.
