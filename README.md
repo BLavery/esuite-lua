@@ -742,7 +742,7 @@ which results in short life per battery charge under battery operation.
 down, leaving only the RTC module still keeping time in order to rewake
 the system later.
 
-<img align="right" src="images/zzz.png">If the ESP8266 needs to do occasional tasks such as read a temperature
+<img align="right" src="images/zzzz.png">If the ESP8266 needs to do occasional tasks such as read a temperature
 at regular intervals, and to act on that sometimes (turn on fan? send
 message by wifi?), then putting it into deepsleep while otherwise idle
 can be an extremely large saving in battery use. Deepsleep can be
