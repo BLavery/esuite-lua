@@ -76,7 +76,10 @@ your individual “project” file. So the standard minimum is four files.
 -   lib-TONE.lua
 -   lib-MATH.lua
 
-You **optionally** include library files into your project file. In many cases, simply loading the library file (with dofile()) will do its initialising without further calls.
+You **optionally** include library files into your project file. 
+These libraries add a lot of "drop-in" functionality
+beyond the rom-based functions in your NodeMCU build.
+In many cases, simply loading the library file (with dofile()) will do its initialising without further calls.
 
 ## General usage:
 
