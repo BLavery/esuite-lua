@@ -53,6 +53,7 @@ These are always used. They chain in sequence, and then pass control to
 your individual “project” file. So the standard minimum is four files.
 
 ## Library Files:
+<img align="right" src="images/library.png">
 
 -   lib-BLYNK.lua
 -   lib-LOGGER.lua
@@ -76,7 +77,6 @@ your individual “project” file. So the standard minimum is four files.
 -   lib-TONE.lua
 -   lib-MATH.lua
 
-<img align="right" src="images/library.png">
 You **optionally** include library files into your project file.
 
 ## General usage:
@@ -703,15 +703,12 @@ Initialise:
 So far, the lib-ACCEL library is not needed! The library simply supplies
 the math formulae for pitch and roll:
 
-Here is a complete project to read the adxl345 every 3 seconds, use our
+<img align="left" src="images/rollpitch.png">Here is a complete project to read the adxl345 every 3 seconds, use our
 2 library formulae to calculate pitch and roll, and display those to the
 oled display:
 
 	dofile(“lib-OLED.lua”) -- implicitly sets up the I2C for us. Yea!!
-
--- some "builds" of nodemcu lua image use init(), some use setup()
-syntax:
-
+	-- some "builds" of nodemcu lua image use init(), some use setup() syntax:
 	if adxl345.setup then
 		adxl345.setup() 
 	else
@@ -887,7 +884,7 @@ ESP2866. It records successive data entries of the format
 
 	Timestamp (readable) Descriptor Value
 
-This file is not designed to be large, typically 20 to 40 lines long.
+<img align="right" src="images/log.jpg">This file is not designed to be large, typically 20 to 40 lines long.
 Oldest data is dumped to allow new data. The log may be cleared simply
 by deleting the file, as it is recreated empty if found to be missing.
 Unless explicitly cleared, the log is preserved over board resets, or
@@ -1209,7 +1206,7 @@ ie de-energises the stepper.
 
 ## lib-MATH.lua
 
-This library adds selected missing functions to the math suite: 
+<img align="right" src="images/trig.gif">This library adds selected missing functions to the math suite: 
 
 -   math.sin() 
 -   math.cos() 
