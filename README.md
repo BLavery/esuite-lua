@@ -43,7 +43,7 @@ tool in place of ESPlorer.
 The NodeMCU Lua environment uses the marked numbers for GPIO pins (D0 D1 etc),
 coded simply as 0, 1 ... This is NOT the chip's native GPIO numbering as used by the arduino-esp environment. [Opinion: historically a wrong choice, but that's what we have to work with.]  For the expansion gpio and adc pins in certain libraries below, that numbering pattern is used/extended for the added pins too.
 
-## Common startup files:<img align="right" src="images/esp-12.png">
+## Common startup files:<img align="left" src="images/esp-12.png">
 
 1. init.lua
 1. init2-WIFI.lua
