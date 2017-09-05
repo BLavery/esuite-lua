@@ -1206,7 +1206,7 @@ ie de-energises the stepper.
 
 ## lib-MATH.lua
 
-<img align="right" src="images/trig.gif">This library adds selected missing functions to the math suite: 
+<img align="right" src="images/Trig.gif">This library adds selected missing functions to the math suite: 
 
 -   math.sin() 
 -   math.cos() 
