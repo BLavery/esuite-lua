@@ -1,10 +1,12 @@
 -- PCF8591 module for ESP8266 with nodeMCU
 
--- On YL-40 board
+-- On YL-40 board: 4 analog inputs -- we call them adc.read(8) to (11)
 -- 0 = photoresistor
 -- 1 = nothing on-board
 -- 2 = thermistor 
 -- 3 = variable resistor
+
+-- and one output analog
 
 local device = 0x48 -- PCF8591 address, might vary from 0x48 to 0x4F
 

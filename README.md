@@ -1157,6 +1157,9 @@ function is added:
 	end
 	adc.write(57)
 
+This device uses 8-bit analog (0-255), whereas the inbuilt analog on esp8266
+(and expanded adc using CD4051) uses 10-bits (0-1023).
+
 This library is compatible with ADC8. 
 Either one or both together may be used.
 
