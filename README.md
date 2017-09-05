@@ -25,7 +25,7 @@ code modules required for your project. I typically build with these
 options, and I use the “float” version:
 
 <img align="left" src="images/esp01-uart.png">
-**adc, adxl345, bit, bme280, dht, file, gpio, http, i2c, mqtt, net, node,
+**adc**, **adxl345**, bit, bme280, dht, file, gpio, http, i2c, mqtt, net, node,
 pwm, rtcmem, rtctime, sntp, spi, struct, tmr, u8g, uart, wifi.** 
 
 U8g
