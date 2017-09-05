@@ -24,6 +24,7 @@ Your NodeMCU build from **http://nodemcu-build.com** will need to include
 code modules required for your project. I typically build with these
 options, and I use the “float” version:
 
+<img align="left" src="images/esp01-uart.png">
 adc, adxl345, bit, bme280, dht, file, gpio, http, i2c, mqtt, net, node,
 pwm, rtcmem, rtctime, sntp, spi, struct, tmr, u8g, uart, wifi. 
 
@@ -52,7 +53,6 @@ These are always used. They chain in sequence, and then pass control to
 your individual “project” file. So the standard minimum is four files.
 
 ## Library Files:
-<img align="right" src="images/library.png">
 
 -   lib-BLYNK.lua
 -   lib-LOGGER.lua
@@ -76,6 +76,7 @@ your individual “project” file. So the standard minimum is four files.
 -   lib-TONE.lua
 -   lib-MATH.lua
 
+<img align="right" src="images/library.png">
 You **optionally** include library files into your project file.
 
 ## General usage:
