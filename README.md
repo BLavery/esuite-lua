@@ -142,7 +142,7 @@ tiny processor. To view the "panic" message, turn off "Autoscrolling"
 to just before the reboot messages. Usually you can read
 the offending lua script name and the problem line number. 
 
-## init.lua:
+## 1. init.lua:
 
 <img align="right" src="images/init.png">Has a 5 second wait period before chaining to WIFI file. During the wait
 time the inbuilt led (D4) on ESP12 submodule will blink. The “flash”
@@ -172,7 +172,7 @@ Try not to tinker carelessly with init.lua. A really broken init.lua can
 cause repeated panic/reboot that only a binary re-flash of lua can salvage!
 
 
-## init2-WIFI.lua:
+## 2. init2-WIFI.lua:
 
 If the ESP has successfully auto-connected, this file has nothing to do,
 and chains immediately to init2-TIME. Otherwise it waits and continues
@@ -209,7 +209,7 @@ your project. init2-WIFI in this case will not chain to SNTP or other
 files. It will allow you to attempt connections to the other Access Points
 in your list.
 
-## init3-TIME.lua:
+## 3. init3-TIME.lua:
 
 The ESP8266 has no time function that can survive being powered down. A Realtime Clock ("RTC") function is on the chip, but there is no battery to run that over power down. The RTC once set to correct time can give us time as a "timestamp", in seconds since 1970. See rtctime.get().
 
@@ -239,7 +239,7 @@ your project. init3-TIME in this case will not chain recursively to your
 project file (which is still running).. But it will attempt again to
 fetch true time.
 
-## Your Project File:
+## 4. Your Project File:
 
 <img align="right" src="images/project.jpg">The project file is named at top of init.lua. The ESP filesystem may
 have multiple project files loaded at any time. Change init.lua and load it again to run a
