@@ -697,7 +697,7 @@ example. However, for our purposes, let us assume:
 
 <img align="left" src="images/rollpitch.png">Initialise:
 
-	i2c.setup(0, sda, scl, i2c.SLOW) -- if i2c not already set up
+	i2c.setup(0, sda, scl, i2c.SLOW) -- if i2c not alr set up
 	adxl345.setup() -- but see init() below
 
 So far, the lib-ACCEL library is not needed! The library simply supplies
@@ -1052,7 +1052,7 @@ This library starts a webserver on the ESP8266. You can view the web page from a
 browser having network access. Page title and some page controls are
 automatic. As below, you need to supply the central html excerpt for your project.
 
-By default, the logger system (if it is loaded) has view-log and
+<img align="left" src="images/browser.jpg">By default, the logger system (if it is loaded) has view-log and
 delete-log buttons on the web page. This can be suppressed if variable
 **WS_suppressLogger** is true.
 
