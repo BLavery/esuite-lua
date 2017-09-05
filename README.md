@@ -77,16 +77,16 @@ your individual “project” file. So the standard minimum is four files.
 -   lib-TONE.lua
 -   lib-MATH.lua
 
-You **optionally** include library files into your project file.
+You **optionally** include library files into your project file. In many cases, simply loading the library file (with dofile()) will do its initialising without further calls.
 
 ## General usage:
 
 The regular simple project is:
 
--   init.lua
--   init2_WIFI.lua
--   init3_TIME.lua
--   projectXX.lua
+-   1. init.lua
+-   2. init2_WIFI.lua
+-   3. init3_TIME.lua
+-   4. projectXX.lua
 
 Any further libraries are run only according to what you code in your
 project script.
@@ -1206,7 +1206,7 @@ ie de-energises the stepper.
 
 ## lib-MATH.lua
 
-<img align="right" src="images/Trig.gif">This library adds selected missing functions to the math suite: 
+<img align="right" src="images/Trig.gif">This library adds selected missing functions to the inbuilt math suite: 
 
 -   math.sin() 
 -   math.cos() 
