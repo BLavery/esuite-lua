@@ -695,7 +695,7 @@ example. However, for our purposes, let us assume:
 -   that roll and pitch are more useful to us than uncalibrated raw
     aceleration values.
 
-Initialise:
+<img align="left" src="images/rollpitch.png">Initialise:
 
 	i2c.setup(0, sda, scl, i2c.SLOW) -- if i2c not already set up
 	adxl345.setup() -- but see init() below
@@ -703,7 +703,7 @@ Initialise:
 So far, the lib-ACCEL library is not needed! The library simply supplies
 the math formulae for pitch and roll:
 
-<img align="left" src="images/rollpitch.png">Here is a complete project to read the adxl345 every 3 seconds, use our
+Here is a complete project to read the adxl345 every 3 seconds, use our
 2 library formulae to calculate pitch and roll, and display those to the
 oled display:
 
