@@ -1125,7 +1125,7 @@ channels** (0 – 7). Requires connecting 3 digital GPIO pins to select the anal
 CD4051. (If GPIO28 is installed first, the expanded gpio pins could be
 used.)
 
-<img align="right" src="images/4051.jpg">Use **adc.init8(s0, s1, s2)** to enable the extra channel functionality.
+<img align="left" src="images/4051.jpg">Use **adc.init8(s0, s1, s2)** to enable the extra channel functionality.
 Default addressing GPIOs (if omitted) are D6 D7 D8. Or specifying just one
 will assume a consecutive three. 
 adc.read() syntax is same style as the original one channel.
