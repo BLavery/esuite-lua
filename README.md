@@ -15,7 +15,7 @@ what you want to control. Included is a collection of drop-in library
 files for many common devices. The library files are generally fairly
 practical and needing minimal configuration in your project.
 
-<img align="right" src="images/esp01.png">The eSuite projects are intended to be used as client (“STATION” mode)
+<img align="right" src="images/esp01.jpg">The eSuite projects are intended to be used as client (“STATION” mode)
 in conjunction with a nearby wifi access point. The ESP8266 is a
 wifi-capable chip, and merely using an isolated “blink a LED” project
 misses its point!
@@ -31,7 +31,7 @@ U8g
 supports the OLED screens, so choose 128x64 or 64x48 according to your
 type. Use a NEW or recent build of firmware. Some commands changed syntax in 2017. 
 
-Recommend using **pyFlasher** to load to ESP. See
+<img align="right" src="images/d1.jpg">Recommend using **pyFlasher** to load to ESP. See
 https://github.com/marcelstoer/nodemcu-pyflasher.
 
 ESPlorer is assumed as the regular IDE used for loading lua scripts to
@@ -42,7 +42,7 @@ tool in place of ESPlorer.
 The NodeMCU Lua environment uses the marked numbers for GPIO pins (D0 D1 etc),
 coded simply as 0, 1 ... This is NOT the chip's native GPIO numbering as used by the arduino-esp environment. [Opinion: historically a wrong choice, but that's what we have to work with.]  For the expansion gpio and adc pins in certain libraries below, that numbering pattern is used/extended for the added pins too.
 
-## Common startup files:
+## Common startup files:<img align="right" src="images/esp-12.png">
 
 1. init.lua
 1. init2-WIFI.lua
