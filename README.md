@@ -871,7 +871,7 @@ Fin** as PC logs on and off.
 
 Telnet makes a very workable occasional substitute for ESPlorer after
 you have deployed your project. You can even install a telnet client on your 
-apple or android device.
+apple or android device.  Activate telnet on your battery-powered ESP8266, and you can still "talk" to it!
 
 Telnet library based on
 
@@ -983,7 +983,7 @@ packets (which might mean a command or might mean some data) between
 them. The data always passes through an intermediary server. To push
 data towards the server is called “publishing”, and each piece of data
 belongs to a “topic”. To collect any data from the server, another
-machine (or several) “subscribes” to the required topics, and the server
+machine (or several) “subscribes” to the required topic(s), and the server
 sends that topic’s data as it is available.
 
 <img align="right" src="images/MQTT.png">The main MQTT server (“broker”) is CloudMQTT, but the server technology
@@ -1068,7 +1068,7 @@ ESPlorer screen would have shown you. Eg “=node.heap()” into box.
 Followed by **See Result** button, to view the “32763” reply.
 
 The library includes one utility function **button(vbl, value, label,
-colour)** that builds a boilerplate HTML button.
+colour)** that can build a boilerplate HTML button.
 
 In general, an empty web page is useless. Your project needs to
 implement a function **WS_buildpage(_GET)** to add custom HTML
@@ -1076,7 +1076,7 @@ controls to the page.
 
 Your code should build (into the global variable webPage) the HTML
 fragments to display some control buttons the user can click. The
-parameter _GET brings a table with key:value pair corresponding to the
+parameter _GET brings back a table with key:value pair corresponding to the
 user’s last button click on their browser. The following project codes a
 HTML clickable pair of buttons. It also reacts to user’s last click to
 turn a GPIO (led on gpio16/D0) on or off. We are looking for the key
