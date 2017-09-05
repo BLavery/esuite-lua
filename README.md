@@ -244,9 +244,7 @@ fetch true time.
 ## 4. Your Project File:
 
 <img align="right" src="images/project.jpg">The project file is named at top of init.lua. The ESP filesystem may
-have multiple project files loaded at any time, but only one is configured named in init.lua to run. 
- Change init.lua and load it again to run a
-different project.
+have multiple project files loaded at any time, but only one is named in init.lua to run.  Change init.lua and load it again, and then reset, to run a different project.
 
 When your project file starts,
 
@@ -398,7 +396,7 @@ function. set_callbacks() registers three further callbacks that blynk
 will later call at each “**pm**” message or “**dw**” or “**dr**”
 message.
 
-<img align="right" src="images/blynk.jpg">Blynk keeps an array of callbacks, including
+<img align="left" src="images/blynk.jpg">Blynk keeps an array of callbacks, including
 
 -   “receive”, “connection”, “disconnection” (all events happening at
     the level of TCP/IP connection to blynk server, and that we usually
