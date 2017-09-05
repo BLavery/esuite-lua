@@ -1,5 +1,5 @@
 # eSuite
-## The manual
+## The manual<img align="right" src="images/nodemcu.png">
 An integrated collection of Lua files for ESP8266
 
 
@@ -15,7 +15,7 @@ what you want to control. Included is a collection of drop-in library
 files for many common devices. The library files are generally fairly
 practical and needing minimal configuration in your project.
 
-The eSuite projects are intended to be used as client (“STATION” mode)
+<img align="right" src="images/esp01.png">The eSuite projects are intended to be used as client (“STATION” mode)
 in conjunction with a nearby wifi access point. The ESP8266 is a
 wifi-capable chip, and merely using an isolated “blink a LED” project
 misses its point!
@@ -210,25 +210,28 @@ in your list.
 
 ## init3-TIME.lua:
 
+The ESP8266 has no time function that can survive being powered down. A Realtime Clock ("RTC") function is on the chip, but there is no battery to run that over power down. The RTC once set to correct time can give us time as a "timestamp", in seconds since 1970. See rtctime.get().
+
+("Deepsleep" operation with power still applied can, if programmed correctly, preserve the correct time for waking.) 
+
 This module connects on the internet to a SNTP server to set the
-realtime clock of the ESP. As currently programmed, one of
+RTC of the ESP. As currently programmed, one of
 **1.au.pool.ntp.org** up to **4.au.pool.ntp.org** is randomly chosen.
 You may choose to use other time servers to suit your location. Note
 that frequently calling a single timeserver (eg during rapid
 testing/rebooting) seems sometimes to cause denials from the afflicted
 timeserver!
 
-<img align="right" src="images/time1.png">Fetching true time can sometimes fail, in which case ESP time is usually
-set at 1970. If time from SNTP server fails, **and** the ESP is awaking
+<img align="right" src="images/time1.png">Fetching true time, as for any internet request, can sometimes fail, in which case ESP time is usually
+set at 1970. If time from SNTP server does fail, **and** the ESP is awaking
 from deepsleep, then the time is left at the time preserved by the
 deepsleep functioning. This can be a bit inaccurate, as the low-res
 timekeeping during deepsleep may run fast or slow by as much as (from
 experience) 5%.
 
-On either success or fail, control passes to your project file.
+On either success or fail of timesetting, control passes to your project file.
 
-This file leaves a Time(ts) function for converting any system timestamp
-into readable text. Without any parameter, it returns current time.
+This file gives you a **Time()** function to return current time as readable text. With a timestamp parameter, Time(ts) can convert any system timestamp (as from rtctime.get()) into readable form. 
 
 Note that is IS LEGAL (if unusual) to call init3-TIME again later from
 your project. init3-TIME in this case will not chain recursively to your
