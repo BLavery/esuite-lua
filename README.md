@@ -1,4 +1,4 @@
-# eSuite
+# E Suite
 ## The manual<img align="right" src="images/nodemcu.png">
 An integrated collection of Lua files for ESP8266
 
