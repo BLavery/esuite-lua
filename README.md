@@ -991,8 +991,9 @@ is open source, and other servers exist. You can install your own, for
 example mosquitto on Raspberry Pi. Our library will presume you use a
 CloudMQTT account. Adapt as you need if you want another server.
 
-Each client machine connecting to the server will try to hold a constant
-connection.
+And there is no problem for any client being both a publisher and a subscriber.
+
+Each client machine connecting to the server will try to hold a constant connection.
 
 Each machine may be small like an arduino, Raspberry Pi or ESP8266. It
 may be a PC. Or it may be a smartphone or tablet. A convenient MQTT app
