@@ -244,7 +244,8 @@ fetch true time.
 ## 4. Your Project File:
 
 <img align="right" src="images/project.jpg">The project file is named at top of init.lua. The ESP filesystem may
-have multiple project files loaded at any time. Change init.lua and load it again to run a
+have multiple project files loaded at any time, but only one is configured named in init.lua to run. 
+ Change init.lua and load it again to run a
 different project.
 
 When your project file starts,
