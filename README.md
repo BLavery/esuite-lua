@@ -1206,7 +1206,7 @@ The library code assumes HI outputs activate stepper coils. Rewrite state8{} in 
 if you want the opposite.  The current code also puts all drive outputs LO at end of a run, 
 ie de-energises the stepper.
 
-The popular little 28BY-J48 stepper motor as in the image has 64 steps/rev, but then has a further 64:1 internal gearing. This limits the maximum speed with our stepper library (at double stepping) to about 4.7 seconds/revolution.
+The popular little 28BYJ-48 stepper motor as in the image above has 64 steps/rev, but then has a further 64:1 internal gearing. This limits the maximum speed with our stepper library (at double stepping) to about 4.7 seconds/revolution, but for this model this is probably approaching its maximum anyway. An ungeared stepper will give much greater speeds.
 
 ## lib-MATH.lua
 
@@ -1241,7 +1241,7 @@ Tone generator for a single passive beeper. Freq 100 - 1000 Hz.
 
 	tone(pin, hz, msec [,fin_callback])
 
-
+## ENJOY
 
 
 Brian Lavery
