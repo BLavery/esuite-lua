@@ -24,11 +24,10 @@ Your NodeMCU build from **http://nodemcu-build.com** will need to include
 code modules required for your project. I typically build with these
 options, and I use the “float” version:
 
-<img align="left" src="images/esp01-uart.png">
-**adc**, **adxl345**, bit, bme280, dht, file, gpio, http, i2c, mqtt, net, node,
+**adc, adxl345, bit, bme280, dht, file, gpio, http, i2c, mqtt, net, node,
 pwm, rtcmem, rtctime, sntp, spi, struct, tmr, u8g, uart, wifi.** 
 
-U8g
+<img align="left" src="images/esp01-uart.png">U8g
 supports the OLED screens, so choose 128x64 or 64x48 according to your
 type. Use a NEW or recent build of firmware. Some commands changed syntax in 2017. 
 
