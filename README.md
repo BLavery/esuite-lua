@@ -1048,11 +1048,11 @@ reading, and send that back to the other end.
 
 ## lib-WEBSERV.lua:
 
-This library starts a webserver on the ESP8266. You can view the web page from any
+<img align="left" src="images/browser.jpg">This library starts a webserver on the ESP8266. You can view the web page from any
 browser having network access. Page title and some page controls are
 automatic. As below, you need to supply the central html excerpt for your project.
 
-<img align="left" src="images/browser.jpg">By default, the logger system (if it is loaded) has view-log and
+By default, the logger system (if it is loaded) has view-log and
 delete-log buttons on the web page. This can be suppressed if variable
 **WS_suppressLogger** is true.
 
