@@ -1,5 +1,3 @@
-dofile("lib-OLED.lua")
-dofile("lib-GPIO28.lua")
 
 local states8 = {  -- table shows 8 steps. Double-stepping is allowed, then uses only states 1 3 5 7
  {1,0,0,1},

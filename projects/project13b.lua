@@ -1,6 +1,7 @@
 print("project13b")
 
 dofile("lib-STEPPER.lua")
+dofile("lib-GPIO28.lua")
 
 --[[
 Stepper1 on pins 4-7 simply runs 100 steps forward and stops.

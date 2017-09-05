@@ -6,7 +6,7 @@ math=clone(math)
 
 function math.atan (X0)
     -- https://stackoverflow.com/questions/11930594/calculate-atan2-without-std-functions-or-c99
-    -- excellect formula for 0 - 45degr [ie atan(x) for x<1] but runs away for x very large
+    -- excellect formula for 0 - 45degr [ie atan(x) for x<1] but runs away badly for x very large
     -- but we can cheat using symmetry of atan(x) and atan(1/x) around 45degr (0 - 45 - 90)
     local X = X0
     local c = (1 + math.sqrt(17)) / 8
@@ -40,7 +40,9 @@ local function factl(n)
     return n * factl(n-1)
 end
 
-function math.sin(x) -- taylor series. Exc accuracy -PI to +PI.  Ref  https://en.wikipedia.org/wiki/Taylor_series
+function math.sin(x) 
+    -- taylor series. Exc accuracy -PI to +PI.  Ref  https://en.wikipedia.org/wiki/Taylor_series
+    -- x in radian
     x=(x%(2*math.pi)-math.pi)
     local ss=x 
     - math.pow(x,3)/factl(3) 
@@ -57,4 +59,4 @@ function math.cos(x)
     return math.sqrt(1-math.pow(math.sin(x),2))  -- sin^2 + cos^2 = 1
 end
 
-math.rad =  math.pi / 180
+math.rad =  math.pi / 180  -- degr to radian
