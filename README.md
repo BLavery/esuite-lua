@@ -83,10 +83,10 @@ You **optionally** include library files into your project file. In many cases, 
 
 The regular simple project is:
 
--   1. init.lua
--   2. init2_WIFI.lua
--   3. init3_TIME.lua
--   4. projectXX.lua
+-   (1) init.lua
+-   (2) init2_WIFI.lua
+-   (3) init3_TIME.lua
+-   (4) projectXX.lua
 
 Any further libraries are run only according to what you code in your
 project script.
