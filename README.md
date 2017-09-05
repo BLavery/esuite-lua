@@ -25,8 +25,8 @@ code modules required for your project. I typically build with these
 options, and I use the “float” version:
 
 <img align="left" src="images/esp01-uart.png">
-adc, adxl345, bit, bme280, dht, file, gpio, http, i2c, mqtt, net, node,
-pwm, rtcmem, rtctime, sntp, spi, struct, tmr, u8g, uart, wifi. 
+**adc, adxl345, bit, bme280, dht, file, gpio, http, i2c, mqtt, net, node,
+pwm, rtcmem, rtctime, sntp, spi, struct, tmr, u8g, uart, wifi.** 
 
 U8g
 supports the OLED screens, so choose 128x64 or 64x48 according to your
@@ -81,12 +81,12 @@ You **optionally** include library files into your project file. In many cases, 
 
 ## General usage:
 
-The regular simple project is:
+As above, the regular simple project is started from each reset like this:
 
--   (1) init.lua
--   (2) init2_WIFI.lua
--   (3) init3_TIME.lua
--   (4) projectXX.lua
+1. init.lua
+1. init2_WIFI.lua
+1. init3_TIME.lua
+1. projectXX.lua
 
 Any further libraries are run only according to what you code in your
 project script.
@@ -99,7 +99,7 @@ During development or experimenting, you may have various
 Then upload the changed init.lua to ESP8266 again, and reboot.
 
 Try not to damage init.lua. That can cause repetitive reboots that 
-sometimes only a lua binary reflash can fix.
+sometimes only a re-flash of the lua binary can fix.
 
 All of the files you need for your project to run must be uploaded to the ESP8266.
 You can see the loaded files listed by clicking RELOAD at right side column.
@@ -124,12 +124,12 @@ number comes back, then yes it's working. And the software-based RESTART
 button can do the reboots for you.
 
 There is a function included ("approximately friendly") to capture 
-and report "missing file" errors. (You forgot to upload a required library file?)
+and report any "missing file" errors. (You forgot to upload a required library file?)
 
 Here are the areas you probably need to edit for your own circumstances:
 
 -   init.lua - to set the name of currect project file
--   init3-WIFI-lua - to nominate your wifi AP(s) and the password
+-   init3-WIFI-lua - to nominate your wifi AP(s) and password
 -   Your APIKEY for a Thinkspeak project. In your project file
 -   Your login address and credentials for a MQTT job - in lib-MQTT.lua
 -   Your blynk token for a blynk project. In {token}.lua
@@ -727,7 +727,7 @@ oled display:
 ## lib-WIFIMON.lua:
 
 A totally optional extension to wifi functionality. It simply
-monitors.the wifi and prints a message for each disconnection or
+monitors the wifi and prints a message for each disconnection or
 reconnection that happens. It reports, but it does not change how wifi
 operates. Auto-reconnection is normal, and is not affected by WIFIMON.
 
@@ -809,7 +809,7 @@ The full function is:
         sleeps
 -   passes = how many sleep passes are scheduled in the sequence – def 1
 
-You may need to be mindful of just where in your project file you do the
+You may need to be mindful of just where in your project file you put the line
 dofile(“lib-DEEPSLEEP.lua”), because while it loads, the library
 immediately examines whether it is partway through a sequence of passes.
 In which case it IMMEDIATELY returns to sleep for the next pass, and
@@ -958,7 +958,7 @@ call.
 
 Here is a posting in your project of analog pin reading to ThingSpeak:
 
-	volt = adc.read32; 
+	volt = adc.read(0); 
 	postThingSpeak(4, volt, “Volt Reading” ) 
 
 The library should display a success message to screen. On your web
