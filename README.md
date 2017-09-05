@@ -9,7 +9,7 @@ This suite of files is intended primarily for use with ESP12-based
 boards (including NodeMCU and Wemos D1-mini), but it does work for
 ESP-01, within its gpio limits.
 
-It automates the standard startup including escape time, wifi connection and time
+<img align="left" src="images/esp-12.png">It automates the standard startup including escape time, wifi connection and time
 setting. This leaves you to concentrate just on your project scripting: on exactly
 what you want to control. Included is a collection of drop-in library
 files for many common devices. The library files are generally fairly
@@ -43,7 +43,7 @@ tool in place of ESPlorer.
 The NodeMCU Lua environment uses the marked numbers for GPIO pins (D0 D1 etc),
 coded simply as 0, 1 ... This is NOT the chip's native GPIO numbering as used by the arduino-esp environment. [Opinion: historically a wrong choice, but that's what we have to work with.]  For the expansion gpio and adc pins in certain libraries below, that numbering pattern is used/extended for the added pins too.
 
-## Common startup files:<img align="left" src="images/esp-12.png">
+## Common startup files:
 
 1. init.lua
 1. init2-WIFI.lua
