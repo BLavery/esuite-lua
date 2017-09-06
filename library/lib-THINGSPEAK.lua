@@ -2,6 +2,8 @@
 
 print("ThingSpeak Init")
 
+APIKEY=APIKEY or "-- your thingspeak write apikey --"
+
 if not rtcmem then 
     print("Needs rtcmem in build")
     return

@@ -132,9 +132,9 @@ Here are the areas you probably need to edit for your own circumstances:
 
 -   init.lua - to set the name of currect project file
 -   init3-WIFI-lua - to nominate your wifi AP(s) and password
--   Your APIKEY for a Thinkspeak project. In your project file
+-   Your APIKEY for a Thinkspeak project. In your lib-THINGSPEAK.lua
 -   Your login address and credentials for a MQTT job - in lib-MQTT.lua
--   Your blynk token for a blynk project. In {token}.lua
+-   Your blynk token for a blynk project. In {token}.lua 
 
 
 One more hint: During your testing, CPU/Lua "panic" errors 
@@ -935,11 +935,10 @@ publicly by ID number (I can’t find where I did it). Therefore, the Read
 API key is probably not needed. I do need the Write API Key to let my
 library write data to the fields in my channel.
 
-Firstly, have your correct WRITE API KEY available. Then in your
-project, load ThingSpeak like this:
+So firstly, have your correct WRITE API KEY available. Edit it into lib-THINGSPEAK.lua.
+Then in your project, load ThingSpeak like this:
 
 	dofile(“lib-THINGSPEAK.lua”)
-	APIKEY="JJJJJJ66666644WW"
 
 There is no constant connection from the ESP to ThingSpeak server. Each
 posting call makes a short-term network connection, and then closes it.
