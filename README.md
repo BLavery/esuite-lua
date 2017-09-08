@@ -867,7 +867,7 @@ and port. Execute some lua commands:
 	37760
 	> node.restart() -> Bye !!!
 
-On Windows:
+**On Windows**:
 <img align="left" src="images/putty.png">The native windows telnet client doesn't seem to work properly in our case. But simply install puTTY from the internet. In puTTY's settings, set Terminal/Implicit CR in every LF. Otherwise it's plain sailing.<img align="right" src="images/putty2.png">
 
 For security, ESPlorer will indicate **ESP8266 Telnet on** or **Telnet
