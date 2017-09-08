@@ -1251,8 +1251,9 @@ Tone generator for a single passive beeper. Freq 100 - 1000 Hz.
 
 ## ENJOY
 
-This suite is consolidated from many projects taught at (adult) IoT classes over 2016 and 2017. Initially at least, there are likely to be a few gpio inconsistencies, or function namings that got changed sometime and haven't been brought into line. If you spot any, just send a message and I'll fix it.
+This suite is consolidated from many projects taught at (adult) IoT classes over 2016 and 2017. Initially at least, there are likely to be a few gpio inconsistencies, or function namings that got changed sometime and haven't been brought into line. If you spot anything, just send a message and I'll fix it.
 
+Opinion: Despite the ESP8266 Lua being "panicky" while you are still crafting your project, the Lua interpreter platform is still a better learning environment than the alternatives.
 
 Brian Lavery
 
