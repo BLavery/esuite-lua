@@ -1251,6 +1251,8 @@ Tone generator for a single passive beeper. Freq 100 - 1000 Hz.
 
 ## ENJOY
 
+This suite is consolidated from many projects taught at (adult) IoT classes over 2016 and 2017. Initially at least, there are likely to be a few gpio inconsistencies, or function namings that got changed sometime and haven't been brought into line. If you spot any, just send a message and I'll fix it.
+
 
 Brian Lavery
 
