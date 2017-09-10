@@ -1,8 +1,7 @@
 -- https://captain-slow.dk/2015/04/16/posting-to-thingspeak-with-esp8266-and-nodemcu/
 
-print("ThingSpeak Init")
-
-APIKEY=APIKEY or "-- your thingspeak write apikey --"
+APIKEY=APIKEY or "-- need your thingspeak write apikey --"
+print("ThingSpeak Init" .. APIKEY)
 
 if not rtcmem then 
     print("Needs rtcmem in build")
@@ -10,7 +9,7 @@ if not rtcmem then
 end
 
 -- simplistic: just 1 field of data per call!  But it works!
-function postThingSpeak(fieldnumber, data, fieldname, callback_fn)
+function postThingSpeak(fieldnumber, data, fieldname)
     field = "field" .. tostring(fieldnumber)
     fieldname = fieldname or field
     connout = nil
@@ -35,7 +34,6 @@ function postThingSpeak(fieldnumber, data, fieldname, callback_fn)
     connout:on("disconnection", function(connout, payloadout)
         connout = nil
         collectgarbage();
-        if callback_fn then callback_fn() end
     end)
  
     connout:connect(80,'api.thingspeak.com')

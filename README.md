@@ -948,17 +948,14 @@ There is no constant connection from the ESP to ThingSpeak server. Each
 posting call makes a short-term network connection, and then closes it.
 
 The library file has a single function call. It accepts one field per
-call.
+call. Thinkspeak free version limits postings to no sooner than 15 seconds apart, so your project must adhere to this limit.
 
-	postThingSpeak(fieldnumber, data, fieldname, callback_function)
+	postThingSpeak(fieldnumber, data, fieldname)
 
 -   fieldnumber must be 1 up to 8.
 -   data = the value you are sending
 -   fieldname does not get transmitted. It simply prints to screen to
     look good.
--   callback is optional, but is useful if you want notice that the
-    posting is over. (You might want to be posting several fields as
-    quickly as possible?)
 
 Here is a posting in your project of analog pin reading to ThingSpeak:
 
@@ -1260,6 +1257,6 @@ Brian Lavery
 
 esuite@blavery.com
 
-V0.4
+V0.4.1
 
-04 Sept 2017
+10 Sept 2017
