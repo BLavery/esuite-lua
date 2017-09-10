@@ -9,7 +9,7 @@ local states8 = {  -- table shows 8 steps. Double-stepping is allowed, then uses
  {0,0,1,1},
  {0,0,0,1},
 }
-Stepper = {identifyMe={}}
+Stepper = {}
 Stepper.__index = Stepper
 
 -- halfstep true/false
@@ -25,17 +25,15 @@ function Stepper.new(pin1)
         gpio.write(pin1+c, gpio.LOW)
     end
     self.timer = tmr.create()
-    Stepper.identifyMe[self.timer]=self -- index each stepper "self" against its timer as key
     return self
 end
 
 -- tmr.alarm() callback passes only the timer-id as function parameter (nodelua constraint)
 -- but we have kept a key-value lookup table from which we can retrieve stepper object id.
 
-function Stepper.step1(timr)
+function Stepper.step1(self)
     -- execution time abt 1 mSec, or abt 22mSec for mcp23017 extended GPIOs!
     -- and fastest timer is 1mSec. So best performance is 500 steps or doublesteps / sec.
-    local self = Stepper.identifyMe[timr]  -- only argument we get is timer.  Retrieve stepper "self" by timer code.
     if self.stepsleft>0 then self.stepsleft = self.stepsleft-math.abs(self.dir) end
     local left = self.stepsleft
     if self.limitpin and (gpio.read(self.limitpin) == self.pol) then self.stepsleft=0 end
@@ -53,7 +51,7 @@ function Stepper.step1(timr)
         if self.callback then self.callback(self, left) end
         return
     end
-    self.timer:alarm(self.speed, 0, self.step1) 
+    self.timer:alarm(self.speed, 0,  function(t) self:step1() end) 
     -- manually rearm timer. This way we can't accumulate a stack of pending callbacks
     -- which can occur using a repeating timer at full stepper speed
     -- and which will cause a crash
@@ -77,8 +75,8 @@ function Stepper.run(self, dir, speed, steps, callback, limitpin, polarity )
     if limitpin then 
         gpio.mode (limitpin, gpio.INPUT, gpio.PULLUP) 
     end
-    self.timer:alarm( 1, 0, self.step1) -- but self.step (Stepper.step) gets just timer param, not self param!
-
+    self.timer:alarm( 1, 0, function(t) self:step1() end) 
+print("run")
 end
 
 

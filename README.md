@@ -563,8 +563,9 @@ All the project files use a lookup file **{token}.lua** that has the user's
 
 The example project files refer to a common 1-line file {token}.lua.
 Putting your blynk token there means you edit it into only one place,
-and your several blynk projects read that same token. This approach is not compulsory,
-you can put your token directly into your project file if you want.
+and your several blynk projects read that same token. This approach is not compulsory, and you can put your token directly into your project file if you want.
+
+Like most of the files in E Suite, this Blynk library is NOT inherently tied into the rest of the E Suite collection. It should be easy to lift out just the Blynk files to use in your own Lua coding.
 
 Blynk library is derived from https://github.com/blezek/blynk-esp,
 Daniel Blezek, MIT licence, 2016. That website has some usage
