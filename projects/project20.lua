@@ -40,7 +40,7 @@ function mqtt_ready()
             postThingSpeak(1, temp, "Temp") 
          else
             mqtt_publish("Humidity", humidity)
-            postThingSpeak(5, humidity, "Humidity") 
+            postThingSpeak(2, humidity, "Humidity") 
          end 
      end )
      --print("MQTT publishing scheduled")
