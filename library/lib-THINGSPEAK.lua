@@ -1,5 +1,7 @@
 -- https://captain-slow.dk/2015/04/16/posting-to-thingspeak-with-esp8266-and-nodemcu/
 
+
+
 APIKEY=APIKEY or "-- need your thingspeak write apikey --"
 print("ThingSpeak Init" .. APIKEY)
 
@@ -18,6 +20,9 @@ function postThingSpeak(fieldnumber, data, fieldname)
     connout:on("receive", function(connout, payloadout)
         if (string.find(payloadout, "Status: 200 OK") ~= nil) then
             print(string.sub(Time(), 1,5).." Posted "..fieldname.." = "..tostring(data).." to Thingspeak");
+        end
+        if (string.find(payloadout, "Status: 400 Bad") ~= nil) then
+            print("Thingspeak Fail");
         end
     end)
  
@@ -38,3 +43,6 @@ function postThingSpeak(fieldnumber, data, fieldname)
  
     connout:connect(80,'api.thingspeak.com')
 end
+
+-- if you post more often than 15 secs between posts, thingspeak may return "OK", 
+-- but silently the entry will not be recorded!
