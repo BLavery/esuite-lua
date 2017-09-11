@@ -19,6 +19,9 @@ Project List:
 18 Simple Analog to Thingspeak demo
 19 Tone generator for passive beeper
 20 ESP-01. MQTT & Thingspeak & DHT22 weather & logger & telnet combo!
+21 DHT22 on D6 to Thingspeak
+22 ADXL345 roll & pitch to Thingspeak
+23 Simple read VDD33 (& to telnet)
 
 If it has no number, it is not posted up yet:
    Blynk bridge mode: ESP to ESP

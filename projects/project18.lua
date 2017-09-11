@@ -10,6 +10,6 @@ end  -- if adc mode was wrong mode from any earlier project, reboot correctly . 
 dofile("lib-THINGSPEAK.lua")
 
 tmr.alarm(0, 900000, 0, function() 
-    postThingSpeak(2, adc.read(0))       -- to thingspeak field 2 
+    postThingSpeak(3, adc.read(0))       -- to thingspeak field 3 
 end  )  
 
