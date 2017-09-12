@@ -1250,9 +1250,9 @@ Tone generator for a single passive beeper. Freq 100 - 1000 Hz.
 
 ## lib-MAX7219.lua
 
-This library supports 7-segment and 8x8 SPI LED displays, either single or multiple in daisychained connection.
+<img align="left" src="images/7seg.jpg">This library supports 7-segment and 8x8 SPI LED displays, either single or multiple in daisychained connection.
 
-Connect as follows:
+<img align="right" src="images/8x8.png">Connect as follows:
 
 -   D5=clk(8266)=clk(Max7219)
 -   D7=mosi(8266)=DataIn(Max7219)
@@ -1280,7 +1280,7 @@ The MAX7219 devices have no inbuilt fonts. They simply turn LEDs on or off accor
 -   x-font8x8.lua  -  generate bitmaps for 8x8 modules
 -   x-font7seg.lua -  generate bitmaps for 7-segment modules
 
-If you try to run lib-MAX7219.lua without the font files existing, it will try immediately to run the appropriate bitmap generator. This just happens the once.
+<img align="right" src="images/4x8x8.png">If you try to run lib-MAX7219.lua without the font files existing, it will try immediately to run the appropriate bitmap generator. This just happens the once.
 
 lib-MAX7219 library takes moderate RAM. You may find that running MAX7219 and BLYNK (which takes a LOT of RAM) and even more libs all together can exhaust ESP8266 memory. Crash. Sorry.
 
