@@ -75,6 +75,7 @@ your individual “project” file. So the standard minimum is four files.
 -   lib-STEPPER.lua
 -   lib-TONE.lua
 -   lib-MATH.lua
+-   lib-MAX7219lua
 
 You **optionally** include library files into your project file. 
 These libraries add a lot of "drop-in" functionality
