@@ -1247,6 +1247,53 @@ Tone generator for a single passive beeper. Freq 100 - 1000 Hz.
 
 	tone(pin, hz, msec [,fin_callback])
 
+## lib-MAX7219.lua
+
+This library supports 7-segment and 8x8 SPI LED displays, either single or multiple in daisychained connection.
+
+Connect as follows:
+
+-   D5=clk(8266)=clk(Max7219)
+-   D7=mosi(8266)=DataIn(Max7219)
+-   D8=cs(8266)=cs(Max7219)   
+-   VCC(Max7219) to +5(8266)
+-   Gnd
+
+Options in your project file **before** loading the library file can be:
+
+-   MAX_type=8 :  This configures for 8x8 nodules. Default is 7-segment modules
+-   MAX_modules=3 :  Number of modules daisychained. Default is 1
+-   MAX_intensity=6 : Intensity of LEDs is 0 to 15. Default 1
+-   MAX_cs=x  : The default CS pin is D8. This option can choose an alternative pin.
+
+Typical use:
+
+	dofile("lib-MAX7219.lua")
+	max7219.clear()
+	max7219.shutdown(true)      -- or false! Display data is preserved
+	max7219.write("5")          -- 7-seg has 8 characters/module, 8x8 has 1 character/module
+	max7219.write("Hello",true) -- the second parameter (7-seg module) is true=right-aligned
+
+The MAX7219 devices have no inbuilt fonts. They simply turn LEDs on or off according to the bit patterns sent to them. We need to supply our own bitmap font files. The library expects these to be recorded/saved on Lua's flash filesystem. (This saves precious RAM memory space). The following utility files will generate the font files directly to the ESP8266. Just run them on the ESP8266.
+
+-   x-font8x8.lua  -  generate bitmaps for 8x8 modules
+-   x-font7seg.lua -  generate bitmaps for 7-segment modules
+
+If you try to run lib-MAX7219.lua without the font files existing, it will try immediately to run the appropriate bitmap generator. This just happens the once.
+
+lib-MAX7219 library takes moderate RAM. You may find that running MAX7219 and BLYNK (which takes a LOT of RAM) and even more libs all together can exhaust ESP8266 memory. Crash. Sorry.
+
+It is also possible to NOT use the inbuilt fonts, but instead to use hand-coded bitmap
+fonts for each character. Use a raw max7219.**_write**() function instead of the usual max7219.**write**(). Following is a code example with manual bitmaps for letters a,b,c.  With 3 modules daisychained, we could print "abc". This technique could allow special characters like heart or arrow, but is overkill for normal text or numeric display.
+
+	MAX_modules=3
+	MAX_type=8
+	dofile("lib-MAX7219.lua")
+	local a = { 0x20, 0x74, 0x54, 0x54, 0x3C, 0x78, 0x40, 0x00 }
+	local b = { 0x41, 0x7F, 0x3F, 0x48, 0x48, 0x78, 0x30, 0x00 }
+	local c = { 0x38, 0x7C, 0x44, 0x44, 0x6C, 0x28, 0x00, 0x00 }
+	max7219._write({a,b,c})
+
 ## ENJOY
 
 This suite is consolidated from many projects taught at (adult) IoT classes over 2016 and 2017. Initially at least, there are likely to be a few gpio inconsistencies, or function namings that got changed sometime and haven't been brought into line. If you spot anything, just send a message and I'll fix it.
