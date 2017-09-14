@@ -25,7 +25,7 @@ code modules required for your project. I typically build with these
 options, and I use the “float” version:
 
 **adc, adxl345, bit, bme280, dht, file, gpio, http, i2c, mqtt, net, node,
-pwm, rtcmem, rtctime, sntp, spi, struct, tmr, u8g, uart, wifi.** 
+pwm, rtcmem, rtctime, sntp, spi, struct, tmr, u8g, uart, wifi.** (And ucg if you want 1.44 inch display. But it's big.)
 
 <img align="left" src="images/esp01-uart.png">U8g
 supports the OLED screens, so choose 128x64 or 64x48 according to your
@@ -1300,7 +1300,7 @@ There is no support for slow scrolling.
 
 ## lib-TFT144.lua
 
-**ILI9164 1.44" 128x128 TFT display**
+<img align="right" src="images/tft144.jpg">**ILI9164 1.44" 128x128 TFT display**
 
 tba
 
