@@ -76,6 +76,7 @@ your individual “project” file. So the standard minimum is four files.
 -   lib-TONE.lua
 -   lib-MATH.lua
 -   lib-MAX7219lua
+-   lib-TFT144.lua
 
 You **optionally** include library files into your project file. 
 These libraries add a lot of "drop-in" functionality
@@ -1250,32 +1251,32 @@ Tone generator for a single passive beeper. Freq 100 - 1000 Hz.
 
 ## lib-MAX7219.lua
 
-<img align="left" src="images/7seg.jpg">This library supports 7-segment and 8x8 SPI LED displays, either single or multiple in daisychained connection.
+<img align="left" src="images/7seg.jpg">This library supports 7-segment and 8x8 LED displays, either single or multiple (in daisychained connection). The same SPI driver chip is used on these two displays.
 
 <img align="right" src="images/8x8.png">Connect as follows:
 
 -   D5=clk(8266)=clk(Max7219)
 -   D7=mosi(8266)=DataIn(Max7219)
 -   D8=cs(8266)=cs(Max7219)   
--   VCC(Max7219) to +5(8266)
+-   +5(8266) to VCC(Max7219)
 -   Gnd
 
 Options in your project file **before** loading the library file can be:
 
--   MAX_type=8 :  This configures for 8x8 nodules. Default is 7-segment modules
--   MAX_modules=3 :  Number of modules daisychained. Default is 1
--   MAX_intensity=6 : Intensity of LEDs is 0 to 15. Default 1
+-   MAX_type=8 :  This configures for 8x8 nodules. Default is for 7-segment modules
+-   MAX_modules=3 :  Number of modules in daisychain. Default is 1
+-   MAX_intensity=6 : Intensity of LEDs, range 0 (dim) to 15 (max). Default 1
 -   MAX_cs=x  : The default CS pin is D8. This option can choose an alternative pin.
 
 Typical use:
 
 	dofile("lib-MAX7219.lua")
 	max7219.clear()
-	max7219.shutdown(true)      -- or false! Display data is preserved
+	max7219.shutdown(false)     -- or true.  Display data is preserved
 	max7219.write("5")          -- 7-seg has 8 characters/module, 8x8 has 1 character/module
 	max7219.write("Hello",true) -- the second parameter (7-seg module) is true=right-aligned
 
-The MAX7219 devices have no inbuilt fonts. They simply turn LEDs on or off according to the bit patterns sent to them. We need to supply our own bitmap font files. The library expects these to be recorded/saved on Lua's flash filesystem. (This saves precious RAM memory space). The following utility files will generate the font files directly to the ESP8266. Just run them on the ESP8266.
+The MAX7219 devices have no inbuilt fonts. They simply turn LEDs on or off according to the bit patterns sent to them. We need to supply our own bitmap font files. Our library expects these to be recorded/saved on Lua's flash filesystem. (This saves precious RAM memory space). The following utility files will generate the font files directly to the ESP8266 flash. Just run them on the ESP8266.
 
 -   x-font8x8.lua  -  generate bitmaps for 8x8 modules
 -   x-font7seg.lua -  generate bitmaps for 7-segment modules
@@ -1285,7 +1286,7 @@ The MAX7219 devices have no inbuilt fonts. They simply turn LEDs on or off accor
 lib-MAX7219 library takes moderate RAM. You may find that running MAX7219 and BLYNK (which takes a LOT of RAM) and even more libs all together can exhaust ESP8266 memory. Crash. Sorry.
 
 It is also possible to NOT use the inbuilt fonts, but instead to use hand-coded bitmap
-fonts for each character. Use a raw max7219.**_write**() function instead of the usual max7219.**write**(). Following is a code example with manual bitmaps for letters a,b,c.  With 3 modules daisychained, we could print "abc". This technique could allow special characters like heart or arrow, but is overkill for normal text or numeric display.
+fonts for each character. Use a raw max7219.**_write**() function instead of the usual max7219.**write**(). Following is a code example with manual bitmaps for letters a,b,c.  With 3 modules daisychained, we could print "abc". This technique could allow special characters like heart or arrow, but is overkill for normal text or numeric display: write() with its font tables is much simpler.
 
 	MAX_modules=3
 	MAX_type=8
@@ -1294,6 +1295,15 @@ fonts for each character. Use a raw max7219.**_write**() function instead of the
 	local b = { 0x41, 0x7F, 0x3F, 0x48, 0x48, 0x78, 0x30, 0x00 }
 	local c = { 0x38, 0x7C, 0x44, 0x44, 0x6C, 0x28, 0x00, 0x00 }
 	max7219._write({a,b,c})
+
+There is no support for slow scrolling.
+
+## lib-TFT144.lua
+
+**ILI9164 1.44" 128x128 TFT display**
+
+tba
+
 
 ## ENJOY
 
