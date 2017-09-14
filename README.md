@@ -1300,7 +1300,7 @@ There is no support for slow scrolling.
 
 ## lib-TFT144.lua
 
-<img align="right" src="images/tft144.jpg">**ILI9164 1.44" 128x128 TFT display**
+<img align="right" src="images/tft144.jpg">**ILI9163 1.44" 128x128 TFT display**
 
 tba
 
