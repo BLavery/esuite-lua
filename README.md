@@ -1302,7 +1302,94 @@ There is no support for slow scrolling.
 
 <img align="right" src="images/tft144.jpg">**ILI9163 1.44" 128x128 TFT display**
 
-tba
+This is a simple interface to NodeMCU's ucg module. Supports common "1.44 inch" 128x128 SPI module using ILI9163 chip.
+Your lua binary build must include support for ucg module and specifically the ili9163_18x128x128_hw_spi device type.
+
+Connection: 
+
+-  VCC to +5V
+-  Gnd (of course)
+-  CLK to D5
+-  DIN to D7
+-  A0 to D4 (default, but can be changed)
+-  LED tied to +3.3V
+-  CS tied to Gnd 
+-  RST tied to +3.3V
+
+Start the display like this:
+
+	DRAW_BMP=true  -- optional line to include BMP image support
+	_A0 = 2     -- optional line to use different pin than default D4 for A0 control
+	dofile("lib-TFT144.lua")
+
+Thereafter, the object **disp** is available for writing to the display, as per NodeMCU documentation.
+There are additionally several new utility commands using new object **Disp**, explained here.
+
+**Disp.yell(str1, str2, str3, r, g, b, rb, gb, bb)**
+
+Every parameter is optional (ie may be nil or absent)! 
+Displays 3 bold character words, in colour r/g/b, 
+using a background colour of rb/gb/bb.
+ 
+**Disp.box(header, msg1, msg2, msg3, msg4, r, g, b, rb, gb, bb)**
+
+Again, every parameter is optional.
+Displays a header line, and a frame containing up to 4 message lines.
+The message lines are white. r/g/b controls the header and framing.
+
+**Disp.drawBMP(bmpfilename, x, y)**    (if you enabled it)
+
+<img align="left" src="images/i.bmp">Reads a small BMP file and displays it at location x/y. 
+This is a SLOW function. It is intended for small 
+icons (eg 20x20, about 2 seconds load time), 
+although it WILL display up to the full 128x128 (taking then about 80 seconds!).
+
+You must prepare your BMP file already correctly sized. There are several BMP formats: 
+you need the "24-bit" format (ie 255/255/255 for rgb) with no extra options. GIMP image 
+export function (not save function)
+handles this neatly, but many simple image editors may not give you the correct option. 
+
+Then use ESPlorer to upload the BMP file into flash alongside your lua scripts.
+
+Note that including the ucg module into your lua binary build will increase the bin size. 
+But more important for your RAM memory footprint (node.heap()) is the drawBMP() function 
+which has an additional memory hit of about 2500 bytes. If you are short of memory space,
+consider whether you really need BMP file support.
+
+As above, all the text and graphic functionality listed in NodeMCU documentation is 
+available for a crafted display layout. (Except **setScale2x2()** unfortunately seems broken.)
+Use the sample project file named grafxtest.lua to put the display through a very good demo.
+
+Fonts available in the lua binary (and not extendable):
+
+-  font_7x13B_tr
+-  font_helvB08_hr
+-  font_helvB10_hr
+-  font_helvB12_hr
+-  font_helvB18_hr
+-  font_ncenB24_tr
+-  font_ncenR12_tr
+-  font_ncenR14_hr
+
+There are at least 2 similar boards widely available, the "red" and the "black" (PCB colour). 
+They are manufactured slightly differently, with the red one usually considered as the "faulty" version. 
+<img align="right" src="images/dispBox.jpg">
+With corrective software, however, either board can theoretically be programmed for. 
+The difference affects using the
+display in the 4 possible "orientations". (Being square, changing orientation should be easy.)
+
+The UCG implementation seems correctly compensating for a red board, and any orientation may be used. 
+But only the 270 degree orientation works OK for the black board.
+
+The library file lib-TFT144.lua is coded to 270 degrees, and this will suit either red or black display. 
+If you have a red board and really want a different orientation, delete or change the line with
+disp:setRotate270(). There is little reason to be changing orientation again once you have built and
+coded your project, and commissioned it.
+
+The MAX7219 and the TFT144 library cannot be used tgether. They use SPI differently.
+But both are display devices and using both in a project makes little sense.
+
+
 
 
 ## ENJOY
@@ -1315,6 +1402,6 @@ Brian Lavery
 
 esuite@blavery.com
 
-V0.4.1
+V0.4.2
 
-10 Sept 2017
+14 Sept 2017
