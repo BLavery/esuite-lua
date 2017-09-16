@@ -17,7 +17,7 @@ spi.setup(1, spi.MASTER, spi.CPOL_LOW, spi.CPHA_LOW, 8, 8)
 disp = ucg.ili9163_18x128x128_hw_spi(8, _A0 or 4)
 _A0=nil
 gpio.mode(8, gpio.INPUT, gpio.INPUT) -- then allow d8 for re-use
-
+disp:setMaxClipRange()
 
 Disp={}
 function Disp.yell(s1, s2, s3, r, g, b, rb, gb, bb)  -- add own spacing if want centred!
@@ -48,7 +48,8 @@ end
 
 disp:begin(ucg.FONT_MODE_TRANSPARENT)
 disp:setRotate270() -- only 270 mode works ok on black brd. ALL work on red brd, 
-                    -- so you could change this (omit or 180 or 90)
+                    -- so you could change this (omit or 180 or 90) 
+
 Disp.box("     E Suite.", wifi.sta.getip(), wifi.sta.gethostname(), nil, Time():sub(1,14))
 
 
@@ -61,7 +62,7 @@ if DRAW_BMP then -- only loaded if DRAW_BMP is declared in project -- fn consume
     -- save BMP with gimp.  24byte format, no extras
     -- careful about files. This fn has file open over duration of bmp drawing. Object model. 
     
-    local function paint1line(yi, w, x, y,f) -- paints one line of image
+    local function paint1line(yi, w, x, y,f, cb) -- paints one line of image
             local xi , rgb
             rgb = f:read(w*3)  -- buffer vbl abt 400 bytes max for 128 width
             for xi =0, w-1 do
@@ -73,21 +74,24 @@ if DRAW_BMP then -- only loaded if DRAW_BMP is declared in project -- fn consume
             xi=3*w
             if (xi%4)>0 then f:read((-xi)%4) end -- burn 1-3 bytes of padding (bmp spec)
             if yi >0 then 
-                node.task.post(0, function() paint1line(yi-1, w, x, y,f) end ) -- continue to next line
+                --print("rp",yi-1)
+                node.task.post(0, function() paint1line(yi-1, w, x, y,f, cb) end ) -- continue to next line
             else
                 f:close() -- all done
+                --print("pic done", cb)
+                if cb then cb() end
             end
     end
     
     
-    function Disp.drawBMP(fn, x, y)  -- imagefilename, x/y to locate image
+    function Disp.drawBMP(fn, x, y, callback)  -- imagefilename, x/y to locate image
         local f = file.open(fn, "r") -- file handle/object
         if not f then print(fn .. " N/F") return end
         local fb=f:read(25) -- table of bmp config data
         local w=fb:sub(19,19):byte() 
         local h=fb:sub(23,23):byte() 
         f:seek("set",fb:sub(11,11):byte()) -- start of image data (bmp = bottom line first!)
-        node.task.post(function() paint1line(h-1, w, x, y, f) end ) -- paint first line (from bottom) of image
+        node.task.post(function() paint1line(h-1, w, x, y, f, callback) end ) -- paint first line (from bottom) of image
     end
 end
 

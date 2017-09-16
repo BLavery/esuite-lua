@@ -1322,15 +1322,15 @@ Start the display like this:
 	_A0 = 2     -- optional line to use different pin than default D4 for A0 control
 	dofile("lib-TFT144.lua")
 
+<img align="right" src="images/dispBox.jpg">
 Thereafter, the object **disp** is available for writing to the display, as per NodeMCU documentation.
 There are additionally several new utility commands using new object **Disp**, explained here.
-<img align="right" src="images/dispBox.jpg">
 
 **Disp.yell(str1, str2, str3, r, g, b, rb, gb, bb)**
 
 Every parameter is optional (ie may be nil or absent)! 
 Displays 3 bold character words, in colour r/g/b, 
-using a background colour of rb/gb/bb.
+using a background colour of rb/gb/bb. Eg **Disp.yell("GO", "BACK")**
  
 **Disp.box(header, msg1, msg2, msg3, msg4, r, g, b, rb, gb, bb)**
 
@@ -1338,12 +1338,12 @@ Again, every parameter is optional.
 Displays a header line, and a frame containing up to 4 message lines.
 The message lines are white. r/g/b controls the header and framing.
 
-**Disp.drawBMP(bmpfilename, x, y)**    (if you enabled it)
+**Disp.drawBMP(bmpfilename, x, y, fin_callback)**    (if you enabled it)
 
 <img align="left" src="images/i.bmp">Reads a small BMP file and displays it at location x/y. 
 This is a SLOW function. It is intended for small 
 icons (eg 20x20, about 2 seconds load time), 
-although it WILL display up to the full 128x128 (taking then about 80 seconds!).
+although it WILL display up to the full 128x128 (taking then about 80 seconds! Fortunately it's a background task.).
 
 <img align="left" src="images/star.bmp">You must prepare your BMP file already correctly sized. There are several BMP formats: 
 you need the "24-bit" format (ie 255/255/255 for rgb) with no extra options. GIMP image 

@@ -22,7 +22,8 @@ Project List:
 21 DHT22 on D6 to Thingspeak
 22 ADXL345 roll & pitch to Thingspeak
 23 Simple read VDD33 (& to telnet)
-24 TFT144 (ILI9163 128x128 SPI display)
+24 TFT144 (ILI9163 128x128 SPI display) Graphics demo
+25 TFT144 (ILI9163 128x128 SPI display) examples
 
 If it has no number, it is not posted up yet:
    Blynk bridge mode: ESP to ESP
