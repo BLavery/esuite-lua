@@ -1333,7 +1333,7 @@ using a background colour of rb/gb/bb.
  
 **Disp.box(header, msg1, msg2, msg3, msg4, r, g, b, rb, gb, bb)**
 
-Again, every parameter is optional.
+<img align="right" src="images/dispBox.jpg">Again, every parameter is optional.
 Displays a header line, and a frame containing up to 4 message lines.
 The message lines are white. r/g/b controls the header and framing.
 
@@ -1344,12 +1344,12 @@ This is a SLOW function. It is intended for small
 icons (eg 20x20, about 2 seconds load time), 
 although it WILL display up to the full 128x128 (taking then about 80 seconds!).
 
-You must prepare your BMP file already correctly sized. There are several BMP formats: 
+<img align="left" src="images/star.bmp">You must prepare your BMP file already correctly sized. There are several BMP formats: 
 you need the "24-bit" format (ie 255/255/255 for rgb) with no extra options. GIMP image 
 export function (not save function)
 handles this neatly, but many simple image editors may not give you the correct option. 
 
-Then use ESPlorer to upload the BMP file into flash alongside your lua scripts.
+<img align="left" src="images/gpio.bmp">Then use ESPlorer to upload the BMP file into flash alongside your lua scripts.
 
 Note that including the ucg module into your lua binary build will increase the bin size. 
 But more important for your RAM memory footprint (node.heap()) is the drawBMP() function 
@@ -1373,7 +1373,6 @@ Fonts available in the lua binary (and not extendable):
 
 There are at least 2 similar boards widely available, the "red" and the "black" (PCB colour). 
 They are manufactured slightly differently, with the red one usually considered as the "faulty" version. 
-<img align="right" src="images/dispBox.jpg">
 With corrective software, however, either board can theoretically be programmed for. 
 The difference affects using the
 display in the 4 possible "orientations". (Being square, changing orientation should be easy.)
@@ -1386,7 +1385,7 @@ If you have a red board and really want a different orientation, delete or chang
 disp:setRotate270(). There is little reason to be changing orientation again once you have built and
 coded your project, and commissioned it.
 
-The MAX7219 and the TFT144 library cannot be used tgether. They use SPI differently.
+The MAX7219 and the TFT144 library cannot be used together. They use SPI differently.
 But both are display devices and using both in a project makes little sense.
 
 
