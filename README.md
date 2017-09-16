@@ -1302,8 +1302,11 @@ There is no support for slow scrolling.
 
 <img align="right" src="images/tft144.jpg">**ILI9163 1.44" 128x128 TFT display**
 
-This is a simple interface to NodeMCU's ucg module. Supports common "1.44 inch" 128x128 SPI module using ILI9163 chip.
+This is an interface to simplify NodeMCU's ucg module. Supports common "1.44 inch" 128x128 SPI module using ILI9163 chip.
 Your lua binary build must include support for ucg module and specifically the ili9163_18x128x128_hw_spi device type.
+
+Your use of the TFT144 functions may be as simple as the added yell() and box() functions below. Alternatively, 
+you can create your own effects using the full ucg suite of functions.
 
 Connection: 
 
@@ -1343,10 +1346,11 @@ The message lines are white. r/g/b controls the header and framing.
 <img align="left" src="images/i.bmp">Reads a small BMP file and displays it at location x/y. 
 This is a SLOW function. It is intended for small 
 icons (eg 20x20, about 2 seconds load time), 
-although it WILL display up to the full 128x128 (taking then about 80 seconds! Fortunately it's a background task.).
+although it WILL display up to the full 128x128. (Taking then about 80 seconds! Fortunately it's a background task.)
 
-<img align="left" src="images/star.bmp">You must prepare your BMP file already correctly sized. There are several BMP formats: 
-you need the "24-bit" format (ie 255/255/255 for rgb) with no extra options. GIMP image 
+<img align="left" src="images/star.bmp">You must prepare your BMP file already correctly sized. 
+There are several BMP formats: 
+you need specifically the "24-bit" format (ie 255/255/255 for rgb) with no extra options. GIMP image 
 export function (not save function)
 handles this neatly, but many simple image editors may not give you the correct option. 
 
@@ -1359,7 +1363,7 @@ consider whether you really need BMP file support.
 
 As above, all the text and graphic functionality listed in NodeMCU documentation is 
 available for a crafted display layout. (Except **setScale2x2()** unfortunately seems broken.)
-Use the sample project file named grafxtest.lua to put the display through a very good demo.
+There is one sample project file to put the display through a very good demo.
 
 Fonts available in the lua binary (and not extendable):
 

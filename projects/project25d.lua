@@ -1,4 +1,4 @@
-print("TFT144 2 images overlapping")
+print("TFT144 2 (big) images overlapping")
 
 DRAW_BMP=true
 dofile("lib-TFT144.lua")

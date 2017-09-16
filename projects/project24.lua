@@ -3,11 +3,6 @@
 if not demo then
     print("TFT144 Graphics Demo")
 
-    gpio.mode(1,1)
-    gpio.write(1,1)
-    gpio.mode(2,1)
-    gpio.write(2,0)
-
     dofile("lib-TFT144.lua")
 
     tmr.alarm(5, 3000, 0, function() demo=1 dofile(proj..".lua") end)
@@ -301,3 +296,6 @@ elseif demo==9 then
 end
 
 tmr.alarm(5, 3000, 0, function() demo=demo+1 dofile(proj..".lua") end)
+
+-- this file could be cleaned up a lot. A BIG lot! 
+-- But it works as a quick demo. "Aint broke ..."
