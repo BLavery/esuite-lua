@@ -1324,6 +1324,7 @@ Start the display like this:
 
 Thereafter, the object **disp** is available for writing to the display, as per NodeMCU documentation.
 There are additionally several new utility commands using new object **Disp**, explained here.
+<img align="right" src="images/dispBox.jpg">
 
 **Disp.yell(str1, str2, str3, r, g, b, rb, gb, bb)**
 
@@ -1333,7 +1334,7 @@ using a background colour of rb/gb/bb.
  
 **Disp.box(header, msg1, msg2, msg3, msg4, r, g, b, rb, gb, bb)**
 
-<img align="right" src="images/dispBox.jpg">Again, every parameter is optional.
+Again, every parameter is optional.
 Displays a header line, and a frame containing up to 4 message lines.
 The message lines are white. r/g/b controls the header and framing.
 
