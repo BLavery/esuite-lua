@@ -1304,7 +1304,7 @@ There is no support for slow scrolling.
 The tiny OLED display may be the easy and "obvious" best fit for a small IoT project on ESP8266,
 but the TFT screen with full colour and better pixel definition sometimes has its place.
 
-**ILI9163 1.44" 128x128 TFT display**
+**ILI9163 1.44" 128x128 SPI TFT display**
 
 This is an interface to simplify NodeMCU's ucg module. Supports common "1.44 inch" 128x128 SPI module using ILI9163 chip.
 Your lua binary build must include support for ucg module and specifically the ili9163_18x128x128_hw_spi device type.
@@ -1331,7 +1331,7 @@ Start the display like this:
 
 <img align="right" src="images/dispBox.jpg">
 Thereafter, the object **disp** is available for writing to the display, as per NodeMCU documentation.
-There are additionally several new utility commands using new object **Disp**, explained here.
+There are additionally several new utility commands using new object **Disp**, explained here. 
 
 **Disp.yell(str1, str2, str3, r, g, b, rb, gb, bb)**
 
@@ -1367,8 +1367,10 @@ handles this neatly, but many simple image editors may not give you the correct 
 
 Note that including the ucg module into your lua binary build will increase the bin size. 
 But more important for your RAM memory footprint (node.heap()) is the drawBMP() function 
-which has an additional memory hit of about 2500 bytes. If you are short of memory space,
-consider whether you really need BMP file support.
+which has an additional memory hit of about 2500 bytes. If you are really short of memory space,
+consider whether you really need BMP file support. Conversely, if you do not need yell, box or jnl, 
+then you can nil them out 
+(eg Disp.yell=nil in your project), and retrieve about 1000 bytes apiece.
 
 As above, all the text and graphic functionality listed in NodeMCU documentation is 
 available for a crafted display layout. (Except **setScale2x2()** unfortunately seems broken.)
@@ -1376,12 +1378,12 @@ There is one sample project file to put the display through a very good demo.
 
 Fonts available in the lua binary (and not extendable):
 
--  font_7x13B_tr
--  font_helvB08_hr
+-  font_7x13B_tr (monospaced font)
+-  font_helvB08_hr (proportional, sans serif, optimised for solid on own background)
 -  font_helvB10_hr
 -  font_helvB12_hr
 -  font_helvB18_hr
--  font_ncenB24_tr
+-  font_ncenB24_tr (proportional, serif, optimised for transparent)
 -  font_ncenR12_tr
 -  font_ncenR14_hr
 
