@@ -46,12 +46,27 @@ function Disp.box(hdr, m1,m2,m3,m4, r,g,b, rb,gb,bb)
     disp:setPrintPos(5, 108)  disp:print(m4 or "")
 end
 
+function Disp.jnl(msg)
+    disp:clearScreen()   
+    disp:setColor(255, 0, 0)
+    disp:drawRFrame(0,0,127,127, 8)
+    disp:setFont(ucg.font_helvB08_hr)
+    disp:setColor(255, 255, 255)
+    table.remove(Jnl,1)
+    table.insert(Jnl,msg)
+    if msg == nil then Jnl = {"","","","","",""} end
+    local i
+    for i=1,6 do
+        disp:setPrintPos(5, i*19)  disp:print(Jnl[i] or "")
+    end
+end
+
 disp:begin(ucg.FONT_MODE_TRANSPARENT)
 disp:setRotate270() -- only 270 mode works ok on black brd. ALL work on red brd, 
                     -- so you could change this (omit or 180 or 90) 
 
 Disp.box("     E Suite.", wifi.sta.getip(), wifi.sta.gethostname(), nil, Time():sub(1,14))
-
+Jnl={"","JNL","","","",""}
 
 -- comment: ucglib implementation is buggy and scales poorly to esp8266.
 -- few fonts. no large monospaced font

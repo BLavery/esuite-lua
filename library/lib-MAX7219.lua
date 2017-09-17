@@ -134,18 +134,18 @@ if MAX_type==8 then -- 8x8 mode
     function max7219.write(text)
         local i, j, currentChar, tab
         local c = {}
-        file.open("|char8x8", "r") 
+        local ff=file.open("|char8x8", "r") 
         for i = 1, #text do
             currentChar = text:sub(i,i)  
-            x=file.seek("set",8*string.byte(currentChar))  
-            c8 = file.read(8) 
+            x=ff:seek("set",8*string.byte(currentChar))  
+            c8 = ff:read(8) 
             tab = {}
             for j = 8, 1, -1 do
                 table.insert(tab, string.byte(c8:sub(j,j)))
             end 
             table.insert(c, tab)     
         end
-        file.close()
+        ff:close()
         max7219._write(c)    
     end
 
@@ -157,7 +157,7 @@ else  -- 7 seg mode
     function max7219.write(text, rAlign)
       local tab = {}
       local lenNoDots = text:gsub("%.", ""):len()
-      file.open("|char7seg", "r") 
+      local ff=file.open("|char7seg", "r") 
       
       -- pad with spaces to turn off not required digits
       if (lenNoDots < (8 * MAX_modules)) then
@@ -172,8 +172,8 @@ else  -- 7 seg mode
 
       for i = string.len(text), 1, -1 do
         local currentChar = text:sub(i,i)
-        file.seek("set",string.byte(currentChar)-1)
-        local c7 = string.byte( file.read(1))   
+        ff:seek("set",string.byte(currentChar)-1)
+        local c7 = string.byte( ff:read(1))   
         if (currentChar == ".") then
           wasdot = true
         else
@@ -186,7 +186,7 @@ else  -- 7 seg mode
           end
         end
       end
-      file.close()
+      ff:close()
       max7219._write({ tab })
     end
     

@@ -13,7 +13,7 @@ dofile=function(f)
         df(f) 
     else 
         print("File ", f, "not exist ***\n") 
-        file.open("missingfile", "w") file.writeline(f) file.close()
+        ff=file.open("missingfile", "w") ff:writeline(f) ff:close()
         node.restart()
     end 
 end

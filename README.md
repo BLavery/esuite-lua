@@ -1300,12 +1300,16 @@ There is no support for slow scrolling.
 
 ## lib-TFT144.lua
 
-<img align="right" src="images/tft144.jpg">**ILI9163 1.44" 128x128 TFT display**
+<img align="right" src="images/tft144.jpg">
+The tiny OLED display may be the easy and "obvious" best fit for a small IoT project on ESP8266,
+but the TFT screen with full colour and better pixel definition sometimes has its place.
+
+**ILI9163 1.44" 128x128 TFT display**
 
 This is an interface to simplify NodeMCU's ucg module. Supports common "1.44 inch" 128x128 SPI module using ILI9163 chip.
 Your lua binary build must include support for ucg module and specifically the ili9163_18x128x128_hw_spi device type.
 
-Your use of the TFT144 functions may be as simple as the added yell() and box() functions below. Alternatively, 
+Your use of the TFT144 functions may be as simple as the added yell() jnl() and box() functions below. Alternatively, 
 you can create your own effects using the full ucg suite of functions.
 
 Connection: 
@@ -1334,13 +1338,18 @@ There are additionally several new utility commands using new object **Disp**, e
 Every parameter is optional (ie may be nil or absent)! 
 Displays 3 bold character words, in colour r/g/b, 
 using a background colour of rb/gb/bb. Eg **Disp.yell("GO", "BACK")**
- 
+
 **Disp.box(header, msg1, msg2, msg3, msg4, r, g, b, rb, gb, bb)**
 
 Again, every parameter is optional.
 Displays a header line, and a frame containing up to 4 message lines.
 The message lines are white. r/g/b controls the header and framing.
 
+**Disp.jnl(msg)**
+
+Display 6 line "Journal", with the one new message being inserted at bottom.
+If msg is nil then clear the journal.
+ 
 **Disp.drawBMP(bmpfilename, x, y, fin_callback)**    (if you enabled it)
 
 <img align="left" src="images/i.bmp">Reads a small BMP file and displays it at location x/y. 
