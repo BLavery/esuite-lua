@@ -808,7 +808,8 @@ The full function is:
 -   startType is how fully to wake up on each “pass” - default 0 if
     omitted
     -   0 = full start (with that 5 sec delay) at each wake from sleep
-    -   1 = full wifi start (but without delay) at each wake from sleep
+    -   1 = full wifi start (but without delay) at each wake between sleeps
+    -   2 = straight to project (no delay, no wifi) at every wake
     -   3 = straight to project (no delay, no wifi) at wake between
         sleeps
 -   passes = how many sleep passes are scheduled in the sequence – def 1
@@ -1358,6 +1359,7 @@ icons (eg 20x20, about 2 seconds load time),
 although it WILL display up to the full 128x128. (Taking then about 80 seconds! Fortunately it's a background task.)
 
 <img align="left" src="images/star.bmp">You must prepare your BMP file already correctly sized. 
+If you want a transparent look, then edit a matching background in your BMP manually.
 There are several BMP formats: 
 you need specifically the "24-bit" format (ie 255/255/255 for rgb) with no extra options. GIMP image 
 export function (not save function)
@@ -1404,7 +1406,39 @@ coded your project, and commissioned it.
 The MAX7219 and the TFT144 library cannot be used together. They use SPI differently.
 But both are display devices and using both in a project makes little sense.
 
+## lib-GPIOobj.lua
 
+This is a "toy" library, in that you may enjoy playing with it for a short while, but maybe you
+won't finish up using it in your projects. Weigh the benefits (object use of gpio pins) with its cost (memory).
+
+This module allows a simple gpio input or output (but not trig pin) to be treated in object style. 
+This example creates objects for a led on pin D4 and a button with pullup on pin D3. 
+Note that the Gpio.new() parameters are similar to the regular gpio.mode() command, 
+but now an object is returned. 
+
+	dofile("lib-GPIOobj.lua")
+	led=Gpio.new(4, gpio.OUTPUT)
+	b3=Gpio.new(3, gpio.INPUT, gpio.PULLUP)
+   
+And now we can read and write more simply like this:
+
+	buttonstate = b3:read()
+	led:write(gpio.HIGH)
+
+Remember that for object functions, use the colon notation, not dot.
+
+## i2c
+
+Just a closing note on i2c communication. For this collection, the default pins for i2c
+are sda = D2 and scl = D1.
+
+If you wish to use other pins, define **sda** and **scl** early in your project file(s) before any i2c device is started.
+
+There is also a utility file x-i2c-scan.lua that will identify all i2c addresses where an i2c 
+hardware device is responding on the sda/scl pins you use.
+(It does not scan hardware pins numbers to find where you connected i2c devices!)
+x-i2c-scan.lua is quite independent, not needing any init.lua (etc) nor any project. 
+In fact you could simply CLICK it in ESPlorer under the RELOAD button.
 
 
 ## ENJOY
@@ -1417,6 +1451,6 @@ Brian Lavery
 
 esuite@blavery.com
 
-V0.4.2
+V0.4.3
 
-14 Sept 2017
+18 Sept 2017

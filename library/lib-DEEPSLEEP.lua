@@ -1,11 +1,14 @@
+-- v0.8   18 sept 2017    starttype 2 added
+
 -- d1 mini large deepsleep current
 -- lolin v3 - low current
 -- genuine nodemcu 1.0  large deepsleep current
 
 
 -- sleeptime: Time in secs for each deep sleep.  MAX allowed = 71 minutes (4260 secs)
--- startType:  def 0: 0=full delayed start each wake, 1 = full start w/o delay
---             3=brief "peep wake" between sleeps, straight to project file 
+-- startType:  def 0: 0=full delayed start each wake, 1 = full start w/o delay (exc last pass)
+--             2=brief "peep wake" between sleeps, straight to project file (even last pass) -- new v0.8
+--             3=brief "peep wake" between sleeps, straight to project file (exc last pass)
 -- passes: How many successive sleeps before sequence finished? default 1
 
 function DEEPSLEEP(sleeptime, startType, passes)
@@ -42,10 +45,11 @@ end
 
 -- rtcmem address usage:
 -- 20:  a magic number 123654 (written here, read by next init) or 654321 (written by init, read here)
--- 21:  0 = full start (with delay) at each wake from sleep - default
---      1 = full start (but without delay) at each wake from sleep
---      3 = straight to project at wake between sleeps
--- 22:  deepsleeps are still scheduled
--- 23:  each dsleep time (usecs)
+-- 21:  each dsleep time (usecs)
+-- 22:  0 = full start (with delay) at each wake from sleep - default
+--      1 = full start (but without delay) at each wake from sleep (exc last pass = regular)
+--      2 = straight to project at wake between sleeps (all passes)
+--      3 = straight to project at wake between sleeps (exc last pass = regular)
+-- 23:  deepsleeps are still scheduled
 
 
