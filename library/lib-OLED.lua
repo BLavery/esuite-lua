@@ -5,15 +5,21 @@
 
 sda = sda or 2
 scl = scl or 1
+local tstamp=0   -- v 0.6
 
 function oled(style, str, pass)
     if not pass then  -- this is a fresh oled command 
+        tstamp=tmr.now()
         disp:firstPage() -- 900 usec
         node.task.post( function() oled(style, str, 1) end )
         return
     end
     -- can comment out any unwanted of b y m j sections below if you need to save mem
     
+    if ts ~= tstamp then -- a fresh oled() has come in before we finished this seq
+        return -- abandon seq    v 0.6
+    end
+
     if style=='m' then  -- messagebox
          -- str={heading, +3 msg lines} as TABLE
          -- USE: oled("m",{"WARNING !","", "IP Address ",wifi.sta.getip()})
@@ -101,3 +107,5 @@ if not disp then   -- replace oled() (save mem). now will simply fail silently i
     function oled()  return end
 end
 
+-- v 0.6     20 sept 2017 - abandon sequence if another has been started
+-- takes abt 0.5 secs per screenful. More frequent oled updates are not a crash, but do keep esp too busy 
