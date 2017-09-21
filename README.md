@@ -1125,7 +1125,7 @@ our buttons.
 	gpio.mode(17,gpio.OUTPUT) 
 	gpio.write(17, gpio.HIGH)
 
-That code assumes I2C needs initialising. If OLED for example has
+<img align="left" src="images/23017.png">That code assumes I2C needs initialising. If OLED for example has
 already initialised I2C, omit the first line.
 
 Also note that the I2C bus needs at least one pair of pullup resistors (to 3.3V). 
@@ -1135,7 +1135,8 @@ on I2C, you should add your own pullups.
 
 ## lib-ADC8.lua
 
-<img align="left" src="images/4051.jpg">Uses CD4051 analog multiplexer chip to expand the one **ADC to 8
+<img align="left" src="images/4051.jpg"><img align="right" src="images/4051.png">
+Uses CD4051 analog multiplexer chip to expand the one **ADC to 8
 channels** (0 – 7). Requires connecting 3 digital GPIO pins to select the analog channel on the
 CD4051. (If GPIO28 is installed first, the expanded gpio pins could be
 used.)
@@ -1430,17 +1431,17 @@ but now an object is returned.
 	led=Gpio.new(4, gpio.OUTPUT)
 	b3=Gpio.new(3, gpio.INPUT, gpio.PULLUP)
    
-And now we can read and write more simply like this:<img align="right" src="images/kb3x4.png">
+And now we can read and write more simply like this:
 
 	buttonstate = b3:read()
 	led:write(gpio.HIGH)
 
-Remember that for object functions, use the colon notation, not dot.
+Remember that for object functions, use the colon notation, not dot.<img align="right" src="images/kb3x4.png">
 
 ## lib-KB3x4.lua
 
 nyi
-
+Pins as shown on image, left-right:   R1 R2 R3 R4 C1 C2 C1
 
 ## i2c
 
