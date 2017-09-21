@@ -1430,7 +1430,7 @@ but now an object is returned.
 	led=Gpio.new(4, gpio.OUTPUT)
 	b3=Gpio.new(3, gpio.INPUT, gpio.PULLUP)
    
-And now we can read and write more simply like this:
+And now we can read and write more simply like this:<img align="right" src="images/kb3x4.png">
 
 	buttonstate = b3:read()
 	led:write(gpio.HIGH)
@@ -1439,7 +1439,7 @@ Remember that for object functions, use the colon notation, not dot.
 
 ## KeyPad 3x4
 
-<img align="right" src="images/kb3x4.png">
+
 
 
 ## i2c
