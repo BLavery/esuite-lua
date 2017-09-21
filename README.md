@@ -1133,6 +1133,15 @@ Most PCB modules include such resistors, but if you are here using
 a simple mcp23017 chip, and you are not using anything else
 on I2C, you should add your own pullups.
 
+You must connect:
+
+-   +3.3V to VDD
+-   Gnd to VSS
+-   D1 to SCL  -- or your i2c choice
+-   D2 to SDA
+-   Gnd to A0 / A1 / A2
+-   +3.3V to RESET* 
+
 ## lib-ADC8.lua
 
 <img align="left" src="images/4051.jpg"><img align="right" src="images/4051a.png">
@@ -1149,6 +1158,17 @@ adc.read() syntax is same style as the original one channel.
 	dofile(“lib-ADC8.lua”)
 	adc.init8(6,7,8)
 	v5 = adc.read(5)
+
+You must connect:
+
+-   +5v or +3.3v to VCC
+-   Gnd to VEE
+-   Gnd
+-   Gnd to E*
+-   A0 to Com out
+-   3 gpios to S0 / S1 / S2
+
+
 
 ## lib-ADC4.lua
 
