@@ -1125,7 +1125,7 @@ our buttons.
 	gpio.mode(17,gpio.OUTPUT) 
 	gpio.write(17, gpio.HIGH)
 
-<img align="left" src="images/23017.png">That code assumes I2C needs initialising. If OLED for example has
+<img align="left" src="images/23017a.png">That code assumes I2C needs initialising. If OLED for example has
 already initialised I2C, omit the first line.
 
 Also note that the I2C bus needs at least one pair of pullup resistors (to 3.3V). 
@@ -1135,7 +1135,7 @@ on I2C, you should add your own pullups.
 
 ## lib-ADC8.lua
 
-<img align="left" src="images/4051.jpg"><img align="right" src="images/4051.png">
+<img align="left" src="images/4051.jpg"><img align="right" src="images/4051a.png">
 Uses CD4051 analog multiplexer chip to expand the one **ADC to 8
 channels** (0 – 7). Requires connecting 3 digital GPIO pins to select the analog channel on the
 CD4051. (If GPIO28 is installed first, the expanded gpio pins could be
