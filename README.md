@@ -1474,11 +1474,13 @@ mcp23017 gpio extender. Using it on the bare 8266 woluld leave you left with not
 	)
     
 The keypad driver is active with i2c processes in the background (assuming mcp23017),
-so use concurrently with other busy i2c modules (eg stepper), will cause some speed issues. 
+so used concurrently with other busy i2c modules (eg stepper), will cause some speed issues. 
 
 The default pins used are:
-KB_ROW = { 13, 14, 15, 16 }  -- these are gpio pins on mcp23017 gpio expander
-KB_COLUMN = { 17, 18, 19 }
+
+-   KB_ROW = { 13, 14, 15, 16 }  -- these are gpio pins on mcp23017 gpio expander
+-   KB_COLUMN = { 17, 18, 19 }
+
 but you may define your own choice in that same format before loading the KPAD library.
 
 There is a single character overwriting buffer.
