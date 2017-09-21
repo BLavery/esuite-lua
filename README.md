@@ -44,7 +44,10 @@ However, after deployment, telnet may be a better monitoring
 tool in place of ESPlorer.
 
 The NodeMCU Lua environment uses the marked numbers for GPIO pins (D0 D1 etc),
-coded simply as 0, 1 ... This is NOT the chip's native GPIO numbering as used by the arduino-esp environment. [Opinion: historically a wrong choice, but that's what we have to work with.]  For the expansion gpio and adc pins in certain libraries below, that numbering pattern is used/extended for the added pins too.
+coded simply as 0, 1 ... This is NOT the chip's native GPIO numbering as used by the arduino-esp environment. 
+[Opinion: historically D0 D1 a wrong choice, but that's what we have to work with.]  
+For the expansion gpio and adc pins in certain libraries below, that numbering pattern is 
+used/extended for the added pins too.
 
 ## Common startup files:
 
@@ -93,8 +96,8 @@ In many cases, simply loading the library file (with dofile()) will do its initi
 As above, the regular simple project is started from each reset like this:
 
 1. init.lua
-1. init2_WIFI.lua
-1. init3_TIME.lua
+1. init2-WIFI.lua
+1. init3-TIME.lua
 1. projectXX.lua
 
 Any further libraries are run only according to what you code in your
@@ -138,7 +141,7 @@ and report any "missing file" errors. (You forgot to upload a required library f
 Here are the areas you probably need to edit for your own circumstances:
 
 -   init.lua - to set the name of currect project file
--   init3-WIFI-lua - to nominate your wifi AP(s) and password
+-   init3-WIFI.lua - to nominate your wifi AP(s) and password
 -   Your APIKEY for a Thinkspeak project. In your lib-THINGSPEAK.lua
 -   Your login address and credentials for a MQTT job - in lib-MQTT.lua
 -   Your blynk token for a blynk project. In {token}.lua 
@@ -1433,6 +1436,11 @@ And now we can read and write more simply like this:
 	led:write(gpio.HIGH)
 
 Remember that for object functions, use the colon notation, not dot.
+
+## KeyPad 3x4
+
+<img align="right" src="images/kb3x4.png">
+
 
 ## i2c
 
