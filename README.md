@@ -27,6 +27,10 @@ options, and I use the “float” version:
 **adc, adxl345, bit, bme280, dht, file, gpio, http, i2c, mqtt, net, node,
 pwm, rtcmem, rtctime, sntp, spi, struct, tmr, u8g, uart, wifi.** (And ucg if you want 1.44 inch display. But it's big.)
 
+I recommend only the "master" version for your build, not "dev". 
+As at Sept 2017, at least, the dev build seems not to hold time over deepsleep. 
+There may be other differences. The testing used a master build done in June 2017.
+
 <img align="left" src="images/esp01-uart.png">U8g
 supports the OLED screens, so choose 128x64 or 64x48 according to your
 type. Use a NEW or recent build of firmware. Some commands changed syntax in 2017. 
@@ -69,6 +73,7 @@ your individual “project” file. So the standard minimum is four files.
 -   lib-WIFIMON.lua
 -   lib-SMARTBTN.lua
 -   lib-GPIO28.lua
+-   lib-GPIOobj.lua
 -   lib-ADC8.lua
 -   lib-ADC4.lua
 -   lib-GPS.lua
@@ -221,14 +226,15 @@ The ESP8266 has no time function that can survive being powered down. A Realtime
 
 This module connects on the internet to a SNTP server to set the
 RTC of the ESP. As currently programmed, one of
-**1.au.pool.ntp.org** up to **4.au.pool.ntp.org** is randomly chosen.
-You may choose to use other time servers to suit your location. Note
-that frequently calling a single timeserver (eg during rapid
+**1.au.pool.ntp.org** up to **4.au.pool.ntp.org** is chosen.
+You may choose to use other time servers to suit your location. 
+(And I am pretty sure nominating nil as your timeserver will still find a suitable default one for you.)
+Note that frequently calling a single timeserver (eg during rapid
 testing/rebooting) seems sometimes to cause denials from the afflicted
 timeserver!
 
 <img align="right" src="images/time1.png">Fetching true time, as for any internet request, can sometimes fail, in which case ESP time is usually
-set at 1970. If time from SNTP server does fail, **and** the ESP is awaking
+set at 1970. If time from SNTP server does fail, **and also** the ESP is awaking
 from deepsleep, then the time is left at the time preserved by the
 deepsleep functioning. This can be a bit inaccurate, as the low-res
 timekeeping during deepsleep may run fast or slow by as much as (from
@@ -236,12 +242,13 @@ experience) 5%.
 
 On either success or fail of timesetting, control passes to your project file.
 
-This file gives you a **Time()** function to return current time as readable text. With a timestamp parameter, Time(ts) can convert any system timestamp (as from rtctime.get()) into readable form. 
+Therafter, there is a regular silent/background re-sync from internet time **every 15 minutes**.
+Even a failed initial time sync will likely be corrected at the next attempt. (Unless of course you have
+nominated invalid or offline timeservers.)
 
-Note that is IS LEGAL (if unusual) to call init3-TIME again later from
-your project. init3-TIME in this case will not chain recursively to your
-project file (which is still running).. But it will attempt again to
-fetch true time.
+The file init3-TIME.lua gives you a **Time()** function to return 
+current time as readable text. Or, given the optional TS parameter, 
+Time(ts) can convert any raw timestamp into readable form. 
 
 ## 4. Your Project File:
 
