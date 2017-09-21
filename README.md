@@ -1458,10 +1458,35 @@ And now we can read and write more simply like this:
 
 Remember that for object functions, use the colon notation, not dot.<img align="right" src="images/kb3x4.png">
 
-## lib-KB3x4.lua
+## lib-KPAD.lua
 
-nyi
-Pins as shown on image, left-right:   R1 R2 R3 R4 C1 C2 C1
+This reads a 3x4 keypad. It needs 7 gpios to control it, but it is quite suitable for use with the 
+mcp23017 gpio extender. Using it on the bare 8266 woluld leave you left with not much gpio capacity!
+
+	i2c.setup(0, sda or 2, scl or 1, i2c.SLOW)
+	dofile("lib-GPIO28.lua")  -- did you remember pullup resistors?
+	dofile("lib-KPAD.lua")   -- starts kpad driver running
+	
+	tmr.alarm(4, 300, 1, function()
+	        kk=getKey() -- driver has a 1 character buffer!
+	        if kk then print(kk) end  -- print key if pressed
+	    end
+	)
+    
+The keypad driver is active with i2c processes in the background (assuming mcp23017),
+so use concurrently with other busy i2c modules (eg stepper), will cause some speed issues. 
+
+The default pins used are:
+KB_ROW = { 13, 14, 15, 16 }  -- these are gpio pins on mcp23017 gpio expander
+KB_COLUMN = { 17, 18, 19 }
+but you may define your own choice in that same format before loading the KPAD library.
+
+There is a single character overwriting buffer.
+
+As written, the library supports 3x4 membrane pad. Modifying to be 4x4 or other configuration
+should be not difficult.
+
+Connector pins as shown on image, left-right:   R1 R2 R3 R4 C1 C2 C1
 
 ## i2c
 
