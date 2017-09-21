@@ -1437,9 +1437,9 @@ And now we can read and write more simply like this:<img align="right" src="imag
 
 Remember that for object functions, use the colon notation, not dot.
 
-## KeyPad 3x4
+## lib-KB3x4.lua
 
-
+nyi
 
 
 ## i2c
