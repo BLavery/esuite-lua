@@ -1468,7 +1468,7 @@ mcp23017 gpio extender. Using it on the bare 8266 woluld leave you left with not
 	dofile("lib-KPAD.lua")   -- starts kpad driver running
 	
 	tmr.alarm(4, 300, 1, function()
-	        kk=getKey() -- driver has a 1 character buffer!
+	        kk=getKey()  -- nil if nothing received
 	        if kk then print(kk) end  -- print key if pressed
 	    end
 	)
@@ -1485,8 +1485,11 @@ but you may define your own choice in that same format before loading the KPAD l
 
 There is a single character overwriting buffer.
 
-As written, the library supports 3x4 membrane pad. Modifying to be 4x4 or other configuration
-should be not difficult.
+As written, the library supports 3x4 membrane pad with default gpio pins. 
+Modifying to be 4x4 configuration is as easy as preceding the library loading with
+a 4-pin column pattern instead of 3:
+
+-   KB_COLUMN = { 17, 18, 19, 20 }
 
 Connector pins as shown on image, left-right:   R1 R2 R3 R4 C1 C2 C1
 

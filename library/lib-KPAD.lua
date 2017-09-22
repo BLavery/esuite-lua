@@ -1,9 +1,9 @@
 -- library untested
 
-local KB_KEYPADMATRIX = { { 1 , 2 , 3 },           -- this 3x4 array defines the return values
-                          { 4 , 5 , 6 },           -- this layout is easy to understand
-                          { 7 , 8 , 9 },
-                          {"*", 0 ,"#"}  }
+local KB_KEYPADMATRIX = { { 1 , 2 , 3, "A" },           -- this 3x4 or 4x4 array defines the return values
+                          { 4 , 5 , 6, "B" },           -- this layout is easy to understand
+                          { 7 , 8 , 9, "C" },
+                          {"*", 0 ,"#","D"}  }
 
 KB_ROW = KB_ROW or { 13, 14, 15, 16 }  -- these are gpio pins on mcp23017 gpio expander
 KB_COLUMN = KB_COLUMN or { 17, 18, 19 }      -- You COULD use 7 pins on esp8266 itself, but you won't have many left!!
@@ -20,12 +20,12 @@ local function scanKey(step)
             gpio.mode(KB_ROW[i], 0, gpio.PULLUP)
         end
     elseif step==2 then 
-        for i=1,3 do
+        for i=1,#KB_COLUMN do
             -- Set all 3 columns as output 
             gpio.mode(KB_COLUMN[i], 1)
         end
     elseif step==3 then
-        for i=1,3 do
+        for i=1,#KB_COLUMN do
             -- Set all 3 columns as low
             gpio.write(KB_COLUMN[i], 0)
         end
@@ -40,7 +40,7 @@ local function scanKey(step)
         if rowVal <1 or rowVal >4 then tmr.alarm(timr, 10, 0,  function() scanKey(step) end ) return end
         
     elseif step==5 then
-        for i=1,3 do
+        for i=1,#KB_COLUMN do
             -- Return all columns to input, pulled high
             gpio.mode(KB_COLUMN[i], 0, gpio.PULLUP)
         end
@@ -53,17 +53,17 @@ local function scanKey(step)
         gpio.write(KB_ROW[rowVal], 0)  
     elseif step==7 then
         -- Scan columns for still-pushed key/button
-        -- A valid key press should set "colVal"  between 1 and 3.
+        -- A valid key press should set "colVal"  between 1 and #KB_COLUMN.
         colVal =0
-        for i = 1, 3 do
+        for i = 1, #KB_COLUMN do
             if gpio.read(KB_COLUMN[i]) == 0 then colVal=i end
         end
     else 
         -- Switch the that row back to input
         gpio.mode(KB_ROW[rowVal], 0, gpio.PULLUP)
 
-        -- if colVal is not 1 thru 3 then no button was identified and we can exit & start over
-        if colVal <1 or colVal >3 then node.task.post(0, function() scanKey() end ) return end
+        -- if colVal is not 1 thru col-count then no button was identified and we can exit & start over
+        if colVal <1 or colVal >#KB_COLUMN then node.task.post(0, function() scanKey() end ) return end
 
         -- So, now we know both the row and the column of the button
         -- Return the value of the key pressed
