@@ -139,9 +139,14 @@ end
 
 -- load only one of the two write() options:
 if MAX_type==8 then -- 8x8 mode
-    if not file.exists("|char8x8") then dofile("x-font8x8.lua") node.restart() end
+    if not file.exists("|char8x8") then  
+        node.task.post( 2, function() dofile("x-font8x8.lua") node.restart() end) 
+    else 
+        _initw = true -- without this flag, max7219.write() is inhibited. One restart & all should be fixed!
+    end
 
     function max7219.write(text)
+        if not _initw then return end  -- temporarily, ignore led writes until font file is first created
         local i, j, currentChar, tab
         local c = {}
         if text =="" then text = " " end
@@ -162,10 +167,16 @@ if MAX_type==8 then -- 8x8 mode
 
 else  -- 7 seg mode
 
-    if not file.exists("|char7seg") then dofile("x-font7seg.lua") node.restart() end
+    if not file.exists("|char7seg") then  
+        node.task.post( 2, function() dofile("x-font7seg.lua") node.restart() end) 
+    else 
+        _initw = true
+    end
+
     -- Writes the specified text to the 7-Segment display.
     -- If rAlign is true, the text is written right-aligned on the display.
     function max7219.write(text, rAlign)
+      if not _initw then return end  -- temporarily, ignore led writes until font file is first created
       local tab = {}
       if text =="" then text = " " end
       local lenNoDots = text:gsub("%.", ""):len()
