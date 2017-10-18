@@ -1,7 +1,5 @@
 -- Derived from MAX7219 module: marcel at https://github.com/marcelstoer/nodemcu-max7219
 
--- as at 12 Sept 2017, this is beta only. Use as you like.
-
 -- uses pins D5=clk(8266)=clk(Max7219)  D7=mosi(8266)=DataIn(Max7219) D8=cs(8266)=cs(Max7219)   VCC to +5
 
 -- several options may be made in your project before loading max7219 library:
@@ -10,6 +8,10 @@
 -- slave select (CS) on D8 may be customised with "MAX_cs=x" for pin Dx
 -- LED intensity configurable 0-15 default 1. "MAX_intensity=6"
 
+-- Comment: this code is "hacked" from marcelstoer code,
+-- but it is poorly done, and deserves a careful overhaul.
+-- However, for its job, it does work ... and so ... <g>
+ 
 max7219={}
 
 local numberOfColumns
@@ -41,9 +43,17 @@ local function sendByte(module, register, data)
 
   -- enble sending data
   gpio.write(MAX_cs, gpio.LOW)
-
-  for i = 1, MAX_modules do
-    spi.send(1, spiRegister[i] * 256 + spiData[i])
+  
+  if MAX_type ==8 then
+      for i = MAX_modules, 1, -1 do
+        if not spiData[i] then spiData[i] = 0 end
+        spi.send(1, spiRegister[i] * 256 + spiData[i])
+      end
+  else
+      for i = 1, MAX_modules do
+        if not spiData[i] then spiData[i] = 0 end
+        spi.send(1, spiRegister[i] * 256 + spiData[i])
+      end
   end
 
   -- make the chip latch data into the registers
@@ -134,18 +144,19 @@ if MAX_type==8 then -- 8x8 mode
     function max7219.write(text)
         local i, j, currentChar, tab
         local c = {}
-        local ff=file.open("|char8x8", "r") 
+        if text =="" then text = " " end
+        file.open("|char8x8", "r") 
         for i = 1, #text do
             currentChar = text:sub(i,i)  
-            x=ff:seek("set",8*string.byte(currentChar))  
-            c8 = ff:read(8) 
+            x=file.seek("set",8*string.byte(currentChar))  
+            c8 = file.read(8) 
             tab = {}
             for j = 8, 1, -1 do
                 table.insert(tab, string.byte(c8:sub(j,j)))
             end 
             table.insert(c, tab)     
         end
-        ff:close()
+        file.close()
         max7219._write(c)    
     end
 
@@ -156,8 +167,9 @@ else  -- 7 seg mode
     -- If rAlign is true, the text is written right-aligned on the display.
     function max7219.write(text, rAlign)
       local tab = {}
+      if text =="" then text = " " end
       local lenNoDots = text:gsub("%.", ""):len()
-      local ff=file.open("|char7seg", "r") 
+      file.open("|char7seg", "r") 
       
       -- pad with spaces to turn off not required digits
       if (lenNoDots < (8 * MAX_modules)) then
@@ -172,8 +184,8 @@ else  -- 7 seg mode
 
       for i = string.len(text), 1, -1 do
         local currentChar = text:sub(i,i)
-        ff:seek("set",string.byte(currentChar)-1)
-        local c7 = string.byte( ff:read(1))   
+        file.seek("set",string.byte(currentChar)-1)
+        local c7 = string.byte( file.read(1))   
         if (currentChar == ".") then
           wasdot = true
         else
@@ -186,7 +198,7 @@ else  -- 7 seg mode
           end
         end
       end
-      ff:close()
+      file.close()
       max7219._write({ tab })
     end
     
@@ -196,6 +208,6 @@ max7219.clear()
 MAX_intensity=nil
 MAX_type=nil
 
-
+-- active cs is compulsory ! can't just strap lo.
 
 

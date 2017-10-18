@@ -1,6 +1,6 @@
 # E Suite
 <img align="right" src="images/nodemcu.png">
-An integrated suite of Lua files for ESP8266
+An integrated suite of eLua files for ESP8266
 
 
 ## Overview:
@@ -85,6 +85,7 @@ your individual “project” file. So the standard minimum is four files.
 -   lib-MATH.lua
 -   lib-MAX7219lua
 -   lib-TFT144.lua
+-   lib-KPAD.lua
 
 You **optionally** include library files into your project file. 
 These libraries add a lot of "drop-in" functionality
@@ -1474,7 +1475,7 @@ mcp23017 gpio extender. Using it on the bare 8266 woluld leave you left with not
 	)
     
 The keypad driver is active with i2c processes in the background (assuming mcp23017),
-so used concurrently with other busy i2c modules (eg stepper), will cause some speed issues. 
+so used it concurrently with other busy i2c modules (eg stepper), will cause some speed issues. 
 
 The default pins used are:
 
@@ -1492,6 +1493,7 @@ a 4-pin column pattern instead of 3:
 -   KB_COLUMN = { 17, 18, 19, 20 }
 
 Connector pins as shown on image, left-right:   R1 R2 R3 R4 C1 C2 C1
+
 
 ## i2c
 

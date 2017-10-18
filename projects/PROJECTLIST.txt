@@ -24,6 +24,7 @@ Project List:
 23 Simple read VDD33 (& to telnet)
 24 TFT144 (ILI9163 128x128 SPI display) Graphics demo
 25 TFT144 (ILI9163 128x128 SPI display) examples
+26 MAX7219 LED displays 8x8 and 7-segm
 
 If it has no number, it is not posted up yet:
    Blynk bridge mode: ESP to ESP
