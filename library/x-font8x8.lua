@@ -1,7 +1,7 @@
 -- This file creates a 7x8 font array to file "|char8x8" for using 8x8 MAX7219 module 
 
-print("Create 8x8 character file")
-print(node.heap())
+print("\n**** Creating 8x8 character file ****\n")
+
 
 --  https:--github.com/dhepper/font8x8/blob/master/font8x8_basic.h
 font8x8 = {
@@ -135,11 +135,26 @@ font8x8 = {
     { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}    -- U+007F
 }
 
+lookup = { 0x0, 0x8, 0x4, 0xc, 0x2, 0xa, 0x6, 0xe, 0x1, 0x9, 0x5, 0xd, 0x3, 0xb, 0x7, 0xf }
+
+function reverse(n) 
+   -- Reverse the top and bottom nibble then swap them.
+   return lookup[1+bit.band(n,15)] *16  + lookup[1+bit.rshift(n,4)]
+end
+
+-- NOW, MAKE OUR FONT FILE FROM ABOVE TABLE:
+
 file.open("|char8x8", "w")
 local c, v, k
 for c=1 , 128 do
     for k=1, 8 do
-        file.write(string.char(font8x8[c][k]))
+        file.write(string.char(reverse(font8x8[c][9-k])))  
+        -- file.write(string.char(font8x8[c][k]))  -- alternate version
+        
+        -- 1. note the 9-k instead of just k:  puts char upside down (flip U-D)
+        -- 2. note reverse() function:  mirror image L-R of char.
+        -- you might need to experiment according to how your 8x8 module is wired up
+        
     end
 end
 file.close()

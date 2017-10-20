@@ -45,7 +45,7 @@ local function sendByte(module, register, data)
   gpio.write(MAX_cs, gpio.LOW)
   
   if MAX_type ==8 then
-      for i = MAX_modules, 1, -1 do
+      for i = MAX_modules, 1, -1 do  
         if not spiData[i] then spiData[i] = 0 end
         spi.send(1, spiRegister[i] * 256 + spiData[i])
       end
@@ -88,8 +88,9 @@ MAX_modules = MAX_modules or 1
 MAX_cs =MAX_cs or 8
 numberOfColumns = MAX_modules * 8
 
-print("MAX7219: type: " .. ((MAX_type == 8) and "8x8" or "7Seg") .. ", modules: " .. MAX_modules .. 
-      ", cs pin: " .. MAX_cs )
+print("MAX7219: type: " .. ((MAX_type == 8) and "8x8" or "7Seg") .. ", modules: " .. MAX_modules 
+      --  .. ", cs pin: " .. MAX_cs 
+      )
 spi.setup(1, spi.MASTER, spi.CPOL_LOW, spi.CPHA_LOW, 16, 8)
 -- Must NOT be done _before_ spi.setup() because that function configures all HSPI* pins for SPI. Hence,
 -- if you want to use one of the HSPI* pins for slave select spi.setup() would overwrite that.
@@ -140,7 +141,7 @@ end
 -- load only one of the two write() options:
 if MAX_type==8 then -- 8x8 mode
     if not file.exists("|char8x8") then  
-        node.task.post( 2, function() dofile("x-font8x8.lua") node.restart() end) 
+        node.task.post( 2, function() ff=file.open("runonce", "w") ff:writeline("x-font8x8.lua") ff:close() node.restart() end) 
     else 
         _initw = true -- without this flag, max7219.write() is inhibited. One restart & all should be fixed!
     end
@@ -168,7 +169,7 @@ if MAX_type==8 then -- 8x8 mode
 else  -- 7 seg mode
 
     if not file.exists("|char7seg") then  
-        node.task.post( 2, function() dofile("x-font7seg.lua") node.restart() end) 
+        node.task.post( 2, function() ff=file.open("runonce", "w") ff:writeline("x-font7seg.lua") ff:close() node.restart() end) 
     else 
         _initw = true
     end
@@ -217,7 +218,7 @@ end
 
 max7219.clear()
 MAX_intensity=nil
-MAX_type=nil
+
 
 -- active cs is compulsory ! can't just strap lo.
 

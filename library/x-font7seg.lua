@@ -3,7 +3,7 @@
 -- every ascii character into 7 segments is a tall ask, but creativity can be productive!
 -- Edit the settings below as desired
  
-print("Create 7Seg character file")
+print("\n**** Creating 7Seg character file ****\n")
 
 local digits={}
 digits[" "] = 0x00

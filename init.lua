@@ -1,4 +1,4 @@
-proj = "project14c"
+proj = "project18a"
 
 -- full init =
 --    1 init  
@@ -23,6 +23,11 @@ if file.open("missingfile", "r")  then
     f = file.readline() file.close() file.remove("missingfile")
     print("Please fix missing file", f)
     return -- terminate
+end
+if file.open("runonce", "r")  then 
+    f = file.readline():gsub('\n','') file.close() file.remove("runonce")
+    dofile(f)
+    node.restart() 
 end
 
 -- refer lib-DEEPSLEEP.lua to understand these numbers
